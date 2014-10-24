@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% load staticfiles %}
+
+    <title></title>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.0/themes/smoothness/jquery-ui.css" />
+    <link rel="stylesheet" type="text/css" href="{% static "css/home.css" %}" />
+    <script type="text/javascript" src="{% static "js/base.js" %} "></script>
+</head>
+<body>
+<div id="content">
+{% block header %}
+  {% include "sections/header.html" %}
+{% endblock %}
+{% block content %}
+{% endblock %}
+{% block footer %}
+  {% include "sections/footer.html" %}
+{% endblock %}
+</div>
+</body>
+</html>

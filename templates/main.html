@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% load staticfiles %}
+
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="{% static "css/main.css" %}" />
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,700' rel='stylesheet' type='text/css'>
+</head>
+<body>
+<div id="header">
+    <div id="logo" class="icon">
+    </div>
+</div>
+<div id="content">
+    <div id="left_side">
+        <div id="main_text">
+            <div id="title_main_text">
+                <span>Revolutionizing the Way people share audio!</span>
+            </div>
+            <div id="content_main_text">
+                <span>Yapster is a social networkin app that focuses on audio clips, you can make yaps, listen to other people's yaps and share with friends</span>
+            </div>
+        </div>
+        <div id="opinions">
+            {% for opinion in opinions %}
+                {% if forloop.first %}
+                    <div class="opinion">
+                {% else %}
+                    <div class="opinion hide">
+                {% endif %}
+            <div class="name_opinion">{{ opinion.firstname }} {{ opinion.lastname }}</div>
+            <div class="desc_opinion">{{ opinion.description }}</div>
+            <div class="opinion_text">{{ opinion.opinion }}</div>
+            </div>
+            {% endfor %}
+            </div>
+            <div id="appstore">
+                <div id="logo_store" class="icon"></div>
+            </div>
+        </div>
+
+        <div id="right_side">
+            <div id="video">
+                <iframe width="390" height="280" src="//www.youtube.com/embed/YGAQyEez1QM" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+    <div id="footer">
+        <div id="left_footer">
+            <span id="text_left_footer">©2014 Yapster, Inc. All rights reserved</span>
+        </div>
+        <div id="right_footer">
+            <a href="#" class="text_right_footer">about</a>
+            <a href="#" class="text_right_footer">press</a>
+            <a href="#" class="text_right_footer">explore</a>
+            <a href="#" class="text_right_footer">contact</a>
+            <a href="#" class="text_right_footer">blog</a>
+            <a href="#" class="text_right_footer">privacy</a>
+            <a href="#" class="text_right_footer">terms</a>
+        </div>
+    </div>
+</body>
+</html>

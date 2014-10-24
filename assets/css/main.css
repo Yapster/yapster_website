@@ -1,0 +1,145 @@
+body {
+    margin: 0;
+    color: white;
+    background: url("../images/bg.png") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 16px;
+}
+
+#header {
+    height: 60px;
+    width: 100%;
+    background-color: #16d301;
+}
+
+.icon {
+    display: inline-block;
+    background: url("../images/sprites.png") no-repeat;
+}
+
+#logo {
+    background-position: 10% 34.5%;
+    width: 170px;
+    height: 60px;
+    margin-left: 40px;
+}
+
+#logo_store {
+    background-position: 83.5% 9.5%;
+    width: 214px;
+    height: 61px;
+    margin-top: 40px;
+}
+
+#content {
+    width: calc(100% - 120px);
+    height: 100%;
+    margin-left: 120px;
+    margin-top: 8%;
+    float: left;
+}
+
+#left_side {
+    width: 55%;
+    float:left;
+}
+
+#appstore {
+    width: 100%;
+    float: left;
+}
+
+#right_side {
+    width: 45%;
+    float: left;
+    text-align: center;
+}
+
+#main_text {
+    float: left;
+}
+
+#title_main_text {
+    font-weight: bold;
+    font-size: 28px;
+    margin-bottom: 20px;
+
+}
+
+#content_main_text {
+
+}
+
+#video_container {
+    float: left;
+}
+
+#video {
+}
+
+#footer {
+    position: absolute;
+    bottom: 0;
+    margin-bottom: 40px;
+    width: 100%;
+}
+
+#left_footer {
+    float: left;
+    margin-left: 40px;
+}
+
+#right_footer {
+    float: right;
+    margin-right: 40px;
+}
+
+.text_right_footer {
+    margin-left: 70px;
+    font-size: 12px;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: white;
+}
+
+.text_right_footer:hover {
+    text-decoration: underline;
+}
+
+#opinions {
+    margin-top: 40px;
+    float: left;
+    width: 420px;
+}
+
+.opinion {
+
+}
+
+.hide {
+    display: none;
+}
+
+.name_opinion {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 6px;
+}
+
+.desc_opinion {
+    margin-bottom: 6px;
+    font-style: italic;
+}
+
+.opinion_text {
+
+}
+
+#text_left_footer {
+    font-size: 12px;
+    color: #ffffff;
+}

@@ -1,0 +1,44 @@
+/***********************/
+/***********************/
+/* Css Yapster Website */
+/***********************/
+/***********************/
+
+
+#content {
+    width: 1280px;
+    margin: 0px auto;
+
+}
+
+
+/************************/
+/******* Header ********/
+/***********************/
+
+#header {
+    height: 85px;
+    background-color: #19cb0a;
+}
+
+#logo_container {
+    float: left;
+}
+
+#menu_header {
+    margin-top: 80px;
+    float: right;
+    color: white;
+}
+
+.text_menu_header {
+    color: white;
+    font-size: 20px;
+    text-decoration: none;
+    text-transform: capitalize;
+    margin-right: 50px;
+}
+
+.text_menu_header:hover {
+    text-decoration: underline;
+}
