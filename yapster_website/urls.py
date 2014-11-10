@@ -5,7 +5,8 @@ from home.views import home
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    url(r'^', 'home.views.main'),
-    url(r'^home/', 'home.views.home'),
-    url(r'^admin/', include(admin.site.urls)),
-)
+                       url(r'^home/', 'home.views.home'),
+                       url(r'^about/', 'home.views.about'),
+                       url(r'^admin/', include(admin.site.urls)),
+                       url(r'^', 'home.views.main'),
+                       )

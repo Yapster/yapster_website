@@ -35,6 +35,13 @@ body {
     margin-top: 40px;
 }
 
+#logo_android {
+    background-position: 83.5% 9.5%;
+    width: 214px;
+    height: 61px;
+    margin-top: 40px;
+}
+
 #content {
     width: calc(100% - 120px);
     height: 100%;
@@ -48,10 +55,16 @@ body {
     float:left;
 }
 
+.app_logo_container {
+    width: 50%;
+    float: left;
+}
+
 #appstore {
     width: 100%;
     float: left;
 }
+
 
 #right_side {
     width: 45%;

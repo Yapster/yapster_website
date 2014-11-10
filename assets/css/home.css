@@ -4,11 +4,20 @@
 /***********************/
 /***********************/
 
+body {
+    margin: 0;
+    font-family: 'Open Sans', sans-serif;
+}
 
 #content {
     width: 1280px;
     margin: 0px auto;
 
+}
+
+.icon {
+    display: inline-block;
+    background: url("../images/sprites.png") no-repeat;
 }
 
 
@@ -17,28 +26,255 @@
 /***********************/
 
 #header {
-    height: 85px;
+    height: 90px;
     background-color: #19cb0a;
 }
 
 #logo_container {
     float: left;
+    margin-top: 22px;
+    margin-left: 40px;
+}
+
+#logo {
+    width: 170px;
+    height: 45px;
+    background-position: 10% 35%;
 }
 
 #menu_header {
-    margin-top: 80px;
+    margin-top: 45px;
     float: right;
     color: white;
 }
 
 .text_menu_header {
+    font-size: 15px;
     color: white;
-    font-size: 20px;
     text-decoration: none;
-    text-transform: capitalize;
+    text-transform: uppercase;
     margin-right: 50px;
 }
 
 .text_menu_header:hover {
     text-decoration: underline;
+}
+
+
+/************************/
+/******* Footer ********/
+/***********************/
+
+#footer {
+    width: 100%;
+    float: left;
+    background:  url("../images/bg.png") no-repeat;
+
+}
+
+#left_footer {
+    float: left;
+    margin-left: 40px;
+    margin-bottom: 25px;
+    margin-top: 25px;
+}
+
+#right_footer {
+    float: right;
+    margin-right: 40px;
+    margin-top: 25px;
+}
+
+.text_right_footer {
+    margin-left: 70px;
+    font-size: 12px;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: white;
+}
+
+#text_left_footer {
+    font-size: 12px;
+    color: #ffffff;
+}
+
+.text_right_footer:hover {
+    text-decoration: underline;
+}
+
+/**************************************************/
+/************ Main about AND Privacy Policy********/
+/**************************************************/
+
+#about_content{
+    background-color: #f1f1f1;
+    float: left;
+    width: 100%;
+}
+
+#about_sub_content{
+    float: left;
+    width: calc(100% - 300px);
+    margin-left: 150px;
+    margin-right: 150px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+#about_menu {
+    float:right;
+    width: 600px;
+    margin-right: 40px;
+    text-align: center;
+    height: 50px;
+    background-color: white;
+}
+
+.about_menu_link {
+    font-size: 15px;
+    text-transform: capitalize;
+    text-decoration: none;
+    width: 20%;
+    display: block;
+    float: left;
+    color: #cccccc;
+    margin-top: 15px;
+}
+
+.about_menu_link:hover, .current_page{
+    color:#16d301;
+}
+
+#title_about {
+    font-size: 26px;
+    text-transform: capitalize;
+    font-weight: bold;
+    text-align: center;
+}
+
+.term {
+    margin-top: 20px;
+}
+
+.term_title {
+    font-weight: bold;
+}
+
+.term_text {
+
+}
+
+
+/*******************************/
+/******* Privacy Policy ********/
+/*******************************/
+
+.subtitle_privacy{
+    margin-top: 40px;
+    border-bottom: 1px black solid;
+    padding-bottom: 15px;
+}
+
+.subtitle_privacy_text{
+    font-size: 20px;
+    font-weight: bold;
+}
+
+/*******************************/
+/********** Contacts ***********/
+/*******************************/
+
+#left_contact {
+    float: left;
+    width: 50%;
+}
+
+#right_contact {
+    float: left;
+    width: calc(50% - 100px);
+}
+
+#social_banner {
+    margin-bottom: 150px;
+    margin-top: 150px;
+}
+
+.social_icon {
+    width: 70px;
+    height: 70px;
+    margin-right: 35px;
+}
+
+#fb_icon {background-position: 16% 5%;}
+#twitter_icon {background-position: 16% 5%;}
+#g_icon{background-position: 16% 5%;}
+#link_icon{background-position: 16% 5%;}
+
+#title_contact {
+    width: calc(100% - 50px);
+    float: right;
+    text-align: right;
+}
+
+#title_contact_text {
+    font-size: 28px;
+}
+
+#sub_title_contact {
+    margin-top: 30px;
+    margin-bottom: 20px;
+    text-align: center;
+    float: right;
+    width: calc(100% - 50px);
+}
+
+#sub_title_contact_text {
+
+}
+
+.line_form {
+    float: left;
+    width: 100%;
+    margin-bottom: 8px;
+}
+
+.input_contact {
+    float: right;
+    width: calc(100% - 80px);
+    background-color: #f1f1f1;
+    border: 1px black solid;
+}
+
+#message_contact {
+    resize: none;
+    height: 100px;
+    font-family: 'Open Sans', sans-serif;
+    padding: 1px;
+}
+
+
+/*******************************/
+/********** Contacts ***********/
+/*******************************/
+
+#left_company{
+    float: left;
+    width: 35%;
+}
+
+#right_company {
+    float: left;
+    width: 65%;
+}
+
+#title_company {
+    margin-bottom: 30px;
+}
+
+#title_company_text {
+    font-size: 30px;
+}
+
+#iphone_img {
+    width: 200px;
 }
