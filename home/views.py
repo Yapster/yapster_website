@@ -14,6 +14,7 @@ def main(request):
 
 @csrf_exempt
 def about(request):
+    path = ""
     if request.POST:
         if request.POST['page_content'] == "tour":
             return render(request, "about/sections/tour.html", {})
@@ -25,8 +26,11 @@ def about(request):
             return render(request, "about/sections/privacy.html", {"privacies": Privacy.objects.all()})
         if request.POST['page_content'] == "terms":
             return render(request, "about/sections/terms.html", {"terms": Term.objects.all()})
-
-    return render(request, "about/main_about.html", {})
+        if 'type_page' in request.POST:
+            path = request.POST['type_page']
+    return render(request, "about/main_about.html", {"path": path,
+                                                     "privacies": Privacy.objects.all(),
+                                                     "terms": Term.objects.all()})
 
 
 def press(request):

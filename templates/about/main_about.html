@@ -2,13 +2,24 @@
 {% block content %}
     <div id="about_content">
         <div id="about_menu">
-            <span href="" class="about_menu_link">tour</span>
-            <span href="" class="about_menu_link">company</span>
-            <span href="" class="about_menu_link">contact</span>
-            <span href="" class="about_menu_link">privacy</span>
-            <span href="" class="about_menu_link">terms</span>
+            <span href="" class="about_menu_link{% if path == "" or path == "tour"%} current_page{% endif %}">tour</span>
+            <span href="" class="about_menu_link{% if path == "company" %} current_page{% endif %}">company</span>
+            <span href="" class="about_menu_link{% if path == "contact" %} current_page{% endif %}">contact</span>
+            <span href="" class="about_menu_link{% if path == "privacy" %} current_page{% endif %}">privacy</span>
+            <span href="" class="about_menu_link{% if path == "terms" %} current_page{% endif %}">terms</span>
         </div>
         <div id="about_sub_content">
+            {% if path == "" or path == "tour" %}
+                {% include "about/sections/tour.html" %}
+            {% elif path == "company"%}
+                {% include "about/sections/company.html" %}
+            {% elif path == "contact"%}
+                {% include "about/sections/contacts.html" %}
+            {% elif path == "privacy"%}
+                {% include "about/sections/privacy.html" %}
+            {% elif path == "terms"%}
+                {% include "about/sections/terms.html" %}
+            {% endif %}
         </div>
     </div>
 {% endblock %}

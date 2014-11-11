@@ -98,7 +98,7 @@ body {
     color: #ffffff;
 }
 
-.text_right_footer:hover {
+.text_right_footer:hover, .current {
     color: black;
 }
 

@@ -121,6 +121,7 @@ body {
 
 .text_right_footer:hover {
     text-decoration: underline;
+    cursor: pointer;
 }
 
 #opinions {
