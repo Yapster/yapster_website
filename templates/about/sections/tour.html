@@ -1,0 +1,52 @@
+{% load  text_templates%}
+{% load staticfiles %}
+<div class="device" id="ios_line">
+    <span class="icon" id="ios">Ios</span>
+    <span class="icon_text">Yapster on Ios</span>
+</div>
+<div class="device" id="android_line">
+    <span class="icon" id="android">Andr</span>
+    <span class="icon_text">Yapster on Android</span>
+</div>
+<div class="tour_main_content">
+    <div class="tour_main_sub_content">
+        <div class="tour_main_image_container">
+            <img class="tour_main_image" src="{% static "images/iphone1.00_gif_srz"%}">
+        </div>
+        <div class="tour_main_title_container">
+            <span class="tour_main_title_text">Yap.</span>
+        </div>
+        <div class="tour_main_text_container">
+            <span class="tour_main_text">{{ "random_text"|get_text }}</span>
+        </div>
+    </div>
+</div>
+<div class="tour_main_content">
+    <div class="tour_main_sub_content">
+        <div class="tour_main_image_container">
+            <img class="tour_main_image" src="{% static "images/iphone1.00_gif_srz"%}">
+        </div>
+        <div class="tour_main_title_container">
+            <span class="tour_main_title_text">Listen.</span>
+        </div>
+        <div class="tour_main_text_container left_border">
+            <span class="tour_main_text">{{ "random_text"|get_text }}</span>
+        </div>
+    </div>
+</div>
+<div class="tour_main_content">
+    <div class="tour_main_sub_content">
+        <div class="tour_main_image_container">
+            <img class="tour_main_image" src="{% static "images/iphone1.00_gif_srz"%}">
+        </div>
+        <div class="tour_main_title_container">
+            <span class="tour_main_title_text">Connect.</span>
+        </div>
+        <div class="tour_main_text_container left_border">
+            <span class="tour_main_text">{{ "random_text"|get_text }}</span>
+        </div>
+    </div>
+</div>
+<div id="title_more">
+    <span class="tour_main_title_text">More Features</span>
+</div>

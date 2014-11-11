@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
-from home.models import Opinion, Term, Privacy
+from home.models import Opinion, Term, Privacy, Article
 
 def home(request):
     return render(request, "home.html", {})
@@ -16,7 +16,7 @@ def main(request):
 def about(request):
     if request.POST:
         if request.POST['page_content'] == "tour":
-            return render(request, "about/sections/terms.html", {"terms": Term.objects.all()})
+            return render(request, "about/sections/tour.html", {})
         if request.POST['page_content'] == "company":
             return render(request, "about/sections/company.html", {})
         if request.POST['page_content'] == "contact":
@@ -27,3 +27,8 @@ def about(request):
             return render(request, "about/sections/terms.html", {"terms": Term.objects.all()})
 
     return render(request, "about/main_about.html", {})
+
+
+def press(request):
+    articles = Article.objects.all().order_by('-id')
+    return render(request, "press/main_press.html", {"articles": articles[:2]})

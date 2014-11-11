@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+    <div id="press_content">
+        <div class="title_press_container">
+            <span class="title_press_text">Who is on Yapster?</span>
+        </div>
+        <div id="slideshow_press">
+        </div>
+        <div id="articles_press">
+            <div class="title_press_container">
+                <span class="title_press_text">Who report Yapster?</span>
+            </div>
+            {% for article in articles %}
+                {% include "press/sections/article.html" %}
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

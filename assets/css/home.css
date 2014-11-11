@@ -57,7 +57,7 @@ body {
 }
 
 .text_menu_header:hover {
-    text-decoration: underline;
+    color: black;
 }
 
 
@@ -99,7 +99,7 @@ body {
 }
 
 .text_right_footer:hover {
-    text-decoration: underline;
+    color: black;
 }
 
 /**************************************************/
@@ -114,9 +114,9 @@ body {
 
 #about_sub_content{
     float: left;
-    width: calc(100% - 300px);
-    margin-left: 150px;
-    margin-right: 150px;
+    width: calc(100% - 100px);
+    margin-left: 50px;
+    margin-right: 50px;
     margin-top: 50px;
     margin-bottom: 50px;
 }
@@ -143,6 +143,7 @@ body {
 
 .about_menu_link:hover, .current_page{
     color:#16d301;
+    cursor: pointer;
 }
 
 #title_about {
@@ -277,4 +278,136 @@ body {
 
 #iphone_img {
     width: 200px;
+}
+
+
+/*******************************/
+/************* Press ***********/
+/*******************************/
+
+.img_article {
+    width: 150px;
+}
+
+#press_content {
+    background-color: #f1f1f1;
+    float: left;
+}
+
+.title_press_container  {
+    padding-top: 40px;
+    padding-bottom: 20px;
+    text-align: center;
+}
+
+
+.title_press_text {
+    font-size: 24px;
+}
+
+#slideshow_press {
+    height: 300px;
+    background-color: white;
+}
+
+#articles_press {
+    float: left;
+    margin-bottom: 40px;
+}
+
+.article {
+    float: left;
+    width: calc(100% - 100px);
+    margin-left: 50px;
+    margin-right: 50px;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    border-bottom: 1px #cbcbcb solid;
+}
+
+.img_container {
+    float: left;
+    width: 45%;
+    text-align: center;
+}
+
+.title_article {
+    margin-bottom: 20px;
+}
+
+.content_title_article_text {
+    font-size: 24px;
+}
+
+
+/******************************/
+/************* Tour ***********/
+/******************************/
+
+
+#tour_first_part {
+
+}
+
+.device {
+    width: calc(50% - 15px);
+    float: left;
+}
+
+#ios_line {
+    text-align: right;
+    border-right: 1px #cbcbcb solid;
+    padding-right: 10px;
+}
+
+#android_line {
+    padding-left: 10px;
+}
+
+.tour_main_content {
+    width: calc(100%/3);
+    float: left;
+    margin-top: 30px;
+    text-align: center;
+}
+
+.tour_main_image_container {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.tour_main_image {
+    width: 150px;
+}
+
+.tour_main_title_container {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.tour_main_title_text {
+    font-size: 24px;
+}
+
+.tour_main_text_container {
+    width: calc(100% - 80px);
+    float: left;
+    padding-left: 40px;
+    padding-right: 40px;
+
+}
+
+.left_border {
+    border-left: 1px #cbcbcb solid;
+}
+
+#title_more {
+    float: left;
+    width: 70%;
+    text-align: center;
+    margin-top: 40px;
+    padding-top: 30px;
+    margin-left: 15%;
+    margin-right: 15%;
+    border-top: 1px #cbcbcb solid;
 }

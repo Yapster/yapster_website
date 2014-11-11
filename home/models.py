@@ -2,11 +2,6 @@
 from django.db import models
 
 
-
-
-
-
-
 class TextWebsiteManager(models.Manager):
     def init(self):
         self.get_or_create(name="main_title", content="Revolutionizing the Way people share audio!")
@@ -50,7 +45,11 @@ class TextWebsiteManager(models.Manager):
         Privacy.objects.get_or_create(title="Updates/Changes to Our Privacy Policy", content="This Privacy Policy is effective as of the date stated at the top of this policy. We may change this Privacy Policy from time to time, and will post any changes on this page. We will also indicate at the top of this page when the changes went into effect. Please be aware that, to the extent permitted by applicable law, our use of information is governed by the Privacy Policy in effect at the time we use the information. Please refer back to this Privacy Policy on a regular basis.")
         Privacy.objects.get_or_create(title="How to Contact Us", content="If you wish to contact us regarding this Privacy Policy, you can reach us at support@yapster.co. [i1]Please verify if you will be using any other tracking technology. [i2]We presume you will be using such third party services, but please confirm. [i3]Please verify if this is accurate / needs additional information. [i4]Please verify if you aggregate data and provide it to third parties in any other manner not covered here, for commercial and/or non-commercial purposes.")
 
+        Article.objects.get_or_create(image="http://127.0.0.1:8000/assets/images/articles/bm.png", title="Lorem ipsum dolor sit amet, consectetur adipiscing elit", content="sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum ")
+        Article.objects.get_or_create(image="http://127.0.0.1:8000/assets/images/articles/ubuntu.png", title="Lorem ipsum dolor sit amet, consectetur adipiscing elit", content="sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum ")
+        Article.objects.get_or_create(image="http://127.0.0.1:8000/assets/images/articles/vw.png", title="Lorem ipsum dolor sit amet, consectetur adipiscing elit", content="sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum ")
 
+        Opinion.objects.get_or_create(firstname="Niket", lastname="Jain", description="Dj of Some Radio", content="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.")
         # Privacy.objects.get_or_create(title="random_opinion", content="")
         # self.get_or_create(title="random_opinion", content="")
         # self.get_or_create(title="random_opinion", content="")
@@ -65,10 +64,11 @@ class TextWebsite(models.Model):
     content = models.TextField(max_length=1024)
     objects = TextWebsiteManager()
 
+
 class Opinion(TextWebsite):
     firstname = models.CharField(max_length=128)
     lastname = models.CharField(max_length=128)
-
+    description = models.CharField(max_length=128)
 
 class Term(TextWebsite):
     title = models.TextField(max_length=1024, default="")
@@ -78,3 +78,7 @@ class Privacy(TextWebsite):
     title = models.TextField(max_length=1024, default="")
 
 
+class Article(models.Model):
+    image = models.FilePathField(path="http://127.0.0.1:8000/assets/images/articles/")
+    title = models.CharField(max_length=128)
+    content = models.TextField(max_length=1024)
