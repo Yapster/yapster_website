@@ -364,6 +364,11 @@ body {
     padding-left: 10px;
 }
 
+.second_part_tour_content {
+    float: left;
+    width: 100%;
+}
+
 .tour_main_content {
     width: calc(100%/3);
     float: left;
@@ -410,4 +415,38 @@ body {
     margin-left: 15%;
     margin-right: 15%;
     border-top: 1px #cbcbcb solid;
+}
+
+.title_second_content {
+    float: left;
+    width: 40%;
+    text-align: center;
+    padding-top: 100px;
+}
+
+.details_content_tour {
+    float: left;
+    width: 60%;
+}
+
+.details_image {
+    width: 150px;
+}
+
+#separation{
+    float: left;
+    height: 150px;
+    width: 100%;
+    background: linear-gradient(30deg, rgba(255,0,0,0), black);
+}
+
+#reverse_separation {
+    float: left;
+    height: 150px;
+    width: 100%;
+}
+
+.details_image_container {
+    float: left;
+    width: 25%;
 }
