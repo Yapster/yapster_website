@@ -1,15 +1,17 @@
-<div id="title_about">
-    <span>terms of use</span>
+<div id="content_container">
+    <div id="title_about">
+        <span>terms of use</span>
+    </div>
+    {% for term in terms %}
+        {% if forloop.first %}
+            <div class="term">
+                <span class="term_text">{{ term.content }}</span>
+            </div>
+        {% else %}
+            <div class="term">
+                <span class="term_title">{{ forloop.counter0 }}.{{ term.title }}</span>
+                <span class="term_text">{{ term.content }}</span>
+            </div>
+        {% endif %}
+    {% endfor %}
 </div>
-{% for term in terms %}
-    {% if forloop.first %}
-        <div class="term">
-            <span class="term_text">{{ term.content }}</span>
-        </div>
-    {% else %}
-        <div class="term">
-            <span class="term_title">{{ forloop.counter0 }}.{{ term.title }}</span>
-            <span class="term_text">{{ term.content }}</span>
-        </div>
-    {% endif %}
-{% endfor %}

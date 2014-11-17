@@ -22,6 +22,25 @@ function navigation(nameLink) {
     });
 }
 
+function submit_message()
+{
+    $.ajax({
+        data : {
+            send_mail: true,
+            subject: $("#subject_contact").val(),
+            email: $("#email_contact").val(),
+            message: $("#message_contact").val()
+        },
+        url : "/about/",
+        type : "POST",
+        success: function(newData){
+            if (newData) {
+                $('#error').html(newData);
+            }
+        }
+    });
+}
+
 $(document).ready(function() {
     setNavBar();
     $(".about_menu_link").click(function(){
@@ -42,5 +61,9 @@ $(document).ready(function() {
     });
     $(".about_link").click(function() {
         navigation($(this).text());
+    });
+    $(".device.unselected").hover(function() {
+        $(this).toggleClass("unselected");
+        $(this).find(".icon").toggleClass("unselected");
     });
 });

@@ -1,15 +1,17 @@
 {% load  text_templates%}
 {% load staticfiles %}
-<div id="left_company">
-    <div id="iphone_img_container">
-        <img id="iphone_img" src="{% static "images/iphone1.00_gif_srz"%}"/>
+<div id="content_container">
+    <div id="left_company">
+        <div id="iphone_img_container">
+            <img id="iphone_img" src="{% static "images/iphone1.00_gif_srz"%}"/>
+        </div>
     </div>
-</div>
-<div id="right_company">
-    <div id="title_company">
-        <span id="title_company_text">About Yapster</span>
-    </div>
-    <div id="content_company">
-        <span id="content_company_text">{{ "about_company"|get_text }}</span>
+    <div id="right_company">
+        <div id="title_company">
+            <span id="title_company_text">About Yapster</span>
+        </div>
+        <div id="content_company">
+            <span id="content_company_text">{{ "about_company"|get_text }}</span>
+        </div>
     </div>
 </div>

@@ -3,14 +3,17 @@
 <head>
     {% load staticfiles %}
 
-    <title></title>
+    <title>Yapster</title>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
     <link rel="stylesheet" type="text/css" href="{% static "css/main.css" %}" />
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,700' rel='stylesheet' type='text/css'>
+    <script src="{% static "js/jquery.colorbox.js" %}"></script>
 </head>
 <body>
 <div id="header">
-    <div id="logo" class="icon">
-    </div>
+    <a href="/"><div id="logo" class="icon">
+    </div></a>
 </div>
 <div id="content">
     <div id="left_side">
@@ -19,7 +22,7 @@
                 <span>Revolutionizing the Way people share audio!</span>
             </div>
             <div id="content_main_text">
-                <span>Yapster is a social networkin app that focuses on audio clips, you can make yaps, listen to other people's yaps and share with friends</span>
+                <span>Yapster is a social networking app that focuses on audio clips, you can make yaps, listen to other people's yaps and share with friends</span>
             </div>
         </div>
         <div id="opinions">
@@ -36,14 +39,20 @@
             {% endfor %}
             </div>
             <div id="appstore">
-                <div id="logo_store" class="icon"></div>
+                <a target="_blank" href="https://itunes.apple.com/us/app/yapster/id899766051"><div id="logo_store" class="icon"></div></a>
+                <div id="logo_android_store" class="icon"></div>
+            </div>
+            <div id="link_video_container">
+                <a id="link_video" href="javascript:void jQuery.colorbox({html:'<iframe  width=900 height=620 src=//www.youtube.com/embed/YGAQyEez1QM frameborder=0 webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>', transition: 'fade', opacity: 0.65, returnFocus: false})">
+                    <div id="icon_container">
+                        <span class="icon" id="player"></span>
+                    </div>
+                    <div id="link_container">PLAY INTRO VIDEO</div>
+                </a>
             </div>
         </div>
-
         <div id="right_side">
-            <div id="video">
-                <iframe width="390" height="280" src="//www.youtube.com/embed/YGAQyEez1QM" frameborder="0" allowfullscreen></iframe>
-            </div>
+            <img id="img_right_side" src="{% static "images/light_home/phone-01.png"%}">
         </div>
     </div>
     {% include "sections/footer.html" %}

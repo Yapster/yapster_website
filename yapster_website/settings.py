@@ -26,6 +26,12 @@ TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
 
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = '587'
+EMAIL_HOST_USER = 'chris@yapsterapp.com'
+EMAIL_HOST_PASSWORD = 'Yapster1234'
+EMAIL_SUBJECT_PREFIX = '[CONTACTS]'
 
 # Application definition
 

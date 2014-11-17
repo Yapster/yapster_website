@@ -39,7 +39,7 @@ body {
 #logo {
     width: 170px;
     height: 45px;
-    background-position: 10% 35%;
+    background-position: 10% 30%;
 }
 
 #menu_header {
@@ -112,13 +112,18 @@ body {
     width: 100%;
 }
 
+#content_container {
+    float: left;
+    width: calc(100% - 340px);
+    padding-right: 170px;
+    padding-left: 170px;
+}
+
 #about_sub_content{
     float: left;
-    width: calc(100% - 100px);
-    margin-left: 50px;
-    margin-right: 50px;
-    margin-top: 50px;
+    width: 100%;
     margin-bottom: 50px;
+    margin-top: 50px;
 }
 
 #about_menu {
@@ -187,7 +192,9 @@ body {
 
 #left_contact {
     float: left;
+    margin-right: 80px;
     width: 50%;
+    margin-left: -80px;
 }
 
 #right_contact {
@@ -201,24 +208,35 @@ body {
 }
 
 .social_icon {
-    width: 70px;
-    height: 70px;
+    width: 75px;
+    height: 75px;
     margin-right: 35px;
 }
 
-#fb_icon {background-position: 16% 5%;}
-#twitter_icon {background-position: 16% 5%;}
-#g_icon{background-position: 16% 5%;}
-#link_icon{background-position: 16% 5%;}
+.social_icon {
+    cursor: pointer;
+}
+
+#fb_icon {background-position: 5% 80.2%;}
+#fb_icon:hover {background-position: 5% 61.5%;}
+
+#twitter_icon {background-position: 34.5% 80.2%;}
+#twitter_icon:hover {background-position: 34.5% 61.5%;}
+
+#g_icon{background-position: 62.5% 80.2%;}
+#g_icon:hover{background-position: 62.5% 61.5%;}
+
+#link_icon{background-position: 91.5% 80.2%;}
+#link_icon:hover{background-position: 91.5% 61.5%;}
 
 #title_contact {
-    width: calc(100% - 50px);
+    width: calc(100% - 75px);
     float: right;
     text-align: right;
 }
 
 #title_contact_text {
-    font-size: 28px;
+    font-size: 26px;
 }
 
 #sub_title_contact {
@@ -226,7 +244,7 @@ body {
     margin-bottom: 20px;
     text-align: center;
     float: right;
-    width: calc(100% - 50px);
+    width: calc(100% - 75px);
 }
 
 #sub_title_contact_text {
@@ -253,6 +271,22 @@ body {
     padding: 1px;
 }
 
+#submit_button_contact {
+    background-color: #16d301;
+    width: 110px;
+    height: 30px;
+    color: white;
+    line-height: 30px;
+}
+
+#submit_button_contact:hover {
+    color: #000000;
+    cursor: pointer;
+}
+
+#error {
+    color: red;
+}
 
 /*******************************/
 /********** Contacts ***********/
@@ -278,6 +312,12 @@ body {
 
 #iphone_img {
     width: 200px;
+}
+
+#button_container {
+    text-align: center;
+    margin-left: 75px;
+    width: calc(100% - 75px);
 }
 
 
@@ -309,9 +349,8 @@ body {
     height: 300px;
     background-color: white;
     padding-top: 40px;
-    padding-left: 50px;
-    padding-right: 50px;
-
+    padding-left: 110px;
+    padding-right: 110px;
 }
 
 #articles_press {
@@ -352,6 +391,7 @@ body {
 .logo_press {
     height: 200px;
     margin-bottom: 10px;
+    width: 100%;
 }
 
 
@@ -359,29 +399,85 @@ body {
 /************* Tour ***********/
 /******************************/
 
+#about_content_tour{
+    background-color: #f1f1f1;
+    float: left;
+    width: 100%;
+}
 
-#tour_first_part {
+#devices {
+    float: left;
 
 }
 
 .device {
     width: calc(50% - 15px);
     float: left;
+    color: #16d301;
+    cursor: pointer;
+
+}
+
+.device.unselected {
+    color: #cfcfcf;
 }
 
 #ios_line {
     text-align: right;
-    border-right: 1px #cbcbcb solid;
-    padding-right: 10px;
 }
 
 #android_line {
     padding-left: 10px;
 }
 
+#ios{
+    width: 40px;
+    height: 40px;
+    background-position: 5% 45.6%;
+    margin-right: 4px;
+    float: right;
+}
+
+#ios.unselected{
+    background-position: 20.2% 45.6%;
+
+}
+
+#android{
+    width: 40px;
+    height: 40px;
+    background-position: 35% 45.6%;
+    margin-right: 4px;
+    float:left;
+}
+
+#android.unselected{
+    background-position: 50.2% 45.6%;
+}
+
+.icon_text {
+    vertical-align: super;
+    margin-top: 15px;
+}
+
+
+#icon_text_ios {
+    float: right;
+    padding-right: 10px;
+    border-right: 1px solid #cbcbcb
+}
+
+#icon_text_android {
+    float: left;
+}
+
 .second_part_tour_content {
     float: left;
-    width: 100%;
+    width: calc(100% - 80px);
+}
+
+#second_row {
+    margin-left: 80px;
 }
 
 .tour_main_content {
@@ -393,11 +489,11 @@ body {
 
 .tour_main_image_container {
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 10px;
 }
 
 .tour_main_image {
-    width: 150px;
+    width: 200px;
 }
 
 .tour_main_title_container {
@@ -434,38 +530,92 @@ body {
 
 .title_second_content {
     float: left;
-    width: 40%;
+    width: 35%;
     text-align: center;
-    padding-top: 100px;
+    padding-top: 150px;
 }
 
 .details_content_tour {
     float: left;
-    width: 60%;
+    width: 65%;
 }
 
 .details_image {
-    width: 150px;
+    width: 250px;
 }
 
 #separation{
     float: left;
-    height: 150px;
+    height: 90px;
     width: 100%;
-    background: linear-gradient(30deg, rgba(255,0,0,0), black);
+    background: url("/assets/images/tour/gradient.png") no-repeat;
     margin-top: 30px;
     margin-bottom: 30px;
 }
 
 #reverse_separation {
     float: left;
-    height: 150px;
+    height: 90px;
     width: 100%;
     margin-top: 30px;
-    margin-bottom: 30px;
+    background: url("/assets/images/tour/gradient.png") no-repeat;
+    -moz-transform: scaleX(-1);
+    -o-transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+    filter: FlipH;
+    -ms-filter: "FlipH";
 }
 
 .details_image_container {
     float: left;
-    width: 25%;
+    width: 160px;
+}
+
+#green_lines_top {
+    margin-top: 60px;
+}
+
+#green_lines_down {
+    margin-top: 20px;
+    margin-left: 27px;
+}
+
+#line_1 {
+    margin-top: 60px;
+    margin-left: 410px;
+}
+#line_2 {
+    margin-top: 20px;
+    margin-left: 350px;
+
+}
+#line_3 {
+    margin-top: 60px;
+    margin-left: 370px;
+
+}
+#line_4 {
+    margin-top: 60px;
+    margin-left: 370px;
+
+}
+#line_5 {
+    margin-top: 20px;
+    margin-left: 380px;
+
+}
+#line_6 {
+    margin-top: 50px;
+    margin-left: 380px;
+
+}
+#line_7 {
+    margin-top: 40px;
+    margin-left: 365px;
+
+}
+#line_8 {
+    margin-top: 80px;
+    margin-left: 350px;
 }

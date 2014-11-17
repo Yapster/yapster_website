@@ -1,25 +1,28 @@
-<div id="title_about">
-    <span>Privacy Policy</span>
+<div id="content_container">
+
+    <div id="title_about">
+        <span>Privacy Policy</span>
+    </div>
+    {% for privacy in privacies %}
+        {% if forloop.first %}
+            <div class="term">
+                <span class="term_text">{{ privacy.content }}</span>
+            </div>
+            <div class="subtitle_privacy">
+                <span class="subtitle_privacy_text">The Information We Collect</span>
+            </div>
+        {% elif  privacy.name == "second_title"%}
+            <div class="subtitle_privacy">
+                <span class="subtitle_privacy_text">How We Use Collected Information</span>
+            </div>
+            <div class="term">
+                <span class="term_text">{{ privacy.content }}</span>
+            </div>
+        {% else %}
+            <div class="term">
+                <span class="term_title">{{ privacy.title }}</span>
+                <span class="term_text">{{ privacy.content }}</span>
+            </div>
+        {% endif %}
+    {% endfor %}
 </div>
-{% for privacy in privacies %}
-    {% if forloop.first %}
-        <div class="term">
-            <span class="term_text">{{ privacy.content }}</span>
-        </div>
-        <div class="subtitle_privacy">
-            <span class="subtitle_privacy_text">The Information We Collect</span>
-        </div>
-    {% elif  privacy.name == "second_title"%}
-        <div class="subtitle_privacy">
-            <span class="subtitle_privacy_text">How We Use Collected Information</span>
-        </div>
-        <div class="term">
-            <span class="term_text">{{ privacy.content }}</span>
-        </div>
-    {% else %}
-        <div class="term">
-            <span class="term_title">{{ privacy.title }}</span>
-            <span class="term_text">{{ privacy.content }}</span>
-        </div>
-    {% endif %}
-{% endfor %}

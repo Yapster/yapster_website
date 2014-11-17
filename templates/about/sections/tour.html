@@ -1,17 +1,19 @@
 {% load  text_templates%}
 {% load staticfiles %}
 <div class="device" id="ios_line">
-    <span class="icon" id="ios">Ios</span>
-    <span class="icon_text">Yapster on Ios</span>
+    <div class="icon_text" id="icon_text_ios">Yapster on Ios</div>
+    <div class="icon" id="ios"></div>
+
 </div>
-<div class="device" id="android_line">
-    <span class="icon" id="android">Andr</span>
-    <span class="icon_text">Yapster on Android</span>
+<div class="device unselected" id="android_line">
+    <div class="icon unselected" id="android"></div>
+    <div class="icon_text unselected" id="icon_text_android">Yapster on Android</div>
 </div>
+
 <div class="tour_main_content">
     <div class="tour_main_sub_content">
         <div class="tour_main_image_container">
-            <img class="tour_main_image" src="{% static "images/iphone1.00_gif_srz"%}">
+            <img class="tour_main_image" src="{% static "images/about/01.png"%}">
         </div>
         <div class="tour_main_title_container">
             <span class="tour_main_title_text">Yap.</span>
@@ -24,7 +26,7 @@
 <div class="tour_main_content">
     <div class="tour_main_sub_content">
         <div class="tour_main_image_container">
-            <img class="tour_main_image" src="{% static "images/iphone1.00_gif_srz"%}">
+            <img class="tour_main_image" src="{% static "images/about/02.png"%}">
         </div>
         <div class="tour_main_title_container">
             <span class="tour_main_title_text">Listen.</span>
@@ -37,7 +39,7 @@
 <div class="tour_main_content">
     <div class="tour_main_sub_content">
         <div class="tour_main_image_container">
-            <img class="tour_main_image" src="{% static "images/iphone1.00_gif_srz"%}">
+            <img class="tour_main_image" src="{% static "images/about/03.png"%}">
         </div>
         <div class="tour_main_title_container">
             <span class="tour_main_title_text">Connect.</span>
@@ -56,29 +58,35 @@
     </div>
     <div class="details_content_tour">
         <div class="details_image_container">
-            <img class="details_image" src="{% static "images/iphone1.00_gif_srz"%}">
+            <img class="details_image" src="{% static "images/about/04.png"%}">
+        </div>
+        <div class="details_image_container">
+            <img id="green_lines_top" src="{% static "images/tour/greenline-01.png"%}">
         </div>
         <div class="details_content_tour_text_container">
-            <span>{{ "random_small_text"|get_text }}</span>
-            <span>{{ "random_small_text"|get_text }}</span>
-            <span>{{ "random_small_text"|get_text }}</span>
-            <span>{{ "random_small_text"|get_text }}</span>
+            <div id="line_1">{{ "random_small_text"|get_text }}</div>
+            <div id="line_2">{{ "random_small_text"|get_text }}</div>
+            <div id="line_3">{{ "random_small_text"|get_text }}</div>
+            <div id="line_4">{{ "random_small_text"|get_text }}</div>
         </div>
     </div>
 </div>
 <div id="reverse_separation">
 
 </div>
-<div class="second_part_tour_content">
+<div class="second_part_tour_content" id="second_row">
     <div class="details_content_tour">
         <div class="details_image_container">
-            <img class="details_image" src="{% static "images/iphone1.00_gif_srz"%}">
+            <img class="details_image" src="{% static "images/about/05.png"%}">
+        </div>
+        <div class="details_image_container">
+            <img id="green_lines_down" src="{% static "images/tour/greenline-02.png"%}">
         </div>
         <div class="details_content_tour_text_container">
-            <span>{{ "random_small_text"|get_text }}</span>
-            <span>{{ "random_small_text"|get_text }}</span>
-            <span>{{ "random_small_text"|get_text }}</span>
-            <span>{{ "random_small_text"|get_text }}</span>
+            <div id="line_5">{{ "random_small_text"|get_text }}</div>
+            <div id="line_6">{{ "random_small_text"|get_text }}</div>
+            <div id="line_7">{{ "random_small_text"|get_text }}</div>
+            <div id="line_8">{{ "random_small_text"|get_text }}</div>
         </div>
     </div>
     <div class="title_second_content">
