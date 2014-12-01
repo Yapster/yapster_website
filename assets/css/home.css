@@ -26,14 +26,15 @@ body {
 /***********************/
 
 #header {
-    height: 90px;
+    height: 70px;
     background-color: #19cb0a;
+    padding-top: 20px;
+    padding-left: 40px;
 }
 
 #logo_container {
     float: left;
-    margin-top: 22px;
-    margin-left: 40px;
+
 }
 
 #logo {
@@ -43,7 +44,7 @@ body {
 }
 
 #menu_header {
-    margin-top: 45px;
+    margin-top: 25px;
     float: right;
     color: white;
 }
@@ -124,6 +125,7 @@ body {
     width: 100%;
     margin-bottom: 50px;
     margin-top: 50px;
+    min-height: 462px;
 }
 
 #about_menu {
@@ -185,6 +187,38 @@ body {
     font-size: 20px;
     font-weight: bold;
 }
+
+#content_container_privacy, #content_container_terms {
+    float: left;
+    width: calc(100% - 340px);
+    padding-right: 170px;
+    padding-left: 170px;
+}
+
+/* Land Tab */
+
+#content_container_privacy.land_tab, #content_container_terms.port_tab {
+    width: calc(100% - 100px);
+    padding-right: 50px;
+    padding-left: 50px;
+}
+
+/* Port phone */
+
+#content_container_privacy.port_phone,
+#content_container_privacy.land_phone,
+#content_container_privacy.port_tab,
+#content_container_terms.port_phone,
+#content_container_terms.port_tab,
+#content_container_terms.land_phone{
+    width: calc(100% - 40px);
+    padding-right: 20px;
+    padding-left: 20px;
+}
+
+/* Terms */
+
+
 
 /*******************************/
 /********** Contacts ***********/
@@ -288,8 +322,100 @@ body {
     color: red;
 }
 
+/* Landscape Tab */
+
+#content_container.land_tab {
+    text-align: center;
+}
+
+#left_contact.land_tab {
+    width: 100%;
+    margin: 0;
+}
+
+#right_contact.land_tab {
+    width: 60%;
+    margin-left: 70px;
+}
+
+#social_banner.land_tab {
+    margin: 0;
+}
+
+#label_contacts.land_tab {
+    float: left;
+}
+
+/* Phone Portrait */
+
+#about_sub_content.port_phone, #about_sub_content.land_phone {
+    margin-top: 0px;
+}
+
+#left_contact.port_phone, #left_contact.land_phone {
+    margin: 0;
+    width: 100%;
+    text-align: center;
+}
+
+#left_contact.land_phone {
+    width: 90%;
+}
+
+#social_banner.port_phone, #social_banner.land_phone {
+    margin-bottom: 50px;
+    margin-top: 50px;
+}
+
+#right_company.port_phone, #right_company.land_phone {
+    width: 100%;
+}
+
+#title_contact.port_phone {
+    width: 100%;
+    float: none;
+    text-align: center;
+}
+
+#sub_title_contact.port_phone {
+    width: 70%;
+}
+
+#right_contact.port_phone {
+    width: 100%;
+}
+
+#right_contact.land_phone {
+    width: 80%;
+}
+
+#title_contact.port_phone, #title_contact.land_phone {
+    width: 100%;
+    text-align: center;
+}
+
+#sub_title_contact.land_phone {
+    width: 100%;
+}
+
+/* Portrait tab */
+
+#social_banner.port_tab {
+    margin: 0;
+}
+
+#left_contact.port_tab {
+    margin: 0;
+}
+
+#right_contact.port_tab {
+    width: 80%;
+    margin-top: 40px;
+}
+
+
 /*******************************/
-/********** Contacts ***********/
+/********** Company ***********/
 /*******************************/
 
 #left_company{
@@ -320,6 +446,132 @@ body {
     width: calc(100% - 75px);
 }
 
+/* Landscape Tablet */
+
+#content.land_tab, #content.port_tab {
+    width: 100%;
+}
+
+#about_content.land_tab {
+    min-height: 462px;
+}
+
+#about_menu.land_tab {
+    margin-right: 15px;
+}
+
+#header.land_tab {
+    height: 70px;
+}
+
+#right_footer.land_tab {
+    margin-right: 40px;
+    margin-top: 5px;
+    width: 100%;
+}
+
+#left_footer.land_tab {
+    margin-left: 0px;
+    margin-bottom: 10px;
+    margin-top: 15px;
+    width: 100%;
+}
+
+#footer.land_tab {
+    text-align: center;
+}
+
+/* Portrait Phone */
+
+#content.port_phone {
+    width: 100%;
+}
+
+#header.port_phone {
+    width: calc(100% - 40px);
+}
+
+#menu_header.port_phone, #menu_header.land_phone  {
+    display: none;
+}
+
+/*#about_menu.port_phone, #about_menu.land_phone {*/
+/*display: none;*/
+/*}*/
+
+#left_company.port_phone, #left_company.land_phone {
+    display: none;
+}
+
+#right_company.port_phone, #right_company.land_phone {
+    width: 100%;
+}
+
+#content_container.port_phone, #content_container.land_phone {
+    width: calc(100% - 30px);
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+#footer.port_phone, #footer.land_phone {
+    display: none;
+}
+
+/* Landscape Phone */
+
+#content.land_phone {
+    width: 100%
+}
+
+/* Portrait Tablet */
+
+#about_menu.port_tab {
+    /*margin-right: 0px;*/
+}
+
+#left_company.port_tab {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#right_company.port_tab {
+    width: 100%;
+}
+
+#iphone_img.port_tab {
+    width: 160px;
+}
+
+#about_sub_content.port_tab {
+    min-height: 712px;
+}
+
+#left_company.port_tab {
+    width: 100%;
+}
+
+#content_container.port_tab {
+    width: calc(100% - 300px);
+    padding-right: 150px;
+    padding-left: 150px;
+}
+
+#footer.port_tab {
+    text-align: center;
+}
+
+#left_footer.port_tab {
+    margin-bottom: 10px;
+    margin-top: 15px;
+    margin-left: 0px;
+    width: 100%;
+}
+
+#right_footer.port_tab {
+    margin-right: 50px;
+    margin-top: 10px;
+}
 
 /*******************************/
 /************* Press ***********/
@@ -394,6 +646,67 @@ body {
     width: 100%;
 }
 
+/* Land Tab */
+#slideshow_press.land_tab {
+    padding-left: 50px;
+    padding-right: 50px;
+    height: 440px;
+}
+
+/* Portrait phone */
+#slideshow_press.port_phone, #slideshow_press.land_phone {
+    padding-left: 20px;
+    padding-right: 20px;
+    height: 400px;
+}
+
+.press_container.port_phone, .press_container.land_phone {
+    width: 50%;
+    margin-bottom: 10px;
+}
+
+.logo_press.port_phone {
+    height: 110px;
+}
+
+.logo_press.land_phone {
+    height: 150px;
+}
+
+#content_article.port_phone, #content_article.land_phone {
+    display: none;
+}
+
+.article.port_phone, .article.land_phone {
+    width: calc(100% - 40px);
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.img_container.port_phone, .img_container.land_phone {
+    width: 100%;
+}
+
+#articles_press.land_phone {
+    width: 100%;
+}
+
+/* Portrait tab */
+#slideshow_press.port_tab {
+    padding-left: 20px;
+    padding-right: 20px;
+    height: 250px;
+}
+
+.article.port_tab {
+    width: calc(100% - 20px);
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.logo_press.port_tab {
+    height: 150px;
+}
 
 /******************************/
 /************* Tour ***********/

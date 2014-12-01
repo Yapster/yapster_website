@@ -11,9 +11,11 @@ body {
 }
 
 #header {
-    height: 90px;
-    width: 100%;
+    height: 70px;
+    width: calc(100% - 40px);
     background-color: #16d301;
+    padding-top: 20px;
+    padding-left: 40px;
 }
 
 .icon {
@@ -25,8 +27,6 @@ body {
     background-position: 10% 31%;
     width: 170px;
     height: 60px;
-    margin-left: 40px;
-    margin-top: 22px;
 }
 
 #logo_store {
@@ -76,7 +76,7 @@ body {
 
 #right_side {
     width: 45%;
-    float: left;
+    float: right;
     text-align: center;
     margin-top: -10px;
     margin-left: -20px;
@@ -226,3 +226,214 @@ body {
     margin-top:28px;
     margin-bottom:0;
 }
+
+/*****************************/
+/***** Responsive Design *****/
+/*****************************/
+
+
+/* Portrait Phone*/
+
+#header.port_phone {
+    height: 60px;
+    padding-top: 10px;
+    padding-left: 15px;
+    width: calc(100% - 15px);
+}
+
+#content.port_phone {
+    width: calc(100% - 10px);
+    margin-left: 10px;
+}
+
+#left_side.port_phone {
+    width: calc(100% - 10px);
+}
+
+#logo.port_phone {
+    margin-left: 15px;
+    margin-top: 10px;
+}
+
+#right_side.port_phone {
+    display: none;
+}
+
+#title_main_text.port_phone {
+    font-size: 18px;
+}
+
+#opinions.port_phone {
+    display: none;
+}
+
+#appstore.port_phone {
+    text-align: center;
+}
+
+#link_video.port_phone {
+    font-size: 18px;
+}
+
+#right_footer.port_phone {
+    display: none;
+}
+
+#text_left_footer.port_phone {
+    font-size: 14px;
+}
+
+#footer.port_phone {
+    float: left;
+    margin-top: 10px;
+    width: 100%;
+    margin-bottom: 20px;
+    position: initial;
+}
+
+/* Landscape Phone*/
+
+#header.land_phone {
+    height: 60px;
+    padding-top: 10px;
+    padding-left: 15px;
+    width: calc(100% - 15px);
+
+}
+
+#content.land_phone {
+    width: calc(100% - 10px);
+    margin-left: 10px;
+}
+
+#left_side.land_phone {
+    width: calc(100% - 10px);
+}
+
+#logo.land_phone {
+    margin-left: 15px;
+    margin-top: 10px;
+}
+
+#right_side.land_phone {
+    display: none;
+}
+
+#title_main_text.land_phone {
+    font-size: 18px;
+}
+
+#opinions.land_phone {
+    display: none;
+}
+
+#appstore.land_phone {
+    text-align: center;
+}
+
+#link_video.land_phone {
+    font-size: 18px;
+}
+
+#right_footer.land_phone {
+    display: none;
+}
+
+#text_left_footer.land_phone {
+    font-size: 14px;
+}
+
+#footer.land_phone {
+    float: left;
+    margin-top: 10px;
+    width: 100%;
+    margin-bottom: 20px;
+    position: initial;
+}
+
+#link_video_container.land_phone {
+    margin-left: 90px;
+}
+
+#footer.land_phone {
+    text-align: center;
+}
+
+#left_footer.land_phone {
+    float: none;
+    margin: 0;
+}
+
+/* Landscape Tablet */
+
+#content.land_tab {
+    width: calc(100% - 30px);
+    margin-left: 30px;
+    margin-top: 4%;
+}
+
+#right_side.land_tab {
+    width: 35%;
+}
+
+#left_side.land_tab {
+    width: 65%;
+}
+
+#appstore.land_tab {
+    margin-top: 30px;
+}
+
+#link_video_container.land_tab {
+    margin-top: 30px;
+}
+
+#footer.land_tab {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+#right_footer.land_tab {
+    width: 100%;
+    margin: 0;
+}
+
+#left_footer.land_tab {
+    width: 100%;
+    margin: 0;
+    margin-top: 20px;
+}
+
+#img_right_side.land_tab {
+    width: 360px;
+}
+
+/* Portrait Tablet */
+
+#content.port_tab {
+    width: calc(100% - 240px);
+    margin-right: 120px;
+    margin-left: 120px;
+    margin-top: 4%;
+}
+
+#right_side.port_tab {
+    width: 100%;
+    text-align: center;
+}
+
+#img_right_side.port_tab {
+    width: 200px;
+    margin-bottom: -40px;
+}
+
+#left_side.port_tab {
+    width: 100%;
+}
+
+
+#appstore.port_tab, #link_video_container.port_tab {
+    margin-top: 30px;
+}
+
+/*  */

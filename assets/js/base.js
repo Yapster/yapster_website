@@ -41,6 +41,10 @@ function submit_message()
     });
 }
 
+
+
+
+
 $(document).ready(function() {
     setNavBar();
     $(".about_menu_link").click(function(){
@@ -66,4 +70,9 @@ $(document).ready(function() {
         $(this).toggleClass("unselected");
         $(this).find(".icon").toggleClass("unselected");
     });
+
+    //Responsive Design
+
+
+
 });

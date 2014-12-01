@@ -1,14 +1,14 @@
 {% extends "base.html" %}
 {% block content %}
     <div id="about_content">
-        <div id="about_menu">
+        <div id="about_menu" class="responsive">
             <span href="" class="about_menu_link{% if path == "" or path == "tour"%} current_page{% endif %}">tour</span>
             <span href="" class="about_menu_link{% if path == "company" %} current_page{% endif %}">company</span>
             <span href="" class="about_menu_link{% if path == "contact" %} current_page{% endif %}">contact</span>
             <span href="" class="about_menu_link{% if path == "privacy" %} current_page{% endif %}">privacy</span>
             <span href="" class="about_menu_link{% if path == "terms" %} current_page{% endif %}">terms</span>
         </div>
-        <div id="about_sub_content">
+        <div id="about_sub_content" class="responsive">
             {% if path == "" or path == "tour" %}
                 {% include "about/sections/tour.html" %}
             {% elif path == "company"%}
