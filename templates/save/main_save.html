@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% load staticfiles %}
+    <title>{{ title_page }}</title>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.0/themes/smoothness/jquery-ui.css" />
+    <script type="text/javascript" src="{% static "js/plugins/jQuery-File-Upload-9.8.1/js/jquery.fileupload.js" %} "></script>
+    <script type="text/javascript" src="{% static "js/plugins/jQuery-File-Upload-9.8.1/js/vendor/jquery.ui.widget.js" %} "></script>
+    <script type="text/javascript" src="{% static "js/plugins/jQuery-File-Upload-9.8.1/js/jquery.iframe-transport.js" %} "></script>
+    <script type="text/javascript" src="{% static "js/content_manager/base.js" %} "></script>
+    <script src="{% static "bower_components/webcomponentsjs/webcomponents.js"%}"></script>
+    <link rel="import" href="{% static "bower_components/polymer/polymer.html" %}">
+    <link rel="import" href="{% static "bower_components/core-style/core-style.html" %}">
+    <link rel="import" href="{% static "bower_components/core-meta/core-meta.html" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "css/content_manager/base.css" %}" />
+
+
+    <link rel="import" href="{% static "custom/column-search.html" %}">
+    <link rel="import" href="{% static "custom/search.html" %}">
+    <link rel="import" href="{% static "custom/animations.html" %}">
+    <link rel="import" href="{% static "custom/my-header.html" %}">
+    <link rel="import" href="{% static "custom/profile-card.html" %}">
+    <link rel="import" href="{% static "custom/center-card.html" %}">
+    <link rel="import" href="{% static "custom/cover-card.html" %}">
+    <link rel="import" href="{% static "custom/my-player.html" %}">
+    <link rel="import" href="{% static "custom/preview-yap.html" %}">
+
+    <link rel="import" href="{% static "bower_components/core-icon-button/core-icon-button.html" %}">
+    <link rel="import" href="{% static "bower_components/core-toolbar/core-toolbar.html" %}">
+    <link rel="import" href="{% static "bower_components/core-icons/core-icons.html" %}">
+    <link rel="import" href="{% static "bower_components/core-icon/core-icon.html" %}">
+    <link rel="import" href="{% static "bower_components/core-animated-pages/core-animated-pages.html" %}">
+    <link rel="import" href="{% static "bower_components/core-pages/core-pages.html" %}">
+
+    <link rel="import" href="{% static "bower_components/core-transition/core-transition.html" %}">
+    <link rel="import" href="{% static "bower_components/core-transition/core-transition-css.html" %}">
+    <link rel="import" href="{% static "bower_components/core-animated-pages/transitions/slide-from-right.html" %}">
+
+    <link rel="import" href="{% static "bower_components/paper-input/paper-input.html" %}">
+    <link rel="import" href="{% static "bower_components/paper-tabs/paper-tabs.html" %}">
+    <link rel="import" href="{% static "bower_components/paper-tabs/paper-tab.html" %}">
+    <link rel="import" href="{% static "bower_components/paper-icon-button/paper-icon-button.html" %}">
+    <link rel="import" href="{% static "bower_components/paper-dialog/paper-dialog.html" %}">
+    <link rel="import" href="{% static "bower_components/paper-dialog/paper-dialog-transition.html" %}">
+
+
+</head>
+<body fullbleed layout vertical>
+<div>
+    <my-header></my-header>
+
+
+
+
+    <div id="to_instanciate">
+        <paper-icon-button id="button_left_change" class="hover" icon="arrow-forward" onclick="instanciate_button()"></paper-icon-button>
+    </div>
+    <div class="column" id="left_column">
+        <core-animated-pages id="test" transitions="cross-fade-all hero-transition">
+            <section class="section_left">
+                <div id="profile_picture" hero hero-id="profile-pix-hero">
+
+                </div>
+                <div id="profile_preview" hero hero-id="profile-details-hero">
+
+                </div>
+                <div id="player" hero hero-id="player-hero">
+
+                </div>
+                <paper-icon-button  id="button_left_change" class="hover" icon="favorite" role="button" aria-label="favorite" onclick="stuff('1')"></paper-icon-button>
+                <paper-icon-button  id="button_switch_change" class="hover" icon="favorite" role="button" aria-label="favorite" onclick="tog_right()"></paper-icon-button>
+                <paper-icon-button  id="button_left_change_player" class="hover" icon="favorite" role="button" aria-label="favorite" onclick="stuff('2')"></paper-icon-button>
+            </section>
+            <section class="section_left">
+                <div id="profile_picture" hero hero-id="profile-pix-hero">
+
+                </div>
+                <div id="profile_details" hero hero-id="profile-details-hero">
+
+                </div>
+                <paper-icon-button  id="button_left_change" class="hover" icon="favorite" role="button" aria-label="favorite" onclick="stuff('0')"></paper-icon-button>
+            </section>
+            <section class="section_left">
+                <div id="player_details" hero hero-id="player-hero">
+                </div>
+                <paper-icon-button  id="button_left_change" class="hover" icon="favorite" role="button" aria-label="favorite" onclick="stuff('0')"></paper-icon-button>
+            </section>
+        </core-animated-pages>
+
+    </div>
+    <core-animated-pages id="right_side" transitions="hero-transition cross-fade-all">
+        <section>
+            <div id="center_column" class="column" hero hero-id="content_hero">
+                <core-header-panel flex>
+                    <paper-tabs selected="0" id="tabs">
+                        <paper-tab onclick="test('0')">Subscribed</paper-tab>
+                        <paper-tab onclick="test('1')">Explore</paper-tab>
+                    </paper-tabs>
+                    <core-animated-pages id="center" transitions="slide-from-right">
+                        <section>
+                            <div id="sub_content_center" class="content_center">
+                                <paper-icon-button  id="button_left_change" class="hover" icon="arrow-forward" role="button" aria-label="favorite" onclick="tog_dialog()"></paper-icon-button>
+                                <paper-icon-button  id="second_button_left_change" class="hover" icon="arrow-forward" role="button" aria-label="favorite" onclick="tog_dialog()"></paper-icon-button>
+                            </div>
+                        </section>
+                        <section>
+                            <div id="exp_content_center" class="content_center">
+                            </div>
+                        </section>
+                    </core-animated-pages>
+                </core-header-panel>
+            </div>
+            <div id="cover_content" class="column" hero hero-id="cover_hero">
+
+            </div>
+        </section>
+        <section>
+            <div id="cover_content" class="column" hero hero-id="cover_hero">
+
+            </div>
+            <div id="center_column" class="column" hero hero-id="content_hero">
+                <core-header-panel flex>
+                    <paper-tabs selected="0" id="tabs">
+                        <paper-tab onclick="test('0')">Subscribed</paper-tab>
+                        <paper-tab onclick="test('1')">Explore</paper-tab>
+                    </paper-tabs>
+                    <core-animated-pages id="center" transitions="hero-transition slide-from-right">
+                        <section>
+                            <div id="sub_content_center" class="content_center">
+                                <paper-icon-button  id="button_left_change" class="hover" icon="arrow-forward" role="button" aria-label="favorite" onclick="tog_dialog()"></paper-icon-button>
+                            </div>
+                        </section>
+                        <section>
+                            <div id="exp_content_center" class="content_center">
+                            </div>
+                        </section>
+                    </core-animated-pages>
+                </core-header-panel>
+            </div>
+        </section>
+    </core-animated-pages>
+</div>
+</body>
+</html>

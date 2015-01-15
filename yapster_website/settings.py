@@ -33,6 +33,10 @@ EMAIL_HOST_USER = 'chris@yapsterapp.com'
 EMAIL_HOST_PASSWORD = 'Yapster1234'
 EMAIL_SUBJECT_PREFIX = '[CONTACTS]'
 
+AWS_ACCESS_KEY_ID = 'AKIAJ2WIFTVZMGME4V4A'
+AWS_SECRET_ACCESS_KEY = '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'
+
+
 # Application definition
 
 INSTALLED_APPS = (
@@ -42,7 +46,9 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'pydub',
     'home',
+    'content_manager'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -66,7 +72,15 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
+        },
+    # 'ye_1_db_1': {
+    #     'NAME': 'ye_1_db_1',
+    #     'ENGINE': 'django.contrib.gis.db.backends.postgis',
+    #     'USER': 'yapster',
+    #     'PASSWORD': 'Yapster1000000000',
+    #     'HOST': 'ye-1-db-1.cagmlb1zwzjw.us-east-1.rds.amazonaws.com',
+    #     'PORT': '5432',
+    #     }
 }
 
 # Internationalization
@@ -95,3 +109,5 @@ STATICFILES_DIRS = (
 TEMPLATE_DIRS = (
     os.path.join(BASE_DIR, 'templates'),
 )
+
+GEOS_LIBRARY_PATH = 'C:/OSGeo4W/bin/geos_c.dll'

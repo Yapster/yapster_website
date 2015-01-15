@@ -217,13 +217,24 @@ body {
 }
 
 
-#cboxClose    {
+#cboxClose {
     top: 0;
     right: 0;
     position: absolute;
+    background: url("../images/sprites.png") no-repeat;
+    background-position: 61.8% 89%;
+    height: 23px;
+    width: 55px;
+    color: transparent;
 }
+
+#cboxClose:hover {
+    background-position: 61.8% 97%;
+    cursor: pointer;
+}
+
 #cboxLoadedContent{
-    margin-top:28px;
+    margin-top:23px;
     margin-bottom:0;
 }
 
@@ -435,5 +446,3 @@ body {
 #appstore.port_tab, #link_video_container.port_tab {
     margin-top: 30px;
 }
-
-/*  */

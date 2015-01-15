@@ -1,0 +1,48 @@
+<polymer-element name="column-search">
+    <template>
+        <style>
+            :host {
+                width: 300px;
+                height: 100%;
+                box-sizing: border-box;
+                float:left;
+            }
+            #core_card {
+                width: 300px;
+                height: 300px;
+                border-radius: 2px;
+                box-shadow: rgba(0, 0, 0, 0.0980392) 0px 2px 4px, rgba(0, 0, 0, 0.0980392) 0px 0px 3px;
+                left: 120px;
+                top: 140px;
+                background-color: rgb(255, 255, 255);
+            }
+            #core_toolbar {
+                right: 0px;
+                color: rgb(255, 255, 255);
+                fill: rgb(255, 255, 255);
+                background-color: rgb(79, 125, 201);
+            }
+            #core_icon {
+                left: 258px;
+                top: 20px;
+                position: absolute;
+            }
+        </style>
+        <core-card id="core_card" layout vertical>
+            <core-toolbar id="core_toolbar">
+                <core-icon-button icon="menu" id="core_icon_button"></core-icon-button>
+                <div id="div" flex>Most Populars Yaps</div>
+                <core-icon icon="arrow-forward" id="core_icon"></core-icon>
+            </core-toolbar>
+        </core-card>
+    </template>
+
+    <script>
+
+        Polymer({
+
+        });
+
+    </script>
+
+</polymer-element>

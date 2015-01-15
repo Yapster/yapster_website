@@ -1,0 +1,36 @@
+
+<core-animated-pages class="fit" selected="1" transitions="cross-fade-all hero-transition" notap>
+    <section id="first">
+        <my-header>
+        </my-header>
+        <paper-tabs selected="0" role="tablist" horizontal center layout>
+            <paper-tab class="tab_main">Profile</paper-tab>
+            <paper-tab class="tab_main">My Libs</paper-tab>
+            <paper-tab class="tab_main">Now Plaun</paper-tab>
+        </paper-tabs>
+        {% for lib in librairies %}
+            <paper-shadow class="card" hero-p onclick="stuff()">
+                <flip-card hero-id="icon-header" hero>
+                    <front>{{ lib.name }}</front>
+                    <back>back</back>
+                </flip-card>
+            </paper-shadow>
+        {% endfor %}
+    </section>
+    <section id="second">
+        <core-toolbar layour horizontal justified hero-p>
+            <div class="blab" hero-id="icon-header" hero>
+                LOL
+            </div>
+        </core-toolbar>
+        <paper-icon-button icon="icon-back" onclick="stuff()">
+
+        </paper-icon-button>
+    </section>
+</core-animated-pages>
+<script>
+    function stuff(e) {
+        var p = document.querySelector('core-animated-pages');
+        p.selected = p.selected ? 0 : 1;
+    }
+</script>

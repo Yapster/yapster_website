@@ -1,0 +1,9 @@
+{% extends "content_manager/base.html" %}
+{% block content %}
+    <div>
+        <input id="fileupload" type="file" name="files[]" data-url="/manager/post/upload/" >
+    </div>
+    <div id="progress">
+        <div class="bar" style="width: 0%;"></div>
+    </div>
+{% endblock %}

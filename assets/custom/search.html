@@ -1,0 +1,40 @@
+<polymer-element name="search-element">
+    <template>
+        <style>
+
+        </style>
+        <div class="card" id="animat" vertical center center-justified layout >
+            <div id="prelinesearch">
+                <span>Search Page</span>
+                <core-icon-button icon="close" on-tap="{{ani}}"></core-icon-button>
+            </div>
+            <div id="searchline">
+                <paper-input label="Search" name="search" floatingLabel value="{{ username }}"></paper-input>
+                <core-icon aria-label="search"></core-icon>
+            </div>
+            <div>
+                <column-search></column-search>
+                <column-search></column-search>
+                <column-search></column-search>
+                <column-search></column-search>
+            </div>
+        </div>
+
+    </template>
+
+    <script>
+        Polymer('search-element', {
+
+            ani: function() {
+                console.log('???');
+                var meta = document.createElement('core-meta');
+                meta.type = 'transition';
+                var transition = meta.byId('core-transition-bottom');
+                var animated = this.$.animat;
+                transition.setup(animated);
+                transition.go(animated);
+                console.log('loool');
+            }
+        });
+    </script>
+</polymer-element>

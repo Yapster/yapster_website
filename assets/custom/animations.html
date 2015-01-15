@@ -1,0 +1,64 @@
+<polymer-element name="story-1">
+
+    <template>
+
+        <style>
+            :host {
+                position:absolute;
+                width: 100%;
+                height: 100%;
+                left: 0px;
+                top: 0px;
+                font-family: 'RobotoDraft', sans-serif;
+            }
+
+            #container {
+                position: absolute;
+                top:0;
+                left:0;
+                width:100%;
+                height:100%;
+            }
+
+            .card {
+                position: relative;
+                height: 150px;
+                width: 150px;
+                font-size: 50px;
+                margin: 8px;
+                background-color: tomato;
+                border-radius: 4px;
+                cursor: default;
+            }
+        </style>
+
+        <div id="container" flex horizontal wrap around-justified layout>
+
+            <div class="card" id="animat" vertical center center-justified layout on-tap="{{ani}}">
+                test
+            </div>
+
+        </div>
+
+    </template>
+
+    <script>
+        Polymer('story-1', {
+
+            ani: function() {
+                console.log('???');
+                var meta = document.createElement('core-meta');
+                meta.type = 'transition';
+                var transition = meta.byId('core-transition-fade');
+
+                var animated = this.$.animat;
+                transition.setup(animated);
+                transition.go(animated);
+                console.log('loool');
+
+            }
+
+        });
+    </script>
+
+</polymer-element>

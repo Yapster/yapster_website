@@ -1,0 +1,66 @@
+<link rel="import" href="../polymer/polymer.html">
+
+<polymer-element name="center-card">
+
+    <template>
+        <style>
+            #core_card {
+                border-radius: 2px;
+                box-shadow: rgba(0, 0, 0, 0.0980392) 0px 2px 4px, rgba(0, 0, 0, 0.0980392) 0px 0px 3px;
+                left: 240px;
+                top: 180px;
+                width: 100%;
+                height: 100%;
+                background-color: rgb(255, 255, 255);
+            }
+            #section {
+                width: 100%;
+                height: 100%;
+                opacity: 1;
+                background-color: rgb(12, 230, 0);
+            }
+            .content_center {
+                height: 2000px;
+            }
+            #sub_content_center {
+                background-color: #0092ef;
+            }
+            #exp_content_center {
+                background-color: #673ab7;
+            }
+            paper-tab {
+                background-color: white;
+            }
+        </style>
+        <core-card id="core_card" vertical layout>
+            <core-header-panel flex>
+                <paper-tabs selected="0">
+                    <paper-tab on-tap="{{ani}}">Subscribed</paper-tab>
+                    <paper-tab>Explore</paper-tab>
+                </paper-tabs>
+                <core-animated-pages id="pages_content" transitions="slide-from-right">
+                    <section>
+                        <div id="sub_content_center" class="content_center">
+                        </div>
+                    </section>
+                    <section>
+                        <div id="exp_content_center" class="content_center">
+                        </div>
+                    </section>
+
+                </core-animated-pages>
+            </core-header-panel>
+
+        </core-card>
+    </template>
+    <script>
+        Polymer('center-card', {
+            ani: function() {
+                var p = this;
+                console.log(p);
+                p.selected = p.selected ? 0 : 1;
+            }
+        });
+
+    </script>
+</polymer-element>
