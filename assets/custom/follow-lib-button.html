@@ -1,0 +1,25 @@
+<polymer-element name="follow-lib-button">
+    <template>
+        <style>
+            .follow_toggle_button {
+                margin-top: 10px;
+                margin-bottom: 10px;
+                background-color: #16d301;
+                color: white;
+            }
+        </style>
+        <paper-button class="follow_toggle_button" noink toggle raised on-click="{{ toggle_text }}">{{ status_text }}</paper-button>
+    </template>
+    <script>
+        Polymer({
+                    created: function() {
+                        this.status = 0;
+                    },
+                    status_text: "Follow",
+                    status: 0,
+                    toggle_text: function(e, detail, sender) {
+                        this.status_text = this.status ? "Follow" : "Followed";
+                        this.status = this.status ? 0 : 1;}
+                });
+    </script>
+</polymer-element>
