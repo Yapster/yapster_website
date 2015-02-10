@@ -1,0 +1,20 @@
+{% load  filters %}
+
+<div class="number_yaps_libraries_container">
+    <div class="number_yaps_libraries_text">Librairies ({{ number_libraries }})</div>
+</div>
+{% for library in libraries %}
+    <div id="lib_{{ library|access:"id" }}" class="library" onclick="to_user_to_library(this.id, '{{ library|access:"id" }}')">
+        <div class="image_container_library">
+            <img hero hero-id="" class="library_image lib_pix_heroable" src="{{ library|access:"picture_cropped_path" }}"/>
+        </div>
+        <div class="library_description">
+            <div class="library_title_container">
+                <span class="library_title">{{ library|access:"title" }}</span>
+            </div>
+            <div class="library_text_container">
+                <span class="library_text">{{ library|access:"description" }}</span>
+            </div>
+        </div>
+    </div>
+{% endfor %}

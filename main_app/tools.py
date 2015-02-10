@@ -3,6 +3,8 @@ import boto.rds
 import boto.ec2.cloudwatch
 from django.conf import settings
 from pydub import AudioSegment
+import json
+import requests
 
 def boto_init_s3(bucket_name):
     """
@@ -84,4 +86,22 @@ def upload_file_to_s3(file, user_id, name, test=1):
                 k.set_contents_from_file(file)
             except:
                 return "error occured"
+    return ""
+
+
+def yapster_api_post_request(path, params):
+    headers = {'content-type': 'application/json'}
+    return requests.post(path, data=json.dumps(params), headers=headers)
+
+
+def get_profile_pix_path(path):
+    c = boto.connect_s3(aws_access_key_id=settings.AWS_ACCESS_KEY_ID,
+                        aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY)
+    b = c.get_bucket('yapster')
+    if b:
+        try:
+            s3_file_path = b.get_key(path)
+            return s3_file_path.generate_url(expires_in=600)
+        except:
+            return ""
     return ""

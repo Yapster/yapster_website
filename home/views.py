@@ -12,6 +12,7 @@ def main(request):
     """
     Home page light website
     """
+
     return render(request, "light_home.html", {"opinions": Opinion.objects.all(), "title_page": "Yapster"})
 
 

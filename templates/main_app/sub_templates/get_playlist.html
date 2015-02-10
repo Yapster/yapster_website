@@ -1,0 +1,14 @@
+{% load filters %}
+{% for yap in l_yaps %}
+    <div id="yap_in_playlist_{{ yap|access:"id" }}" class="yap_in_playlist {% if yap|access:"current"%}selected_yap{% endif %}" audiourl="{{ yap|access:"audio_path" }}" cover="{{ yap|access:"picture_cropped_path" }}" artist="{{ yap|access:"name" }}" onclick="play_yap_in_playlist(this.id)">
+        <div class="yap_in_playlist_title">
+            <span>{{ yap|access:"title" }}</span>
+        </div>
+        <div class="yap_in_playlist_name_time_container">
+            <div class="yap_in_playlist_name">{{ yap|access:"name" }}</div>
+            <div class="yap_in_playlist_time"></div>
+        </div>
+        <input type="hidden" class="date_created" value="{{ yap|access:"date_created" }}">
+        <input type="hidden" class="description" value="{{ yap|access:"description" }}">
+    </div>
+{% endfor %}

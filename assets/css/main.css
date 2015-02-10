@@ -18,6 +18,40 @@ body {
     padding-left: 40px;
 }
 
+#login_container {
+    float: right;
+    margin-right: 50px;
+    height: 50px;
+    margin-top: 20px;
+    width: 360px;
+    font-size: 12px;
+}
+
+#inputs_container {
+    float:left;
+    margin-right: 15px;
+    width: calc(100% - 70px);
+    margin-top: -17px;
+    display: none;
+}
+
+.input_container {
+    float: left;
+    width: 50%;
+}
+
+#username, #password {
+    width: 140px;
+}
+
+#errorlogin  {
+    color: red;
+}
+
+#login_button {
+    float: right;
+}
+
 .icon {
     display: inline-block;
     background: url("../images/sprites.png") no-repeat;

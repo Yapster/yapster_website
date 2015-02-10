@@ -1,0 +1,41 @@
+{% load filters %}
+{% load staticfiles %}
+<div cross-fade id="subscribed_users_title_containter">
+    <span id="subscribed_users_title">Subscribed Librairies</span>
+    <span id="subscribed_users_title_number">(6)</span>
+</div>
+<div cross-fade id="subscribed_libraries_container">
+    <div class="subscribed_library_preview_container">
+        {% for library in l_libraries %}
+            <div id="main_library_picture_{{ library|access:"library_id" }}" class="lib_pix_heroable width_ratio ratio3-2" hero hero-id="" onclick="to_main_to_library(this.id, '{{ library|access:"library_id" }}')">
+                <div class="content_ratio">
+                    <img class="profile_pix_center library_image lib_pix_heroable" hero hero-id="" src="{{ library|access:"library_profile_pix" }}"/>
+                    <div class="gradient_title_container gradient_title_container_center">
+                        <span class="gradient_title library_title">{{ library|access:"library_title" }}</span>
+                        <input type="hidden" class="library_description" value="{{ library|access:"library_description" }}"/>
+                    </div>
+                </div>
+            </div>
+            <div class="subscribed_library_yaps_preview_container">
+                {% for yap in l_list_of_yaps|access:forloop.counter0 %}
+                    <div id="library_yap_{{ library|access:"library_id" }}" class="library_yap_preview" onclick="play_library_yap(this.id, {{ library|access:"library_id" }})">
+                        <div class="library_yap_infos">
+                            <div class="library_yap_title">{{ yap|access:"title" }}</div>
+                            <div class="library_yap_date">{{ yap|access:"date_created" }}</div>
+                            <div class="library_yap_description">{{ yap|access:"description" }}</div>
+                        </div>
+                        <div class="library_yap_image_container">
+                            <img class="library_yap_image" src="{{ yap|access:"picture_cropped_path" }}"/>
+                        </div>
+                        <input type="hidden" class="yap_path" value="{{ yap|access:"audio_path" }}">
+                        <input type="hidden" class="author" value="{{ yap|access:"first_name" }} {{ yap|access:"last_name" }}">
+                        <input type="hidden" class="yap_id" value="{{ yap|access:"id" }}">
+                    </div>
+                {% endfor %}
+            </div>
+        {% endfor %}
+    </div>
+    <div cross-fade id="view_all_container">
+        <span id="view_all_title">view all</span>
+    </div>
+</div>

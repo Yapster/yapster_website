@@ -14,8 +14,26 @@
 </head>
 <body>
 <div id="header" class="responsive">
-    <a href="/"><div id="logo" class="icon">
-    </div></a>
+    <div id="login_container">
+        <form>
+            {% csrf_token %}
+            <div id="inputs_container">
+                <div class="input_container">
+                    <label for="username">Username or Email</label>
+                    <input id="username" class="press_enter" type="text"/>
+                </div>
+                <div class="input_container">
+                    <label for="password">Password</label>
+                    <input id="password" class="press_enter" type="password"/>
+                </div>
+                <span id="errorlogin"></span>
+            </div>
+
+            <button id="login_button" type="button">Log In</button>
+        </form>
+    </div>
+    <a href="/"><div id="logo" class="icon"></div></a>
+
 </div>
 <div id="content" class="responsive">
     <div id="right_side" class="responsive">

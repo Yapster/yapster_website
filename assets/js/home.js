@@ -1,3 +1,5 @@
+var ip = false;
+
 function getBrowserWidth(){
     if (window.innerWidth){
         return window.innerWidth;}
@@ -50,10 +52,52 @@ function dynamicLayout()
     }
 }
 
-$(document).ready(function() {
-    dynamicLayout();
 
+function log_in(username, password)
+{
+    $.ajax({
+        url: 'http://jsonip.com/',
+        success: function(newData){
+            ip = newData.ip;
+            $.ajax({
+                data : {
+
+                    username: username,
+                    password: password,
+                    ip: ip
+                },
+                url : "/app/login/",
+                type : "POST",
+                success: function(){
+                    window.location.replace("/app/");
+                },
+                error: function() {
+                    $('#errorlogin').html('Email/username and/or password invalid.');
+
+                }
+            });
+        },
+        error: function(data){
+            alert('ip marche pas');
+        }
+    });
+}
+
+$(document).ready(function() {
+
+    dynamicLayout();
     $(window).resize(function(){
         dynamicLayout();
+    });
+    $('#login_button').hover(function(){
+        $('#inputs_container').show("slide", {direction: "right"}, 1000);
+    });
+    $('#login_button').click(function(){
+        log_in($('#username').val(), $('#password').val());
+    });
+    $('.press_enter').keyup(function(event){
+        if (event.keyCode == 13) {
+            log_in($('#username').val(), $('#password').val());
+        }
     });
 });

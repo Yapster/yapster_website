@@ -1,0 +1,13 @@
+{% load staticfiles %}
+<core-animated-pages id="user_profile_layer" class="profile_layer" transitions="hero-transition cross-fade">
+    <section id="user_view_left_section">
+        <div class="profile_details" hero hero-id="profile_details-hero">
+            <span class="profile_description">{{ description }}</span>
+        </div>
+    </section>
+    <section id="user_edit_view_left_section">
+        <div hero hero-id="profile_details-hero">
+            <span class="profile_description">Profile details</span>
+        </div>
+    </section>
+</core-animated-pages>

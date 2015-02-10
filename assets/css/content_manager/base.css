@@ -8,25 +8,55 @@ my-header {
     z-index: 50;
 }
 
-#left-part {
-    height: 180px;
-    width: 33%;
+#left_part {
+    width: 100%;
     float: left;
+    height: 100%;
 }
 
-#left_column {
+.column_cover {
+    float: left;
+    width: 100%;
+    height: 100%;
 }
 
 .column {
-    width: 33.333333333%;
+    width: 50%;
     float: left;
     height: 100%;
     position: relative;
+    background-color: white;
 }
 
-#column3_cover {
-    width: calc(66.666% - 1px);
+#column1, #column1_main, #column1_user {
+    z-index: 10;
 }
+
+#column2 {
+    transition: right 2.2s;
+    right: 0;
+}
+
+#column2.tall_cover {
+    right: 50%;
+    z-index: -1;
+}
+
+#column3, #column3_user {
+    transition: width 2.2s;
+    position: absolute;
+    right: 0;
+    overflow: hidden;
+}
+
+#column3.tall_cover {
+    position: absolute;
+    right: 0;
+    width: 200%;
+}
+
+
+
 
 .section_left {
     height: 630px;
@@ -68,13 +98,15 @@ my-header {
     position: absolute;
     bottom: 0;
     left: 0;
+    z-index: 50;
 }
 
 #short_player {
     background-color: rgb(240, 240, 241);
-    padding-left: 15px;
-    padding-right: 15px;
+    padding-left: 20px;
+    padding-right: 20px;
     padding-bottom: 35px;
+    padding-top: 40px;
 }
 
 #controls_player {
@@ -115,7 +147,11 @@ paper-icon-button[role=player_control] /deep/ core-icon {
 }
 
 .time_text {
-    font-size: 12px;
+    font-size: 13px;
+    height: 40px;
+    margin-left: 8px;
+    margin-right: 8px;
+    font-weight: 500;
 }
 
 paper-progress {
@@ -131,8 +167,8 @@ paper-progress::shadow #progress_bar_player {
 }
 
 #details_player_title {
-    font-weight: bold;
-    font-size: 17px;
+    font-weight: 500;
+    font-size: 19px;
 }
 
 #details_player_detail_container {
@@ -143,7 +179,7 @@ paper-progress::shadow #progress_bar_player {
 
 }
 
-.prof_pix_heroable {
+.prof_pix_heroable, .lib_pix_heroable {
     float: left;
     width: 100%;
     position: relative;
@@ -153,17 +189,67 @@ paper-progress::shadow #progress_bar_player {
     width: 50%;
 }
 
-#subscribed_users_container {
-    width: calc(100% - 32px);
-    margin-left: 16px;
-    margin-right: 16px;
+#subscribed_users_container, #subscribed_libraries_container {
+    width: 100%;
     margin-top: 5px;
     float: left;
     margin-bottom: 5px;
 }
 
-.profile_pix_center {
+.subscribed_library_preview_container, .subscribed_library_yaps_preview_container{
     width: 100%;
+    float: left;
+}
+
+.subscribed_library_yaps_preview_container {
+    margin-top: 16px;
+}
+
+.library_yap_preview {
+    width: calc(100% - 32px);
+    border-bottom: 1px solid #cccccc;
+    padding: 16px;
+    float: left;
+}
+
+.library_yap_preview:hover {
+    cursor: pointer;
+    background-color: #eeeeee;
+}
+
+.library_yap_infos {
+    float: left;
+    width: 75%;
+    margin-bottom: 16px;
+}
+
+.library_yap_image_container {
+    width: 25%;
+    float: right;
+}
+
+.library_yap_image {
+    width: 100%;
+}
+
+.library_yap_title {
+    font-weight: 500;
+}
+
+.library_yap_date {
+    color: #bbbbbb;
+    font-size: 13px;
+    margin-top: 2px;
+}
+
+.library_yap_description {
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+.profile_pix_center {
+    width: 100% !important;
+    float: inherit !important;
 }
 
 .cropped_pix {
@@ -202,7 +288,7 @@ paper-progress::shadow #progress_bar_player {
     color: white;
     font-weight: lighter;
     padding-top: 25px;
-    padding-bottom: 15px;
+    padding-bottom: 5px;
     background: -moz-linear-gradient(top, rgba(0,0,0,0) 0%, rgba(0,0,0,0.4) 58%, rgba(0,0,0,0.4) 100%); /* FF3.6+ */
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,0,0,0)), color-stop(58%,rgba(0,0,0,0.4)), color-stop(100%,rgba(0,0,0,0.4))); /* Chrome,Safari4+ */
     background: -webkit-linear-gradient(top, rgba(0,0,0,0) 0%,rgba(0,0,0,0.4) 58%,rgba(0,0,0,0.4) 100%); /* Chrome10+,Safari5.1+ */
@@ -210,6 +296,10 @@ paper-progress::shadow #progress_bar_player {
     background: -ms-linear-gradient(top, rgba(0,0,0,0) 0%,rgba(0,0,0,0.4) 58%,rgba(0,0,0,0.4) 100%); /* IE10+ */
     background: linear-gradient(to bottom, rgba(0,0,0,0) 0%,rgba(0,0,0,0.4) 58%,rgba(0,0,0,0.4) 100%); /* W3C */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#66000000',GradientType=0 ); /* IE6-9 */
+}
+
+.gradient_title_container_center {
+    padding-bottom: 10px;
 }
 
 .gradient_toolbar {
@@ -223,13 +313,18 @@ paper-progress::shadow #progress_bar_player {
     padding-top: 25px;
     padding-bottom: 15px;
     text-align: right;
-    background: -moz-linear-gradient(top, rgba(0,0,0,0) 0%, rgba(0,0,0,0.4) 58%, rgba(0,0,0,0.4) 100%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,0,0,0)), color-stop(58%,rgba(0,0,0,0.4)), color-stop(100%,rgba(0,0,0,0.4))); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(top, rgba(0,0,0,0) 0%,rgba(0,0,0,0.4) 58%,rgba(0,0,0,0.4) 100%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(top, rgba(0,0,0,0) 0%,rgba(0,0,0,0.4) 58%,rgba(0,0,0,0.4) 100%); /* Opera 11.10+ */
-    background: -ms-linear-gradient(top, rgba(0,0,0,0) 0%,rgba(0,0,0,0.4) 58%,rgba(0,0,0,0.4) 100%); /* IE10+ */
-    background: linear-gradient(to bottom, rgba(0,0,0,0) 0%,rgba(0,0,0,0.4) 58%,rgba(0,0,0,0.4) 100%); /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#66000000',GradientType=0 ); /* IE6-9 */
+    background: rgba(0,0,0,0.4);
+    background: -moz-linear-gradient(top, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.4) 58%, rgba(0,0,0,0) 100%);
+    background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(0,0,0,0.4)), color-stop(58%, rgba(0,0,0,0.4)), color-stop(100%, rgba(0,0,0,0)));
+    background: -webkit-linear-gradient(top, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.4) 58%, rgba(0,0,0,0) 100%);
+    background: -o-linear-gradient(top, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.4) 58%, rgba(0,0,0,0) 100%);
+    background: -ms-linear-gradient(top, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.4) 58%, rgba(0,0,0,0) 100%);
+    background: linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.4) 58%, rgba(0,0,0,0) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', endColorstr='#000000', GradientType=0 );
+}
+
+.gradient_profile_picture {
+    display: initial;
 }
 
 #cover_library.tall_header .gradient_toolbar{
@@ -251,8 +346,9 @@ paper-progress::shadow #progress_bar_player {
 }
 
 .gradient_profile_title {
-    font-weight: bold;
-    font-size: 17px;
+    font-weight: 500;
+    font-size: 20px;
+    margin-bottom: 5px;
 }
 
 .gradient_details {
@@ -263,7 +359,7 @@ paper-progress::shadow #progress_bar_player {
     padding-top: 10px;
     padding-bottom: 10px;
     text-align: center;
-    border-bottom: 2px solid #cccccc;
+    border-bottom: 1px solid #cccccc;
     float: left;
     width: 100%;
 }
@@ -310,7 +406,7 @@ paper-progress::shadow #progress_bar_player {
     width: 100%;
 }
 
-#my_profile_picture {
+#my_profile_picture, #current_user_profile_picture {
     background-color: white;
     width: 100%;
     position: relative;
@@ -340,20 +436,20 @@ paper-progress::shadow #progress_bar_player {
 
 }
 
-#details_my_profile_picture {
+#details_my_profile_picture, #details_user_profile_picture {
     width: 100%;
     float: left;
 }
 
-#profile_layer, #profile_layer_invert {
+.profile_layer, #profile_layer_invert {
     height: 100%;
 }
 
-#my_profile_picture_pix {
+#my_profile_picture_pix, #user_profile_picture_pix {
     width: 100%;
 }
 
-#profile_details {
+.profile_details {
     height: 85%;
     width: calc(100% - 40px);
     height: calc(100% - 281px);
@@ -365,9 +461,6 @@ paper-progress::shadow #progress_bar_player {
     text-align: right;
 }
 
-#edit_view_profile_details {
-
-}
 
 #hidden_player {
     width: 100%;
@@ -378,7 +471,7 @@ paper-progress::shadow #progress_bar_player {
 .overflow_button_profile_pix {
     position: relative;
     margin-top: -33px;
-    margin-right: 10%;
+    margin-right: 20px;
 }
 
 #edit_profile, #follow_profile {
@@ -389,7 +482,7 @@ paper-progress::shadow #progress_bar_player {
     background: green;
 }
 
-#profile_description {
+.profile_description {
     font-size: 12px;
     display: block;
 }
@@ -405,8 +498,23 @@ paper-progress::shadow #progress_bar_player {
     height: 2000px;
     z-index: -1;
 }
-#cover_content {
-    background-color: #b94a48;
+
+.cover_content {
+    top: 0;
+    overflow: hidden;
+}
+
+.cover_content_on {
+    height: 100%;
+    width: 100%;
+}
+
+.user_cover_content {
+}
+
+.user_cover_content_on {
+    width: 100%;
+    height: 100%;
 }
 
 #center_column, #cover_content {
@@ -421,7 +529,7 @@ paper-progress::shadow #progress_bar_player {
 
 #cover_button {
     top: 0;
-    right: 0;
+    right: 13px;
     position: absolute;
     color: #16d301;
 }
@@ -445,11 +553,14 @@ paper-progress::shadow #progress_bar_player {
     color: black;
     width: 90%;
     float: left;
-    font-weight: bold;
+    font-weight: 500;
+    padding-top: 5px;
 }
 
 #tab_button {
     color: #16d301;
+    padding-bottom: 0px;
+    padding-top: 14px;
 }
 
 paper-tab::shadow #ink {
@@ -458,6 +569,7 @@ paper-tab::shadow #ink {
 
 paper-tabs::shadow #selectionBar {
     background-color: #16d301;
+    height: 3px;
 }
 
 html /deep/ #preview_dialog {
@@ -470,26 +582,40 @@ html /deep/ #preview_dialog {
 
 #main_layer {
     height: 100%;
+    width: calc(200% / 3);
+    float: left;
+}
+
+#cover_layer {
+    width: calc(100% / 3);
+    height: 100%;
+    float: left;
 }
 
 #center_layer {
     height: 100%;
 }
 
+.center_container {
+    float: left;
+    width: 100%;
+}
+
 #subscribed_users_title_containter {
-    border-bottom: 2px solid #cccccc;
+    border-bottom: 1px solid #cccccc;
     padding-top: 16px;
     padding-bottom: 12px;
     padding-left: 16px;
 }
 
 #subscribed_users_title {
-    font-size: 18px;
-    font-weight: bold;
+    font-size: 19px;
+    font-weight: 500;
 }
 
 #subscribed_users_title_number {
     color: #cccccc;
+    font-size: 13px;
 }
 
 #content_center {
@@ -543,7 +669,7 @@ html /deep/ #preview_dialog {
 }
 
 .library_title {
-    font-weight: bold;
+    font-weight: 500;
     font-size: 14px;
 }
 .library_text_container {
@@ -645,10 +771,15 @@ html /deep/ #preview_dialog {
 .yap {
     width: calc(100% - 22px);
     padding-top: 10px;
-    padding-bottom: 0px;
+    padding-bottom: 10px;
     border: solid #e6e6e7 1px;
     padding-left: 15px;
     padding-right: 15px;
+}
+
+.yap:hover {
+    cursor: pointer;
+    background-color: #eeeeee;
 }
 
 .yap_image_container {
@@ -665,7 +796,6 @@ html /deep/ #preview_dialog {
 }
 
 .yap_preview {
-    height: 100px;
 }
 
 .yap_details {
@@ -681,7 +811,7 @@ html /deep/ #preview_dialog {
 }
 
 .yap_title {
-    font-weight: bold;
+    font-weight: 500;
     font-size: 14px;
 }
 .yap_date_container {
@@ -701,4 +831,126 @@ html /deep/ #preview_dialog {
 
 #explore_user_libraries {
     height: 100%;
+}
+
+
+.current_playlist_user {
+    float: left;
+    margin-top: 5px;
+    background: rgba(255,255,255,0.75);
+    bottom: 0;
+    position: absolute;
+    transition: height 2.2s, width 2.2s, padding-left 2.2s, padding-right 2.2s;
+    width: 100%;
+    height: 0;
+}
+
+.current_playlist_user.current_playlist_user_on {
+    height: 100%;
+    width: calc(50% - 40px);
+    transition: height 2.2s, width 2.2s, padding-left 2.2s, padding-right 2.2s;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.yap_in_playlist.selected_yap , .yap_in_playlist:hover{
+    color: #16d301;
+    cursor: pointer;
+}
+
+.yap_in_playlist {
+    padding-bottom: 10px;
+    padding-top: 10px;
+    float: left;
+    width: 100%;
+}
+
+.yap_in_playlist_title {
+    font-size: 12px;
+    margin-bottom: 5px;
+}
+
+.yap_in_playlist_name_time_container {
+
+}
+
+.yap_in_playlist_name {
+    float: left;
+    width: 90%;
+    font-size: 12px;
+}
+
+.yap_in_playlist_time {
+    font-size: 12px;
+    float: right;
+}
+
+.player_control {
+    float: left;
+    width: calc(100% / 3);
+    text-align: center;
+    padding-bottom: 0px;
+}
+
+.play {
+
+}
+
+.rew {
+
+}
+
+.fwd {
+
+}
+
+.hide_icon {
+    display: none;
+}
+
+.tracker {
+    width: 100%;
+}
+
+.tracker::shadow #sliderBar {
+    height: 8px;
+}
+
+.tracker::shadow #sliderKnob {
+    top: 3px;
+}
+
+.tracker::shadow #sliderKnobInner {
+    background-color: white !important;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #16d301 !important;
+}
+
+.tracker::shadow #sliderContainer {
+    width: 100%;
+    right: 16px;
+}
+
+.tracker::shadow .bar-container {
+}
+
+.tracker::shadow #sliderBar::shadow #progressContainer {
+    background-color: #16d301;
+
+}
+
+.tracker::shadow #sliderBar::shadow #activeProgress {
+    background-color: white;
+}
+
+.tracker::shadow #sliderKnobInner::before {
+    background-color: #16d301;
+}
+
+/* Custom transition */
+
+:host(.slide-from-bottom) ::content > * {
+    transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1);
+    -webkit-transition: -webkit-transform 1s cubic-bezier(0.4, 0, 0.2, 1);
 }

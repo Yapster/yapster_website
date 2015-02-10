@@ -48,7 +48,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'pydub',
     'home',
-    'content_manager'
+    'main_app'
 )
 
 MIDDLEWARE_CLASSES = (

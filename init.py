@@ -1,5 +1,5 @@
 from home.models import *
-from content_manager.models import *
+from main_app.models import *
 
 TextWebsite.objects.init()
 Library.objects.create(name="lol")
