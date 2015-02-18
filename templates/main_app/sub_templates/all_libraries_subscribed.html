@@ -1,0 +1,18 @@
+{% load filters %}
+
+{% for library in l_libraries %}
+    <div id="lib_{{ library|access:"id" }}" class="library" onclick="to_user_to_library(this.id, '{{ library|access:"id" }}')">
+        <div class="image_container_library">
+            <img hero hero-id="" class="library_image lib_pix_heroable" src="{{ library|access:"picture_cropped_path" }}"/>
+        </div>
+        <div class="library_description">
+            <div class="library_title_container">
+                <span class="library_title">{{ library|access:"title" }}</span>
+            </div>
+            <div class="library_text_container">
+                <span class="library_text">{{ library|access:"description" }}</span>
+            </div>
+        </div>
+        <input type="hidden" class="user_cover_path" value="{{ library|access:"web_cover_picture_1_path" }}">
+    </div>
+{% endfor %}

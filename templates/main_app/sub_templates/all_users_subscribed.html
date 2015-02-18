@@ -1,0 +1,16 @@
+{% load  filters %}
+{% for user in l_users %}
+    <div id="lib_{{ user|access:"id" }}" class="library" onclick="to_user_to_library(this.id, '{{ user|access:"id" }}')">
+        <div class="image_container_user">
+            <img hero hero-id="" class="user_image profile-pix-hero" src="{{ user|access:"profile_picture_path" }}"/>
+        </div>
+        <div class="user_description">
+            <div class="user_title_container">
+                <span class="user_title">{{ user|access:"first_name" }} {{ user|access:"last_name" }}</span>
+            </div>
+            <div class="library_text_container">
+                <span class="user_text">{{ user|access:"description" }}</span>
+            </div>
+        </div>
+    </div>
+{% endfor %}

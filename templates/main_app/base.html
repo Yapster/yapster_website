@@ -10,9 +10,7 @@
     <script type="text/javascript" src="{% static "js/plugins/jQuery-File-Upload-9.8.1/js/jquery.fileupload.js" %} "></script>
     <script type="text/javascript" src="{% static "js/plugins/jQuery-File-Upload-9.8.1/js/vendor/jquery.ui.widget.js" %} "></script>
     <script type="text/javascript" src="{% static "js/plugins/jQuery-File-Upload-9.8.1/js/jquery.iframe-transport.js" %} "></script>
-    <script type="text/javascript" src="{% static "js/main_app/load.js" %} "></script>
-    <script type="text/javascript" src="{% static "js/main_app/player.js" %} "></script>
-    <script type="text/javascript" src="{% static "js/main_app/base.js" %} "></script>
+
     <script src="{% static "bower_components/webcomponentsjs/webcomponents.js"%}"></script>
 
     <link rel="import" href="{% static "bower_components/polymer/polymer.html" %}">
@@ -22,18 +20,18 @@
     <link rel="stylesheet" type="text/css" href="{% static "css/content_manager/base.css" %}" />
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,500,700,300' rel='stylesheet' type='text/css'>
 
-    <link rel="import" href="{% static "custom/column-search.html" %}">
-    <link rel="import" href="{% static "custom/search.html" %}">
-    <link rel="import" href="{% static "custom/animations.html" %}">
+    {#    <link rel="import" href="{% static "custom/column-search.html" %}">#}
+    {#    <link rel="import" href="{% static "custom/search.html" %}">#}
+    {#    <link rel="import" href="{% static "custom/animations.html" %}">#}
     <link rel="import" href="{% static "custom/my-header.html" %}">
-    <link rel="import" href="{% static "custom/profile-card.html" %}">
-    <link rel="import" href="{% static "custom/center-card.html" %}">
-    <link rel="import" href="{% static "custom/cover-card.html" %}">
-    <link rel="import" href="{% static "custom/my-player.html" %}">
-    <link rel="import" href="{% static "custom/preview-yap.html" %}">
-    <link rel="import" href="{% static "custom/yap.html" %}">
-    <link rel="import" href="{% static "custom/library.html" %}">
-    <link rel="import" href="{% static "custom/follow-lib-button.html" %}">
+    {#    <link rel="import" href="{% static "custom/profile-card.html" %}">#}
+    {#    <link rel="import" href="{% static "custom/center-card.html" %}">#}
+    {#    <link rel="import" href="{% static "custom/cover-card.html" %}">#}
+    {#    <link rel="import" href="{% static "custom/my-player.html" %}">#}
+    {#    <link rel="import" href="{% static "custom/preview-yap.html" %}">#}
+    {#    <link rel="import" href="{% static "custom/yap.html" %}">#}
+    {#    <link rel="import" href="{% static "custom/library.html" %}">#}
+    {#    <link rel="import" href="{% static "custom/follow-lib-button.html" %}">#}
 
     <link rel="import" href="{% static "bower_components/x-mixtaper/dist/x-mixtaper.html" %}">
 
@@ -43,6 +41,7 @@
     <link rel="import" href="{% static "bower_components/core-icon/core-icon.html" %}">
     <link rel="import" href="{% static "bower_components/core-icons/av-icons.html" %}">
     <link rel="import" href="{% static "bower_components/core-animated-pages/core-animated-pages.html" %}">
+    <link rel="import" href="{% static "bower_components/core-animation/core-animation.html" %}">
     <link rel="import" href="{% static "bower_components/core-pages/core-pages.html" %}">
     <link rel="import" href="{% static "bower_components/core-collapse/core-collapse.html" %}">
     <link rel="import" href="{% static "bower_components/core-header-panel/core-header-panel.html" %}">
@@ -67,6 +66,9 @@
     <link rel="import" href="{% static "bower_components/paper-slider/paper-slider.html" %}">
     <link rel="import" href="{% static "bower_components/paper-spinner/paper-spinner.html" %}">
 
+    <link rel="import" href="{% static "custom/template-library.html" %}">
+    <link rel="import" href="{% static "custom/no-more-to-load.html" %}">
+
 </head>
 <body fullbleed layout vertical>
 <my-header>
@@ -77,31 +79,50 @@
             <div cross-fade class="column" id="column1_main">
             </div>
             <div class="column" id="column2">
-                <core-header-panel id="core-header-center" mode="waterfall">
-                    <div cross-fade class="core-header">
-                        <paper-tabs selected="0" id="tabs">
-                            <paper-tab onclick="test('0')">Subscribed</paper-tab>
-                            <paper-tab onclick="test('1')">Explore</paper-tab>
-                        </paper-tabs>
-                        <paper-icon-button id="tab_button" icon="create" role="button"></paper-icon-button>
-                    </div>
-                    <div id="content_center">
-                        <core-animated-pages id="center_layer" transitions="slide-from-right">
-                            <section id="sub_section">
-                                <div id="subscribed_users" class="center_container">
+                <core-animated-pages id="view_all_layer" transitions="hero-transition">
+                    <section id="main_dashboard">
+                        <core-header-panel id="core-header-center" mode="waterfall">
+                            <div cross-fade class="core-header">
+                                <paper-tabs selected="0" id="tabs">
+                                    <paper-tab onclick="test('0')">Subscribed</paper-tab>
+                                    <paper-tab onclick="test('1')">Explore</paper-tab>
+                                </paper-tabs>
+                                <paper-icon-button id="tab_button" icon="create" role="button"></paper-icon-button>
+                            </div>
+                            <div id="content_center">
+                                <core-animated-pages id="center_layer" transitions="slide-from-right">
+                                    <section id="sub_section">
+                                        <div id="subscribed_users" class="center_container">
 
-                                </div>
-                                <div id="subscribed_libraries" class="center_container">
+                                        </div>
+                                        <div id="subscribed_libraries" class="center_container">
 
+                                        </div>
+                                    </section>
+                                    <section id="explore_section">
+                                        <paper-icon-button  id="button_left_change" class="hover" icon="favorite" role="button" aria-label="favorite" onclick="instanciate_button()"></paper-icon-button>
+                                        <div id="profile_picture_explore_1" class="prof_pix_heroable" hero hero-id="" onclick="to_main_to_user(this.id, '1')"></div>
+                                    </section>
+                                </core-animated-pages>
+                            </div>
+                        </core-header-panel>
+                    </section>
+                    <section id="view_all_dashboard">
+                        <core-header-panel id="core-header-view_all">
+                            <div id="view_all_header" class="core-header" mode="waterfall" hero hero-id="view_all_hero">
+                                <div id="view_all_toolbar">
+                                    <div id="view_all_title"></div>
                                 </div>
-                            </section>
-                            <section id="explore_section">
-                                <paper-icon-button  id="button_left_change" class="hover" icon="favorite" role="button" aria-label="favorite" onclick="instanciate_button()"></paper-icon-button>
-                                <div id="profile_picture_explore_1" class="prof_pix_heroable" hero hero-id="" onclick="to_main_to_user(this.id, '1')"></div>
-                            </section>
-                        </core-animated-pages>
-                    </div>
-                </core-header-panel>
+                                {#                                <div class="number_view_all_container">#}
+                                {#                                    <span class="number_header_title"></span>#}
+                                {#                                </div>#}
+                            </div>
+                            <div id="results_all_view" class="content">
+
+                            </div>
+                        </core-header-panel>
+                    </section>
+                </core-animated-pages>
             </div>
         </section>
         <section id="user_view_section">
@@ -238,5 +259,8 @@
         </div>
     </div>
 </div>
+<script type="text/javascript" src="{% static "js/main_app/load.js" %} "></script>
+<script type="text/javascript" src="{% static "js/main_app/player.js" %} "></script>
+<script type="text/javascript" src="{% static "js/main_app/base.js" %} "></script>
 </body>
 </html>

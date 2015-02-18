@@ -1,7 +1,5 @@
-from django.http import HttpResponseRedirect
-from django.views.generic import ListView
-from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseNotAllowed
+from django.shortcuts import render, redirect
+from django.http import HttpResponseNotAllowed
 from django.views.decorators.csrf import csrf_exempt
 from main_app.tools import *
 from django.contrib.auth import authenticate, login, logout
@@ -18,10 +16,8 @@ def main(request):
     :param request:
     :return:
     """
-    if request.is_ajax():
-        return
-    else:
-        return render(request, "main_app/other_pages/landing.html", {"librairies": Library.objects.all()})
+
+    return render(request, "main_app/base.html", {})
 
 def library(request):
     """
@@ -75,10 +71,17 @@ def log_in(request,
     json_response = yapster_api_post_request(path, params).json()
 
     if json_response['valid']:
-        return HttpResponse(username)
+        response = redirect("/app/")
+        response.set_cookie('s', json_response['session_id'])
+        response.set_cookie('u', json_response['user_id'])
+        return response
     else:
         return HttpResponseNotAllowed()
 
+
+def log_out(request):
+    request
+    return render(request, "home.html", {})
 
 @csrf_exempt
 def get_current_user_details(request,
@@ -92,9 +95,9 @@ def get_current_user_details(request,
     """
     context = {}
 
-    params = {"user_id": 1,
-              "session_id": 54,
-              "profile_user_id": 2}
+    params = {"user_id": request.COOKIES['u'],
+              "session_id": request.COOKIES['s'],
+              "profile_user_id": request.COOKIES['u']}
     json_response = yapster_api_post_request(path, params).json()
     if json_response['valid']:
         data = json_response['data']
@@ -105,7 +108,10 @@ def get_current_user_details(request,
         context['country'] = data['country_name']
         context['profile_picture_pix'] = get_profile_pix_path(data['profile_picture_path'])
         context['description'] = data['description']
+        context['subscribing_users_count'] = data['subscribing_users_count']
+        context['subscribing_libraries_count'] = data['subscribing_libraries_count']
         context['web_cover_picture_1_path'] = get_profile_pix_path(data['web_cover_picture_1_path'])
+
 
     return render(request, "main_app/sub_templates/current_user_details.html", context)
 
@@ -122,8 +128,8 @@ def get_preview_libraries(request,
     """
     context = {}
 
-    params = {"user_id": 1,
-              "session_id": 54}
+    params = {"user_id": request.COOKIES['u'],
+              "session_id": request.COOKIES['s']}
 
     json_response = yapster_api_post_request(path, params).json()
 
@@ -137,6 +143,10 @@ def get_preview_libraries(request,
             d['library_title'] = data[i]['title']
             d['library_id'] = data[i]['id']
             d['library_description'] = data[i]['description']
+
+            d['web_cover_picture_1_path'] = get_profile_pix_path(data[i]['user']['web_cover_picture_1_path'])
+
+
             l_libraries.append(d)
         context['l_libraries'] = l_libraries
 
@@ -174,9 +184,9 @@ def get_subscribed_libraries(request,
     """
     context = {}
 
-    params = {"user_id": 1,
-              "session_id": 54,
-              "profile_user_id": 2}
+    params = {"user_id": request.COOKIES['u'],
+              "session_id": request.COOKIES['s'],
+              "profile_user_id": request.COOKIES['u']}
     json_response = yapster_api_post_request(path, params).json()
     if json_response['valid']:
         data = json_response['data']
@@ -208,9 +218,10 @@ def get_subscribed_users(request,
     """
     context = {}
 
-    params = {"user_id": 1,
-              "session_id": 54,
-              "profile_user_id": 2}
+    params = {"user_id": request.COOKIES['u'],
+              "session_id": request.COOKIES['s'],
+              "profile_user_id": request.COOKIES['u']}
+
     json_response = yapster_api_post_request(path, params).json()
     if json_response['valid']:
         data = json_response['data']
@@ -260,8 +271,8 @@ def get_user_details(request,
     context = {}
     params = {}
 
-    params = {"user_id": 1,
-              "session_id": 54,
+    params = {"user_id": request.COOKIES['u'],
+              "session_id": request.COOKIES['s'],
               "profile_user_id": user_id}
 
     json_response = yapster_api_post_request(path, params).json()
@@ -294,8 +305,8 @@ def get_user_libraries(request,
     """
     context = {}
 
-    params = {"user_id": 1,
-              "session_id": 54,
+    params = {"user_id": request.COOKIES['u'],
+              "session_id": request.COOKIES['s'],
               "profile_user_id": int(user_id),
               "page": int(page),
               "amount": int(amount)
@@ -335,8 +346,8 @@ def get_library_details(request,
     """
     context = {}
 
-    params = {"user_id": 1,
-              "session_id": 54,
+    params = {"user_id": request.COOKIES['u'],
+              "session_id": request.COOKIES['s'],
               "library_id": int(library_id),
               "page": int(page),
               "amount": int(amount)
@@ -382,8 +393,8 @@ def get_playlist(request,
 
     context = {}
 
-    params = {"user_id": 1,
-              "session_id": 54,
+    params = {"user_id": request.COOKIES['u'],
+              "session_id": request.COOKIES['s'],
               "library_id": int(library_id),
               "page": int(page),
               "amount": int(amount)
@@ -411,3 +422,69 @@ def get_playlist(request,
         context['library_id'] = library_id
 
     return render(request, "main_app/sub_templates/get_playlist.html", context)
+
+@csrf_exempt
+def get_all_users(request,
+                  path="http://api.yapster.co/users/load/dashboard/subscribed/users/"):
+
+
+    context = {}
+    d = request.POST
+    params = {"user_id": request.COOKIES['u'],
+              "session_id": request.COOKIES['s'],
+              "page": d['page'],
+              "amount": d['amount']
+    }
+
+    json_response = yapster_api_post_request(path, params).json()
+
+    if json_response['valid']:
+        data = json_response['data']
+        l_users = []
+        for i in range(0, len(data)):
+            d = {}
+            sub_data = data[i]
+            d['first_name'] = sub_data['first_name']
+            d['last_name'] = sub_data['last_name']
+            d['id'] = sub_data['id']
+            d['profile_picture_path'] = get_profile_pix_path(sub_data['profile_picture_path'])
+            d['description'] = sub_data['description']
+            d['city_name'] = sub_data['city_name']
+            l_users.append(d)
+
+        context['l_users'] = l_users
+
+    return render(request, "main_app/sub_templates/all_users_subscribed.html", context)
+
+
+@csrf_exempt
+def get_all_libraries(request,
+                      path="http://api.yapster.co/users/load/dashboard/subscribed/libraries/"):
+
+
+    context = {}
+    d = request.POST
+    params = {"user_id": request.COOKIES['u'],
+              "session_id": request.COOKIES['s'],
+              "page": d['page'],
+              "amount": d['amount']
+    }
+
+    json_response = yapster_api_post_request(path, params).json()
+
+    if json_response['valid']:
+        data = json_response['data']
+        l_libraries = []
+        for i in range(0, len(data)):
+            d = {}
+            sub_data = data[i]
+            d['title'] = sub_data['title']
+            d['description'] = sub_data['description']
+            d['id'] = sub_data['id']
+            d['picture_cropped_path'] = get_profile_pix_path(sub_data['picture_cropped_path'])
+            d['web_cover_picture_1_path'] = get_profile_pix_path(sub_data['user']['web_cover_picture_1_path'])
+            l_libraries.append(d)
+
+        context['l_libraries'] = l_libraries
+
+    return render(request, "main_app/sub_templates/all_libraries_subscribed.html", context)

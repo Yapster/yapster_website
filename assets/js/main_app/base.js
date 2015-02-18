@@ -1,3 +1,7 @@
+var in_load = true;
+var cpt_users_call = 1;
+var cpt_libraries_call = 1;
+
 function uploadFile()
 {
     $('#fileupload').fileupload({
@@ -131,6 +135,55 @@ function tog_right()
     p.selected = p.selected ? 0 : 1;
 }
 
+function from_dashboard_to_view_all_user()
+{
+    var current_title = $('#view_all_title').text();
+
+    $("#view_all_libraries_container").attr("hero-id", "");
+    $("#view_all_users_container").attr("hero-id", "view_all_hero");
+
+    var p = document.querySelector('#view_all_layer');
+    p.selected = 1;
+
+    $('#button_from_view_all_to_dash').toggle();
+
+
+    if (current_title != "Subscribed Users")
+    {
+        cpt_users_call = 1;
+        get_view_all_users(1, 54);
+    }
+
+}
+
+function from_dashboard_to_view_all_library()
+{
+    var current_title = $('#view_all_title').text();
+
+    $("#view_all_users_container").attr("hero-id", "");
+    $("#view_all_libraries_container").attr("hero-id", "view_all_hero");
+
+    var p = document.querySelector('#view_all_layer');
+    p.selected = 1;
+
+    $('#button_from_view_all_to_dash').toggle();
+
+
+    if (current_title != "Subscribed Libraries")
+    {
+        cpt_libraries_call = 1;
+        get_view_all_libraries(1, 54);
+    }
+
+}
+
+function from_view_all_to_dashboard()
+{
+    $('#button_from_view_all_to_dash').toggle();
+    var p = document.querySelector('#view_all_layer');
+    p.selected = 0;
+}
+
 function tog_dialog()
 {
     var p = document.querySelector('#cover_preview_card');
@@ -171,14 +224,18 @@ jQuery(document).ready(function() {
     get_preview_libraries();
     get_subscribed_users();
 
+
     // Player
     $("#player").hover(
         function () {
             var p = document.querySelector('#collapse_player');
             p.opened = 1;
+            $('#current_yap_pix').fadeIn(800);
+
         }, function () {
             var p = document.querySelector('#collapse_player');
             p.opened = 0;
+            $('#current_yap_pix').fadeOut(800);
         }
     );
 
@@ -229,10 +286,23 @@ jQuery(document).ready(function() {
         $('.current_playlist_user').fadeIn(300);
     });
 
+    document.querySelector('#core-header-view_all').addEventListener('scroll', function(e){
+        if ((e.detail.target.scrollHeight -  e.detail.target.scrollTop) == e.detail.target.offsetHeight){
+            if (!in_load)
+            {
+                in_load = true;
+                var current_title = $('#view_all_title').text();
+                if (current_title == "Subscribed Users")
+                {
+                    cpt_users_call++;
+                    get_view_all_users_more(1,4,cpt_users_call);
+                }
+                else {
+                    cpt_libraries_call++;
+                    get_view_all_libraries_more(1, 4, cpt_libraries_call);
+                }
 
-    // initialization - first element in playlist
-    //initAudio($('.current_playlist_user div:first-child'));
-
-
-
+            }
+        }
+    });
 });

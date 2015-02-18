@@ -1,6 +1,8 @@
 function get_current_user_details() {
     // Set background cover
     // Append in section id='main_view_section' > id='column1'
+    $('#current_cover_image').html("<paper-spinner active></paper-spinner>");
+
     $.ajax({
         data : {
         },
@@ -14,6 +16,9 @@ function get_current_user_details() {
 }
 
 function get_preview_libraries() {
+    $('#subscribed_libraries').html("<paper-spinner active></paper-spinner>");
+
+
     $.ajax({
         data : {
         },
@@ -39,6 +44,8 @@ function get_preview_libraries() {
 //}
 
 function get_subscribed_users() {
+    $('#results_all_view').html("<paper-spinner active></paper-spinner>");
+
     $.ajax({
         data : {
         },
@@ -52,6 +59,8 @@ function get_subscribed_users() {
 
 function get_explore_libraries() {
     // Append in id=explore_section
+    $('#results_all_view').html("<paper-spinner active></paper-spinner>");
+
     $.ajax({
         data : {
         },
@@ -66,6 +75,7 @@ function get_explore_libraries() {
 function get_user_details(id, pk) {
     //set background cover
     // Append in section id='user_view_section' > id='column1_user'
+    $('#details_user_profile_picture').html("<paper-spinner active></paper-spinner>");
 
     var root_user = $('#' + id);
     var root_destination = $('#current_user_profile_picture');
@@ -81,6 +91,7 @@ function get_user_details(id, pk) {
     var p = document.querySelector('#main_layer');
     var q = document.querySelector('#cover_layer');
     var r = document.querySelector('#explore_user_libraries');
+
     p.selected = '1';
     q.selected = '1';
     r.selected = '0';
@@ -102,8 +113,8 @@ function get_user_details(id, pk) {
 
 function get_user_libraries(pk) {
     // Append in id=libraries_user
-    var s = document.createElement('paper-spinner');
-    $('#libraries_user').html(s);
+    $('#results_all_view').html("<paper-spinner active></paper-spinner>");
+
 
     $.ajax({
         data : {
@@ -118,12 +129,12 @@ function get_user_libraries(pk) {
 
 function get_library_details(id, pk) {
     // Append in id=yaps_user
-    var s = document.createElement('paper-spinner');
-    $('#content_yap_library').html(s);
+    $('#content_yap_library').html("<paper-spinner active></paper-spinner>");
 
     var root_library = $('#' + id);
     var root_destination = $('#cover_library');
 
+    $('#user_cover_image').attr('src', root_library.find('.user_cover_path').val());
     root_destination.find('.gradient_lib_cover_title').text(root_library.find('.library_title').text());
     if (root_library.find('.library_text'))
     {
@@ -138,7 +149,12 @@ function get_library_details(id, pk) {
     $(".lib_pix_heroable[hero-id='lib-pix-hero']").attr("hero-id", "");
     origin_pix.attr('hero-id', 'lib-pix-hero');
     var p = document.querySelector('#explore_user_libraries');
+    var q = document.querySelector('#cover_layer');
+    var r = document.querySelector('#main_layer');
+
     p.selected = '1';
+    q.selected = '1';
+    r.selected = '1';
 
     $.ajax({
         data : {
@@ -151,15 +167,123 @@ function get_library_details(id, pk) {
     });
 }
 
-function get_playlist() {
-    // Append in
+function get_view_all_users(id, pk)
+{
+    $('#results_all_view').html("");
+    $('#results_all_view').addClass('sub_users');
+    $('#results_all_view').removeClass('sub_libraries');
+    $('#results_all_view').html("<template-library id='fake_template'></template-library>");
+
+    var url = "app/get_all_users/";
+
+
+    $('#view_all_title').text('Subscribed Users');
+    $('#view_all_dashboard').find('.number_header_title').text('Users');
+    $('#view_all_dashboard').find('.number_header_number').text('21');
+
+
     $.ajax({
         data : {
+            page: 1,
+            amount: 10
         },
-        url : "//",
+        url : url,
         type : "POST",
         success: function(newData){
-            $('#cover_content').html(newData);
+            $('#fake_template').remove();
+            $('#results_all_view').html(newData);
+            in_load = false;
+        },
+        error: function(newData) {
+
+        }
+    });
+}
+
+function get_view_all_users_more(id, pk, page)
+{
+    $('#results_all_view').append("<template-library id='fake_template'></template-library>");
+    var url = "app/get_all_users/"
+
+    $.ajax({
+        data : {
+            user_id: 1,
+            session_id: 54,
+            page: page,
+            amount: 10
+        },
+        url : url,
+        type : "POST",
+        success: function(newData){
+            $('#fake_template').remove();
+            $('#results_all_view').append(newData);
+            in_load = false;
+        },
+        error: function(newData) {
+            $('#fake_template').remove();
+            $('#results_all_view').append("<no-more-to-load typeData='users'></no-more-to-load>");
+        }
+    });
+}
+
+function get_view_all_libraries(id, pk)
+{
+    $('#results_all_view').html("");
+    $('#results_all_view').addClass('sub_libraries');
+    $('#results_all_view').removeClass('sub_users');
+
+    var url = "app/get_all_libraries/";
+    $('#results_all_view').append("<template-library id='fake_template'></template-library>");
+
+
+    $('#view_all_title').text('Subscribed Libraries');
+    $('#view_all_dashboard').find('.number_header_title').text('Libraries');
+    $('#view_all_dashboard').find('.number_header_number').text('21');
+
+
+    $.ajax({
+        data : {
+            page: 1,
+            amount: 10
+        },
+        url : url,
+        type : "POST",
+        success: function(newData){
+            $('#fake_template').remove();
+            $('#results_all_view').html(newData);
+            $('#results_all_view').addClass('sub_libraries');
+
+            in_load = false;
+        },
+        error: function(newData) {
+            $('#fake_template').remove()
+        }
+    });
+}
+
+function get_view_all_libraries_more(id, pk, page)
+{
+    var url = "app/get_all_libraries/"
+    $('#results_all_view').append("<template-library id='fake_template'></template-library>");
+
+
+    $.ajax({
+        data : {
+            user_id: 1,
+            session_id: 54,
+            page: page,
+            amount: 10
+        },
+        url : url,
+        type : "POST",
+        success: function(newData){
+            $('#fake_template').remove();
+
+            $('#results_all_view').append(newData);
+            in_load = false;
+        },
+        error: function(newData) {
+            $('#fake_template').remove();
         }
     });
 }

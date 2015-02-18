@@ -1,6 +1,7 @@
 <div id="my_profile_picture" class="width_ratio ratio3-2">
     <div class="content_ratio">
         <div class="gradient_toolbar gradient_profile_picture" cross-fade>
+            <paper-icon-button  id="button_from_view_all_to_dash" class="hover" icon="arrow-back" role="button" onclick="from_view_all_to_dashboard()" style="display: none"></paper-icon-button>
             <div class="left_icones_container">
                 <paper-icon-button class="left_icon" icon="create" role="button"></paper-icon-button>
                 <paper-icon-button class="left_icon" icon="search" role="button"></paper-icon-button>
@@ -31,5 +32,7 @@
         </section>
     </core-animated-pages>
     <input type="hidden" id="current_user_cover_path" value="{{ web_cover_picture_1_path }}">
+    <input type="hidden" id="current_user_subscribing_users_count" value="{{ subscribing_users_count }}">
+    <input type="hidden" id="current_user_subscribing_libraries_count" value="{{ subscribing_libraries_count }}">
 
 </div>

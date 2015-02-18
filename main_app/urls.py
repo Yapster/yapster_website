@@ -17,6 +17,8 @@ urlpatterns = patterns(
     url(r'get_user_details/(?P<user_id>[a-zA-Z0-9_.-]+)/$', 'main_app.views.get_user_details'),
     url(r'get_user_libraries/(?P<user_id>[a-zA-Z0-9_.-]+)/(?P<page>[a-zA-Z0-9_.-]+)/(?P<amount>[a-zA-Z0-9_.-]+)/$', 'main_app.views.get_user_libraries'),
     url(r'get_library_details/(?P<library_id>[a-zA-Z0-9_.-]+)/(?P<page>[a-zA-Z0-9_.-]+)/(?P<amount>[a-zA-Z0-9_.-]+)/$', 'main_app.views.get_library_details'),
+    url(r'get_all_users/$', 'main_app.views.get_all_users'),
+    url(r'get_all_libraries/$', 'main_app.views.get_all_libraries'),
     url(r'get_playlist/(?P<library_id>[a-zA-Z0-9_.-]+)/(?P<yap_id>[a-zA-Z0-9_.-]+)/(?P<page>[a-zA-Z0-9_.-]+)/(?P<amount>[a-zA-Z0-9_.-]+)/$', 'main_app.views.get_playlist'),
     url(r'', 'main_app.views.main'),
     )

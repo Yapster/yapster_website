@@ -13,6 +13,7 @@
                     <div class="gradient_title_container gradient_title_container_center">
                         <span class="gradient_title library_title">{{ library|access:"library_title" }}</span>
                         <input type="hidden" class="library_description" value="{{ library|access:"library_description" }}"/>
+                        <input type="hidden" class="user_cover_path" value="{{ library|access:"web_cover_picture_1_path" }}">
                     </div>
                 </div>
             </div>
@@ -35,7 +36,7 @@
             </div>
         {% endfor %}
     </div>
-    <div cross-fade id="view_all_container">
-        <span id="view_all_title">view all</span>
+    <div cross-fade id="view_all_libraries_container" class="view_all_container" onclick="from_dashboard_to_view_all_library()" hero hero-id="">
+        <span class="view_all_title">view all</span>
     </div>
 </div>

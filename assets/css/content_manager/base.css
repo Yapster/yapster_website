@@ -4,6 +4,28 @@ body {
     overflow-y:hidden;
     height: 100%;
 }
+
+core-header-panel::shadow #mainContainer {
+}
+
+core-header-panel::shadow #mainContainer::-webkit-scrollbar-track
+{
+    background-color: white;
+    border-radius: 10px;
+}
+
+core-header-panel::shadow #mainContainer::-webkit-scrollbar
+{
+    width: 10px;
+    background-color: #F5F5F5;
+}
+
+core-header-panel::shadow #mainContainer::-webkit-scrollbar-thumb
+{
+    background-color: #16d301;
+    border-radius: 10px;
+}
+
 my-header {
     z-index: 50;
 }
@@ -11,7 +33,7 @@ my-header {
 #left_part {
     width: 100%;
     float: left;
-    height: 100%;
+    height: calc(100% - 60px);
 }
 
 .column_cover {
@@ -55,9 +77,6 @@ my-header {
     width: 200%;
 }
 
-
-
-
 .section_left {
     height: 630px;
 }
@@ -67,11 +86,26 @@ my-header {
     top: 0;
 }
 
+#view_all_toolbar, #results_all_view {
+    float: left;
+    width: 100%;
+}
+
+
+
 #button_back_library_to_user {
     top: 0;
     position: absolute;
     left: 0;
     margin-top: 4px;
+}
+
+#button_from_view_all_to_dash {
+    margin-top: 4px;
+    float: left;
+    top: 0;
+    position: absolute;
+    left: 0;
 }
 
 #second_button_left_change {
@@ -337,6 +371,10 @@ paper-progress::shadow #progress_bar_player {
     margin-top: -22px;
 }
 
+.left_icones_view_all_container {
+    float: right;
+}
+
 .left_icon {
 
 }
@@ -355,16 +393,22 @@ paper-progress::shadow #progress_bar_player {
     font-size: 12px;
 }
 
-#view_all_container {
+.view_all_container {
     padding-top: 10px;
     padding-bottom: 10px;
     text-align: center;
     border-bottom: 1px solid #cccccc;
     float: left;
     width: 100%;
+    cursor: pointer;
+    background-color: white;
 }
 
-#view_all_title {
+.view_all_container:hover {
+    background-color: #eeeeee;
+}
+
+.view_all_title {
     color: #16d301;
     font-size: 15px;
     text-transform: uppercase;
@@ -400,10 +444,15 @@ paper-progress::shadow #progress_bar_player {
     text-align: center;
     overflow: hidden;
     position: relative;
+    border-radius: 5px;
 }
 
 #current_yap_pix {
     width: 100%;
+    display: none;
+}
+
+#current_yap_pix.yap_pix_active {
 }
 
 #my_profile_picture, #current_user_profile_picture {
@@ -433,7 +482,10 @@ paper-progress::shadow #progress_bar_player {
     left: 0;
     bottom: 0;
     right: 0;
+}
 
+.content_ratio:hover {
+    cursor: pointer;
 }
 
 #details_my_profile_picture, #details_user_profile_picture {
@@ -539,7 +591,7 @@ paper-progress::shadow #progress_bar_player {
     float: left;
 }
 
-#core-header-center {
+#core-header-center, #core-header-view_all {
     float: left;
     height: 100%;
     width: 100%;
@@ -547,6 +599,10 @@ paper-progress::shadow #progress_bar_player {
 
 .core-header {
     border-bottom: 1px solid #cccccc;
+}
+
+#view_all_header {
+    background-color: white;
 }
 
 #tabs {
@@ -586,6 +642,11 @@ html /deep/ #preview_dialog {
     float: left;
 }
 
+#view_all_layer {
+    width: 100%;
+    height: 100%;
+}
+
 #cover_layer {
     width: calc(100% / 3);
     height: 100%;
@@ -601,24 +662,24 @@ html /deep/ #preview_dialog {
     width: 100%;
 }
 
-#subscribed_users_title_containter {
+#subscribed_users_title_containter{
     border-bottom: 1px solid #cccccc;
     padding-top: 16px;
     padding-bottom: 12px;
     padding-left: 16px;
 }
 
-#subscribed_users_title {
+#subscribed_users_title{
     font-size: 19px;
     font-weight: 500;
 }
 
-#subscribed_users_title_number {
+#subscribed_users_title_number{
     color: #cccccc;
     font-size: 13px;
 }
 
-#content_center {
+#content_center #results_all_view {
     height: 100%;
 }
 
@@ -652,30 +713,36 @@ html /deep/ #preview_dialog {
     padding-bottom: 10px;
     float: left;
 }
+
+.library:hover {
+    background-color: #eeeeee;
+}
+
 .image_container_library{
 
 }
-.library_image {
+.library_image, .user_image {
     width: 60px;
     float: left;
 }
-.library_description {
+
+.library_description, .user_description {
     margin-left: 10px;
     float: left;
 }
 
-.library_title_container {
+.library_title_container, .user_title_container {
     margin-bottom: 5px;
 }
 
-.library_title {
+.library_title, .user_title {
     font-weight: 500;
     font-size: 14px;
 }
-.library_text_container {
+.library_text_container, .user_text_container {
 
 }
-.library_text {
+.library_text, .user_text {
     font-size: 14px;
 }
 
@@ -747,6 +814,15 @@ html /deep/ #preview_dialog {
     font-size: 20px;
 }
 
+#view_all_title {
+    font-size: 20px;
+    margin-top: 10px;
+    float: left;
+    color: #16d301;
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
+
 .follow_library {
     position: absolute;
     left: 340px;
@@ -754,7 +830,7 @@ html /deep/ #preview_dialog {
     z-index: 1;
 }
 
-.number_yaps_libraries_container {
+.number_yaps_libraries_container, .number_users_container, .number_view_all_container {
     background-color: rgb(240, 240, 241);
     padding-top: 10px;
     padding-bottom: 10px;
@@ -762,7 +838,7 @@ html /deep/ #preview_dialog {
     padding-right: 15px;
 }
 
-.number_yaps_libraries_text {
+.number_yaps_libraries_text, .number_users_text, .number_header_title {
     font-size: 12px;
     color: #c0c0c1;
 }
@@ -953,4 +1029,10 @@ html /deep/ #preview_dialog {
 :host(.slide-from-bottom) ::content > * {
     transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1);
     -webkit-transition: -webkit-transform 1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.load_more_div {
+    width: 100%;
+    float: left;
+    height: 60px;
 }
