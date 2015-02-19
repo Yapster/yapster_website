@@ -2,21 +2,20 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponseNotAllowed
 from django.views.decorators.csrf import csrf_exempt
 from main_app.tools import *
-from django.contrib.auth import authenticate, login, logout
-from main_app.models import *
+from decorators import user_has_perm
 from pydub import AudioSegment
 
 
 def forgot_password(request):
     return render(request, "main_app/other_pages/forgot_password.html", {})
 
+@user_has_perm
 def main(request):
     """
     If
     :param request:
     :return:
     """
-
     return render(request, "main_app/base.html", {})
 
 def library(request):
@@ -84,6 +83,7 @@ def log_out(request):
     return render(request, "home.html", {})
 
 @csrf_exempt
+@user_has_perm
 def get_current_user_details(request,
                              user_id,
                              path='http://api.yapster.co/users/load/profile/info/'):
@@ -117,6 +117,7 @@ def get_current_user_details(request,
 
 
 @csrf_exempt
+@user_has_perm
 def get_preview_libraries(request,
                           user_id,
                           path='http://api.yapster.co/users/load/dashboard/subscribed/libraries/'):
@@ -173,6 +174,7 @@ def get_preview_libraries(request,
     return render(request, "main_app/sub_templates/subscribed_libraries.html", context)
 
 @csrf_exempt
+@user_has_perm
 def get_subscribed_libraries(request,
                              user_id,
                              path='http://api.yapster.co/users/load/dashboard/subscribed/libraries/'):
@@ -245,7 +247,7 @@ def get_subscribed_users(request,
 
     return render(request, "main_app/sub_templates/subscribed_users.html", context)
 
-
+@user_has_perm
 def get_explore_libraries(request,
                           user_id):
     """
@@ -259,6 +261,7 @@ def get_explore_libraries(request,
 
 
 @csrf_exempt
+@user_has_perm
 def get_user_details(request,
                      user_id,
                      path="http://api.yapster.co/users/load/profile/info/"):
@@ -292,6 +295,7 @@ def get_user_details(request,
     return render(request, 'main_app/sub_templates/user_details.html', context)
 
 @csrf_exempt
+@user_has_perm
 def get_user_libraries(request,
                        user_id,
                        page,
@@ -333,6 +337,7 @@ def get_user_libraries(request,
 
 
 @csrf_exempt
+@user_has_perm
 def get_library_details(request,
                         library_id,
                         page,
@@ -458,6 +463,7 @@ def get_all_users(request,
 
 
 @csrf_exempt
+@user_has_perm
 def get_all_libraries(request,
                       path="http://api.yapster.co/users/load/dashboard/subscribed/libraries/"):
 
@@ -486,5 +492,59 @@ def get_all_libraries(request,
             l_libraries.append(d)
 
         context['l_libraries'] = l_libraries
+
+    return render(request, "main_app/sub_templates/all_libraries_subscribed.html", context)
+
+
+@csrf_exempt
+@user_has_perm
+def get_search_results(request,
+                       path=""):
+
+    context = {}
+    d = request.POST
+    params = {
+        "user_id": request.COOKIES['u'],
+        "session_id": request.COOKIES['s'],
+        "search": d['search']
+    }
+
+    # json_response = yapster_api_post_request(path, params).json()
+    # if json_response['valid']:
+
+
+    return render(request, "main_app/sub_templates/search_results.html", context)
+
+@csrf_exempt
+@user_has_perm
+def get_explore_users(request,
+                      path="http://api.yapster.co/users/load/dashboard/explore/users/"):
+    context = {}
+    d = request.POST
+    params = {
+        "user_id": d['u'],
+        "session_id": d['s'],
+        "profile_user_id": d['u']
+    }
+    json_response = yapster_api_post_request(path, params).json()
+    # if json_response['valid']:
+
+
+    return render(request, "main_app/sub_templates/all_users_subscribed.html", context)
+
+@csrf_exempt
+@user_has_perm
+def get_explore_libraries(request,
+                          path="http://api.yapster.co/users/load/dashboard/explore/libraries/"):
+    context = {}
+    d = request.POST
+    params = {
+        "user_id": d['u'],
+        "session_id": d['s'],
+        "profile_user_id": d['u']
+    }
+    json_response = yapster_api_post_request(path, params).json()
+    # if json_response['valid']:
+
 
     return render(request, "main_app/sub_templates/all_libraries_subscribed.html", context)

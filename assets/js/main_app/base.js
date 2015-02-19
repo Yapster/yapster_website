@@ -215,7 +215,10 @@ function toggle_perso_interface()
     $('.current_playlist_user').toggleClass('current_playlist_user_on');
 }
 
-
+function search_bar()
+{
+    get_search_results();
+}
 
 
 jQuery(document).ready(function() {

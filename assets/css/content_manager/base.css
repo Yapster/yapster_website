@@ -22,8 +22,13 @@ core-header-panel::shadow #mainContainer::-webkit-scrollbar
 
 core-header-panel::shadow #mainContainer::-webkit-scrollbar-thumb
 {
-    background-color: #16d301;
+    background-color: #F2F2F2;
     border-radius: 10px;
+}
+
+core-header-panel::shadow #mainContainer::-webkit-scrollbar-thumb:hover
+{
+    background-color: #CCCCCC;
 }
 
 my-header {
@@ -57,6 +62,8 @@ my-header {
 #column2 {
     transition: right 2.2s;
     right: 0;
+    z-index: 5;
+    position:relative;
 }
 
 #column2.tall_cover {
@@ -1035,4 +1042,19 @@ html /deep/ #preview_dialog {
     width: 100%;
     float: left;
     height: 60px;
+}
+
+.search_results {
+    height: 100%;
+    width: 33.33%;
+    background-color: #1a237e;
+    position: relative;
+    margin-left: 33.33%;
+    transition: margin-left 2.2s;
+}
+
+.search_results.search_active {
+    display: inherit;
+    margin-left: 66.66%;
+    border: solid black 5px;
 }

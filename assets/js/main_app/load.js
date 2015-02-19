@@ -278,7 +278,6 @@ function get_view_all_libraries_more(id, pk, page)
         type : "POST",
         success: function(newData){
             $('#fake_template').remove();
-
             $('#results_all_view').append(newData);
             in_load = false;
         },
@@ -286,4 +285,9 @@ function get_view_all_libraries_more(id, pk, page)
             $('#fake_template').remove();
         }
     });
+}
+
+function get_search_results()
+{
+
 }
