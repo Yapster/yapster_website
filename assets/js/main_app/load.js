@@ -16,7 +16,7 @@ function get_current_user_details() {
 }
 
 function get_preview_libraries() {
-    $('#subscribed_libraries').html("<paper-spinner active></paper-spinner>");
+    $('#subscribed_libraries_results').html("<paper-spinner active></paper-spinner>");
 
 
     $.ajax({
@@ -25,7 +25,7 @@ function get_preview_libraries() {
         url : "/app/get_preview_libraries/1/",
         type : "POST",
         success: function(newData){
-            $('#subscribed_libraries').html(newData);
+            $('#subscribed_libraries_results').html(newData);
         }
     });
 }
@@ -44,7 +44,7 @@ function get_preview_libraries() {
 //}
 
 function get_subscribed_users() {
-    $('#results_all_view').html("<paper-spinner active></paper-spinner>");
+    $('#subscribed_users_results').html("<paper-spinner active></paper-spinner>");
 
     $.ajax({
         data : {
@@ -52,22 +52,7 @@ function get_subscribed_users() {
         url : "/app/get_subscribed_users/1/",
         type : "POST",
         success: function(newData){
-            $('#subscribed_users').html(newData);
-        }
-    });
-}
-
-function get_explore_libraries() {
-    // Append in id=explore_section
-    $('#results_all_view').html("<paper-spinner active></paper-spinner>");
-
-    $.ajax({
-        data : {
-        },
-        url : "//",
-        type : "POST",
-        success: function(newData){
-            $('#explore_section').html(newData);
+            $('#subscribed_users_results').html(newData);
         }
     });
 }
@@ -290,4 +275,34 @@ function get_view_all_libraries_more(id, pk, page)
 function get_search_results()
 {
 
+}
+
+function get_explore_users()
+{
+    $('#explore_users_results').html("<paper-spinner active></paper-spinner>");
+
+    $.ajax({
+        data : {
+        },
+        url : "/app/get_explore_users/",
+        type : "POST",
+        success: function(newData){
+            $('#explore_users_results').html(newData);
+        }
+    });
+}
+
+function get_explore_libraries()
+{
+    $('#explore_libraries_results').html("<paper-spinner active></paper-spinner>");
+
+    $.ajax({
+        data : {
+        },
+        url : "/app/get_explore_libraries/",
+        type : "POST",
+        success: function(newData){
+            $('#explore_libraries_results').html(newData);
+        }
+    });
 }

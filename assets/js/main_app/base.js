@@ -54,7 +54,7 @@ $(function ()
                 var progress = parseInt(data.loaded / data.total * 100, 10);
                 $('#progress .bar').css(
                     'width',
-                    progress + '%'
+                        progress + '%'
                 );
             },
             add: function (e, data) {
@@ -85,6 +85,7 @@ function toggle_left_column(id)
 {
     var p = document.querySelector('#' + id);
     p.selected = p.selected ? 0 : 1;
+    $('.interface_hideable_items').toggleClass('hide');
 }
 
 function to_main_to_user(id, pk)
@@ -111,8 +112,6 @@ function to_library_to_user()
 {
     var p = document.querySelector('#explore_user_libraries');
     p.selected = '0';
-    toggle_cover();
-
 }
 
 function user_to_main(x)
@@ -213,6 +212,7 @@ function toggle_perso_interface()
     $('#column3').toggleClass('tall_cover');
     $('#column2').toggleClass('tall_cover');
     $('.current_playlist_user').toggleClass('current_playlist_user_on');
+    $('.search_results').toggle();
 }
 
 function search_bar()
@@ -226,7 +226,8 @@ jQuery(document).ready(function() {
     get_current_user_details();
     get_preview_libraries();
     get_subscribed_users();
-
+    get_explore_users();
+    get_explore_libraries();
 
     // Player
     $("#player").hover(
@@ -242,6 +243,11 @@ jQuery(document).ready(function() {
         }
     );
 
+    $('#left_part').click(
+        function () {
+
+        }
+    );
 
 // play click
     $('#play_button').click(function (e) {

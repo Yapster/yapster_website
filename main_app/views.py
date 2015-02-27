@@ -518,33 +518,65 @@ def get_search_results(request,
 @csrf_exempt
 @user_has_perm
 def get_explore_users(request,
-                      path="http://api.yapster.co/users/load/dashboard/explore/users/"):
+                      path="http://api.yapster.co/users/load/dashboard/subscribed/users/"):
     context = {}
     d = request.POST
     params = {
-        "user_id": d['u'],
-        "session_id": d['s'],
-        "profile_user_id": d['u']
+        "user_id": request.COOKIES['u'],
+        "session_id": request.COOKIES['s'],
+        "profile_user_id": request.COOKIES['u']
     }
     json_response = yapster_api_post_request(path, params).json()
     # if json_response['valid']:
+    #     data = json_response['data']
+    #     context['user_0_profile_pix'] = get_profile_pix_path(data[0]['profile_picture_path'])
+    #     context['user_0_first_name'] = data[0]['first_name']
+    #     context['user_0_last_name'] = data[0]['last_name']
+    #     context['user_0_id'] = data[0]['id']
+    #     context['user_0_web_cover_picture_1_path'] = get_profile_pix_path(data[0]['web_cover_picture_1_path'])
+    #
+    #     context['user_1_profile_pix'] = get_profile_pix_path(data[1]['profile_picture_path'])
+    #     context['user_1_first_name'] = data[1]['first_name']
+    #     context['user_1_last_name'] = data[1]['last_name']
+    #     context['user_1_id'] = data[1]['id']
+    #     context['user_1_web_cover_picture_1_path'] = get_profile_pix_path(data[1]['web_cover_picture_1_path'])
+    #
+    #     context['user_2_profile_pix'] = get_profile_pix_path(data[2]['profile_picture_path'])
+    #     context['user_2_first_name'] = data[2]['first_name']
+    #     context['user_2_last_name'] = data[2]['last_name']
+    #     context['user_2_id'] = data[2]['id']
+    #     context['user_2_web_cover_picture_1_path'] = get_profile_pix_path(data[2]['web_cover_picture_1_path'])
 
 
-    return render(request, "main_app/sub_templates/all_users_subscribed.html", context)
+
+    return render(request, "main_app/sub_templates/all_users_explore.html", context)
 
 @csrf_exempt
 @user_has_perm
 def get_explore_libraries(request,
-                          path="http://api.yapster.co/users/load/dashboard/explore/libraries/"):
+                          path="http://api.yapster.co/users/load/dashboard/subscribed/libraries/"):
     context = {}
     d = request.POST
     params = {
-        "user_id": d['u'],
-        "session_id": d['s'],
-        "profile_user_id": d['u']
+        "user_id": request.COOKIES['u'],
+        "session_id": request.COOKIES['s'],
+        "profile_user_id": request.COOKIES['u']
     }
     json_response = yapster_api_post_request(path, params).json()
     # if json_response['valid']:
+    #     data = json_response['data']
+    #     l_libraries = []
+    #     for i in range(0, len(data)):
+    #         d = {}
+    #         sub_data = data[i]
+    #         d['title'] = sub_data['title']
+    #         d['description'] = sub_data['description']
+    #         d['id'] = sub_data['id']
+    #         d['picture_cropped_path'] = get_profile_pix_path(sub_data['picture_cropped_path'])
+    #         d['web_cover_picture_1_path'] = get_profile_pix_path(sub_data['user']['web_cover_picture_1_path'])
+    #         l_libraries.append(d)
+    #
+    #     context['l_libraries'] = l_libraries
 
 
-    return render(request, "main_app/sub_templates/all_libraries_subscribed.html", context)
+    return render(request, "main_app/sub_templates/all_libraries_explore.html", context)

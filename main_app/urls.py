@@ -20,6 +20,8 @@ urlpatterns = patterns(
     url(r'get_all_users/$', 'main_app.views.get_all_users'),
     url(r'get_all_libraries/$', 'main_app.views.get_all_libraries'),
     url(r'get_search_results/$', 'main_app.views.get_search_results'),
+    url(r'get_explore_users/$', 'main_app.views.get_explore_users'),
+    url(r'get_explore_libraries/$', 'main_app.views.get_explore_libraries'),
     url(r'get_playlist/(?P<library_id>[a-zA-Z0-9_.-]+)/(?P<yap_id>[a-zA-Z0-9_.-]+)/(?P<page>[a-zA-Z0-9_.-]+)/(?P<amount>[a-zA-Z0-9_.-]+)/$', 'main_app.views.get_playlist'),
     url(r'', 'main_app.views.main'),
     )

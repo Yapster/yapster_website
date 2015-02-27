@@ -21,15 +21,13 @@
                 background: transparent;
                 color: white;
             }
-            .search_active:hover {
-            }
 
         </style>
         <core-header-panel flex id="header-poly">
             <core-toolbar id="toolbar_header">
                 <input type="text" id="search_bar" placeholder="Search a user, library, yap..."/>
-                <paper-button class="button_search_bar" role="button" aria-disabled on-tap="{{ goSearch }}">Search</paper-button>
-                <paper-button class="button_search_bar" disabled role="button" aria-disabled>Cancel</paper-button>
+                <paper-button id="go_search" class="button_search_bar" role="button" on-tap="{{ goSearch }}">Search</paper-button>
+                <paper-button id="cancel_search" class="button_search_bar" role="button" on-tap="{{ goCancel }}">Cancel</paper-button>
             </core-toolbar>
         </core-header-panel>
     </template>
@@ -37,22 +35,36 @@
         Polymer({
             goSearch: function() {
                 var url = "app/get_search_results/";
-                var search = $('#search_bar').text()
+                var search = $('#search_bar').text();
 
-                $.ajax({
-                    data : {
-                        search: search
-                    },
-                    url : url,
-                    type : "POST",
-                    success: function(newData){
-                        $('.search_results').append(newData).addClass('search_active');
-
-                    },
-                    error: function(newData) {
-                        $('.search_results').append(newData).toggleClass('search_active');
-                    }
-                });
+                $('#column3').removeClass('tall_cover');
+                $('#column2').removeClass('tall_cover');
+                $('.current_playlist_user').removeClass('current_playlist_user_on');
+                alert($('#search_bar').text());
+                if ($('#search_bar').text() != "")
+                {
+                    $.ajax({
+                        data : {
+                            search: search
+                        },
+                        url : url,
+                        type : "POST",
+                        success: function(newData){
+                            $('.to_delete').remove();
+                            $('.search_active').addClass("to_delete").removeClass('search_active');
+                            $('.empty_search').html(newData).addClass('search_active').removeClass('empty_search');
+                            $('.search_active').after("<div class='search_results empty_search'></div>");
+                        },
+                        error: function(newData) {
+                            $('.search_results').append(newData).toggleClass('search_active');
+                        },
+                    });
+                }
+            },
+            goCancel: function() {
+                $('.to_delete').remove();
+                $('.search_results').removeClass('search_active').html("");
+                $('.empty_search').prev().addClass('to_delete');
             }
         });
     </script>

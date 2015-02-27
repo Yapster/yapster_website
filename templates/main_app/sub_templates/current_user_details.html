@@ -1,35 +1,36 @@
-<div id="my_profile_picture" class="width_ratio ratio3-2">
+<div id="done_edit_user_button" class="interface_hideable_items" onclick="toggle_left_column('my_profile_layer')">
+    <span>Done</span>
+</div>
+<div id="my_profile_picture" class="width_ratio ratio3-2 interface_hideable_items">
     <div class="content_ratio">
-        <div class="gradient_toolbar gradient_profile_picture" cross-fade>
+        <div class="gradient_toolbar gradient_profile_picture interface_hideable_items" cross-fade>
             <paper-icon-button  id="button_from_view_all_to_dash" class="hover" icon="arrow-back" role="button" onclick="from_view_all_to_dashboard()" style="display: none"></paper-icon-button>
             <div class="left_icones_container">
-                <paper-icon-button class="left_icon" icon="create" role="button"></paper-icon-button>
-                <paper-icon-button class="left_icon" icon="search" role="button"></paper-icon-button>
                 <paper-icon-button class="left_icon" icon="more-vert" role="button"></paper-icon-button>
             </div>
         </div>
         <img id="my_profile_picture_pix" src="{{ profile_picture_pix }}"/>
-        <div class="gradient_title_container">
+        <div class="gradient_title_container interface_hideable_items">
             <div class="gradient_title gradient_profile_title">{{ first_name }}  {{ last_name }}</div>
             <div class="gradient_details"> {{ city }} | {{ country }}</div>
         </div>
     </div>
+
 </div>
 <div class="overflow_button_profile_pix_container">
-    <paper-fab cross-fade icon="create" class="overflow_button_profile_pix" id="edit_profile" title="create" onclick="toggle_left_column('my_profile_layer')"></paper-fab>
+    <paper-fab cross-fade icon="create" class="overflow_button_profile_pix interface_hideable_items" id="edit_profile" title="create" onclick="toggle_left_column('my_profile_layer')"></paper-fab>
 </div>
 <div id="details_my_profile_picture">
-    <core-animated-pages id="my_profile_layer" class="profile_layer" transitions="hero-transition cross-fade">
+    <core-animated-pages id="my_profile_layer" class="profile_layer" selected="1" transitions="slide-from-bottom">
+        <section id="edit_view_left_section">
+            {% include "main_app/sub_templates/edit_current_profile.html" %}
+        </section>
         <section id="main_view_left_section">
-            <div class="profile_details" hero hero-id="profile_details-hero">
+            <div class="profile_details" >
                 <span class="profile_description">{{ description }}</span>
             </div>
         </section>
-        <section id="edit_view_left_section">
-            <div  hero hero-id="profile_details-hero">
-                <span class="profile_description">Profile details</span>
-            </div>
-        </section>
+
     </core-animated-pages>
     <input type="hidden" id="current_user_cover_path" value="{{ web_cover_picture_1_path }}">
     <input type="hidden" id="current_user_subscribing_users_count" value="{{ subscribing_users_count }}">

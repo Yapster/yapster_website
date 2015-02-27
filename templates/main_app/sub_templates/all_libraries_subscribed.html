@@ -1,5 +1,6 @@
 {% load filters %}
 
+{% if l_libraries %}
 {% for library in l_libraries %}
     <div id="lib_{{ library|access:"id" }}" class="library" onclick="to_user_to_library(this.id, '{{ library|access:"id" }}')">
         <div class="image_container_library">
@@ -16,3 +17,6 @@
         <input type="hidden" class="user_cover_path" value="{{ library|access:"web_cover_picture_1_path" }}">
     </div>
 {% endfor %}
+{% else %}
+    <div>No Libraries to display</div>
+{% endif %}
