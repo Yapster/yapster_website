@@ -22,30 +22,40 @@
                 color: white;
             }
 
+            #upload_button {
+                color: white;
+            }
+            #upload_button:hover {
+
+            }
+
         </style>
         <core-header-panel flex id="header-poly">
             <core-toolbar id="toolbar_header">
-                <input type="text" id="search_bar" placeholder="Search a user, library, yap..."/>
+                <input type="text" id="search_bar" placeholder="Search a user, library, yap..." value="{{ search_text }}"/>
                 <paper-button id="go_search" class="button_search_bar" role="button" on-tap="{{ goSearch }}">Search</paper-button>
                 <paper-button id="cancel_search" class="button_search_bar" role="button" on-tap="{{ goCancel }}">Cancel</paper-button>
+                <core-icon-button id="upload_button" role="button" icon="file-upload" on-tap="{{ toggleEditPanel }}"></core-icon-button>
             </core-toolbar>
         </core-header-panel>
     </template>
     <script>
         Polymer({
+            previous_search: '',
+            search_text: '',
             goSearch: function() {
                 var url = "app/get_search_results/";
-                var search = $('#search_bar').text();
 
                 $('#column3').removeClass('tall_cover');
                 $('#column2').removeClass('tall_cover');
                 $('.current_playlist_user').removeClass('current_playlist_user_on');
-                alert($('#search_bar').text());
-                if ($('#search_bar').text() != "")
+
+                if (this.search_text && (this.search_text != this.previous_search))
                 {
+                    this.previous_search = this.search_text;
                     $.ajax({
                         data : {
-                            search: search
+                            search: this.search_text
                         },
                         url : url,
                         type : "POST",
@@ -57,14 +67,20 @@
                         },
                         error: function(newData) {
                             $('.search_results').append(newData).toggleClass('search_active');
-                        },
+                        }
                     });
+                }
+                else {
+                    alert('empty');
                 }
             },
             goCancel: function() {
                 $('.to_delete').remove();
                 $('.search_results').removeClass('search_active').html("");
                 $('.empty_search').prev().addClass('to_delete');
+            },
+            toggleEditPanel: function() {
+                $('edit-yap').toggleClass('on');
             }
         });
     </script>

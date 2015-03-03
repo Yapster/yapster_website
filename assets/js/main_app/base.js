@@ -88,6 +88,46 @@ function toggle_left_column(id)
     $('.interface_hideable_items').toggleClass('hide');
 }
 
+function save_edit_current_user(id)
+{
+    toggle_left_column(id);
+}
+
+function follow_user()
+{
+    var state = $('#follow_profile').attr('icon');
+    var user_id = $('#id_user_detail').val();
+
+
+    if (state == 'add-circle')
+    {
+        $.ajax({
+            data : {
+                to_follow: user_id
+            },
+            url : "/app/subscribed_user_profile/",
+            type : "POST",
+            success: function(){
+                $('#follow_profile').attr('icon', 'remove-circle');
+            }
+        });
+    }
+    else
+    {
+        $.ajax({
+            data : {
+                to_unfollow: user_id
+            },
+            url : "/app/unsubscribed_user_profile/",
+            type : "POST",
+            success: function(){
+                $('#follow_profile').attr('icon', 'add-circle');
+            }
+        });
+    }
+}
+
+
 function to_main_to_user(id, pk)
 {
     get_user_details(id, pk);
@@ -215,9 +255,18 @@ function toggle_perso_interface()
     $('.search_results').toggle();
 }
 
-function search_bar()
+function change_profile_pix(input)
 {
-    get_search_results();
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            $('#my_profile_picture_pix')
+                .attr('src', e.target.result);
+        };
+
+        reader.readAsDataURL(input.files[0]);
+    }
 }
 
 

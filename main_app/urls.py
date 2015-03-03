@@ -22,6 +22,8 @@ urlpatterns = patterns(
     url(r'get_search_results/$', 'main_app.views.get_search_results'),
     url(r'get_explore_users/$', 'main_app.views.get_explore_users'),
     url(r'get_explore_libraries/$', 'main_app.views.get_explore_libraries'),
+    url(r'unsubscribed_user_profile/$', 'main_app.views.unsubscribed_user_profile'),
+    url(r'subscribed_user_profile/$', 'main_app.views.subscribed_user_profile'),
     url(r'get_playlist/(?P<library_id>[a-zA-Z0-9_.-]+)/(?P<yap_id>[a-zA-Z0-9_.-]+)/(?P<page>[a-zA-Z0-9_.-]+)/(?P<amount>[a-zA-Z0-9_.-]+)/$', 'main_app.views.get_playlist'),
     url(r'', 'main_app.views.main'),
     )

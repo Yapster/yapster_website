@@ -69,11 +69,13 @@
 
     <link rel="import" href="{% static "custom/template-library.html" %}">
     <link rel="import" href="{% static "custom/no-more-to-load.html" %}">
+    <link rel="import" href="{% static "custom/edit-yap.html" %}">
 
 </head>
 <body fullbleed layout vertical>
 <my-header>
 </my-header>
+<edit-yap></edit-yap>
 <div id="left_part">
 <core-animated-pages id="main_layer" transitions="hero-transition">
     <section id="main_view_section">
@@ -182,7 +184,7 @@
                 </div>
             </div>
             <div class="overflow_button_profile_pix_container">
-                <paper-fab cross-fade icon="done" class="overflow_button_profile_pix" id="follow_profile" title="create" onclick="toggle_left_column('user_profile_layer')"></paper-fab>
+                <paper-fab cross-fade icon="add-circle" class="overflow_button_profile_pix" id="follow_profile" title="create" onclick="follow_user()"></paper-fab>
             </div>
             <div id="details_user_profile_picture">
             </div>

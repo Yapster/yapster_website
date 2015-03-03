@@ -1,12 +1,13 @@
-<div id="done_edit_user_button" class="interface_hideable_items" onclick="toggle_left_column('my_profile_layer')">
-    <span>Done</span>
+<div id="done_edit_user_button" class="interface_hideable_items" onclick="save_edit_current_user('my_profile_layer')">
+    <span>DONE</span>
 </div>
+<paper-icon-button  id="button_from_edit_to_dash" class="hover interface_hideable_items" icon="arrow-back" role="button" onclick="toggle_left_column('my_profile_layer')"></paper-icon-button>
 <div id="my_profile_picture" class="width_ratio ratio3-2 interface_hideable_items">
     <div class="content_ratio">
         <div class="gradient_toolbar gradient_profile_picture interface_hideable_items" cross-fade>
-            <paper-icon-button  id="button_from_view_all_to_dash" class="hover" icon="arrow-back" role="button" onclick="from_view_all_to_dashboard()" style="display: none"></paper-icon-button>
             <div class="left_icones_container">
-                <paper-icon-button class="left_icon" icon="more-vert" role="button"></paper-icon-button>
+                <paper-icon-button id="back_edit_profile" class="back_button interface_hideable_items" icon="arrow-back" role="button"></paper-icon-button>
+                <paper-icon-button class="right_icon" icon="more-vert" role="button"></paper-icon-button>
             </div>
         </div>
         <img id="my_profile_picture_pix" src="{{ profile_picture_pix }}"/>
@@ -15,7 +16,10 @@
             <div class="gradient_details"> {{ city }} | {{ country }}</div>
         </div>
     </div>
-
+    <div id="mid_text_edit_photo_user" class="interface_hideable_items" onclick="">
+        <input type="file" id="new_profile_pix" name="files[]" onchange="change_profile_pix(this)">
+        <label id="label_new_profile_pix" for="new_profile_pix">Click to change profile photo</label>
+    </div>
 </div>
 <div class="overflow_button_profile_pix_container">
     <paper-fab cross-fade icon="create" class="overflow_button_profile_pix interface_hideable_items" id="edit_profile" title="create" onclick="toggle_left_column('my_profile_layer')"></paper-fab>
@@ -30,10 +34,8 @@
                 <span class="profile_description">{{ description }}</span>
             </div>
         </section>
-
     </core-animated-pages>
     <input type="hidden" id="current_user_cover_path" value="{{ web_cover_picture_1_path }}">
     <input type="hidden" id="current_user_subscribing_users_count" value="{{ subscribing_users_count }}">
     <input type="hidden" id="current_user_subscribing_libraries_count" value="{{ subscribing_libraries_count }}">
-
 </div>

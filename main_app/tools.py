@@ -91,6 +91,8 @@ def upload_file_to_s3(file, user_id, name, test=1):
 
 def yapster_api_post_request(path, params):
     headers = {'content-type': 'application/json'}
+    if params == {}:
+        return requests.get(path, headers=headers)
     return requests.post(path, data=json.dumps(params), headers=headers)
 
 

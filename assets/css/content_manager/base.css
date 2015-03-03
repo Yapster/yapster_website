@@ -33,6 +33,22 @@ my-header {
     z-index: 50;
 }
 
+edit-yap {
+    width: 100%;
+    float: left;
+    position: absolute;
+    background-color: white;
+    z-index: 100;
+    height: 0;
+    transition: height 1.0s;
+}
+
+edit-yap.on {
+    height: calc(100% - 60px);
+
+}
+
+
 #left_part {
     width: 100%;
     float: left;
@@ -106,12 +122,26 @@ my-header {
     margin-top: 4px;
 }
 
-#button_from_view_all_to_dash {
+#button_from_view_all_to_dash, #button_from_edit_to_dash {
     margin-top: 4px;
     float: left;
     top: 0;
     position: absolute;
     left: 0;
+}
+
+#button_from_edit_to_dash {
+    display: none !important;
+    color: white;
+}
+
+#button_from_edit_to_dash.hide {
+    display: inherit !important;
+    z-index: 60;
+}
+
+paper-icon-button:hover {
+    color: #16d301;
 }
 
 #second_button_left_change {
@@ -404,6 +434,19 @@ paper-progress::shadow #progress_bar_player {
 
 }
 
+.back_button{
+    position: absolute;
+    left: 0;
+}
+
+#back_edit_profile {
+    display: none;
+}
+
+#back_edit_profile.hide {
+
+}
+
 .gradient_title {
     font-size: 15px;
 }
@@ -518,11 +561,11 @@ paper-progress::shadow #progress_bar_player {
     position: absolute;
     top: 0;
     right: 0;
-    font-size: 18px;
+    font-size: 16px;
     opacity: 0;
     transition: opacity 0.4s;
     margin-right: 20px;
-    margin-top: 5px;
+    margin-top: 10px;
     color: white;
     z-index: 60;
 }
@@ -530,6 +573,39 @@ paper-progress::shadow #progress_bar_player {
 #done_edit_user_button.hide {
     display: inherit;
     opacity: 1;
+    cursor: pointer;
+}
+
+#done_edit_user_button:hover {
+    color: #16d301;
+}
+
+#mid_text_edit_photo_user {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.4s;
+}
+
+#mid_text_edit_photo_user.hide {
+    display: inherit;
+    opacity: 1;
+    position: absolute;
+    z-index: 190;
+    top: 50%;
+    left: 25%;
+    color: white;
+    cursor: pointer;
+}
+
+#mid_text_edit_photo_user.hide:hover {
+    color: #16d301;
+}
+
+#new_profile_pix {
+    display: none;
+}
+
+#label_new_profile_pix {
     cursor: pointer;
 }
 
@@ -659,7 +735,7 @@ paper-dropdown-menu {
 }
 
 #follow_profile {
-    background: green;
+    background: #16d301;
 }
 
 .profile_description {

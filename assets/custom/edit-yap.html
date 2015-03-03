@@ -1,0 +1,169 @@
+<polymer-element name="edit-yap">
+    <template>
+        <style>
+            .edit_yap_panel {
+                height: 100%;
+                width: 100%;
+                float: left;
+            }
+            .edit_yap_column {
+                width: calc(100% / 3 - 80px);
+                height: 100%;
+                margin: 40px;
+                float: left;
+            }
+            .title_column {
+                font-size: 20px;
+                font-weight: 500;
+                margin-bottom: 30px;
+            }
+            .upload_button {
+                text-transform: capitalize;
+                color: white;
+                background-color: #16d301;
+                margin: 0;
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+            .help_text_container {
+                color: lightgrey;
+                font-size: 12px;
+                margin-top: 20px;
+                margin-bottom: 80px;
+            }
+            .alert_message_yap {
+                font-style: italic;
+                font-size: 12px;
+            }
+
+            .editing_part {
+            }
+            .yap_list {
+
+            }
+            #new_yap_upload, #new_yap_photo_upload {
+                display: none;
+            }
+            .input_description {
+                width: 100%;
+                resize: none;
+            }
+
+            .yap_upload {
+                width: 100%;
+                margin-bottom: 20px;
+                float: left;
+            }
+
+            .line_yap_upload {
+                float: left;
+                width: 100%;
+            }
+            .filename_aftercut_text {
+                float: left;
+            }
+            .file_duration_text {
+                float: right;
+            }
+            .filename_input {
+                float: left;
+            }
+            .part_text{
+                height: 100%;
+                width: 20%;
+                float: right;
+                margin-top: 20px;
+                text-align: right;
+            }
+            .list_of_libraries {
+
+            }
+            .button_container {
+
+            }
+            #post_yap_button {
+                margin-top: 50%;
+            }
+            .play_preview {
+                color: #16d301;
+            }
+
+        </style>
+        <div class="edit_yap_panel">
+            <div class="edit_yap_column">
+                <div class="title_column">
+                    <span>Create a Yap</span>
+                </div>
+                <div class="button_upload_container">
+                    <input type="file" id="new_yap_upload" name="files[]" onchange="change_profile_pix(this)">
+                    <label for="new_yap_upload">
+                        <paper-button class="upload_button" on-tap="{{ uploadFile }}">Upload audio file</paper-button>
+                    </label>
+                </div>
+                <div class="help_text_container">
+                    <span>{{ textHelp }}</span>
+                </div>
+                <div class="alert_message_yap">
+                    <span>{{ alertMessage }}</span>
+                </div>
+                <div class="editing_part">
+                    <div class="yap_upload">
+                        <div class="line_yap_upload">
+                            <div class="filename_aftercut_text">Filename_part1.mp3</div>
+                            <div class="file_duration_text">1:00:00</div>
+                        </div>
+                        <div class="line_yap_upload">
+                            <paper-input class="filename_input" label="Filename"></paper-input>
+                            <span class="part_text">part {{ forloop.counter }}</span>
+                        </div>
+                    </div>
+                    <div class="preview_player">
+                        <paper-icon-button icon="play" class="play_preview" icon="av:play-arrow"></paper-icon-button>
+                        <paper-slider min="0" max value></paper-slider>
+                    </div>
+                    <div class="input_description_container">
+                        <textarea class="input_description" placeholder="Description of the yap" rows="5" cols="10"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="edit_yap_column">
+                <div class="title_column">
+                    <span>Attach a photo</span>
+                </div>
+                <div class="button_upload_container">
+                    <input type="file" id="new_yap_photo_upload" name="files[]" onchange="change_profile_pix(this)">
+                    <label for="new_yap_photo_upload">
+                        <paper-button class="upload_button" on-tap="">Upload audio file</paper-button>
+                    </label>
+                </div>
+                <div class="help_text_container">
+                    <span>{{ textHelp2 }}</span>
+                </div>
+                <div class="title_column">
+                    <span>Library</span>
+                </div>
+                <div class="button_upload_container">
+                    <label for="new_yap_photo_upload">
+                        <paper-button class="upload_button" on-tap="">Add New Library</paper-button>
+                    </label>
+                </div>
+                <div class="list_of_libraries">
+
+                </div>
+            </div>
+            <div class="edit_yap_column" style="text-align: center">
+                <paper-button class="upload_button" id="post_yap_button" on-tap="">Post Yap</paper-button>
+            </div>
+        </div>
+    </template>
+    <script>
+        Polymer({
+            textHelp: "click the button above to select a audio file for the yap",
+            textHelp2: "click the button above to attach a photo for the yap",
+            alertMessage: "The file you uploaded is over 1 hour, it has been automatically cut into 2 files",
+            uploadFile: function() {
+
+            }
+        });
+    </script>
+</polymer-element>

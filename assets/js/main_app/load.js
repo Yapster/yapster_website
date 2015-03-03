@@ -73,6 +73,16 @@ function get_user_details(id, pk) {
     $(".prof_pix_heroable[hero-id='profile-pix-hero']").attr("hero-id", "");
     root_user.attr('hero-id', 'profile-pix-hero');
 
+    var bool_follow = root_user.find('.user_followed').val();
+    if (bool_follow == "True")
+    {
+        $('#follow_profile').attr('icon', 'remove-circle');
+    }
+    else
+    {
+        $('#follow_profile').attr('icon', 'add-circle');
+    }
+
     var p = document.querySelector('#main_layer');
     var q = document.querySelector('#cover_layer');
     var r = document.querySelector('#explore_user_libraries');
@@ -81,7 +91,7 @@ function get_user_details(id, pk) {
     q.selected = '1';
     r.selected = '0';
 
-    var url = "/app/get_user_details/" + pk + "/"
+    var url = "/app/get_user_details/" + pk + "/";
     $.ajax({
         data : {
         },
@@ -248,7 +258,7 @@ function get_view_all_libraries(id, pk)
 
 function get_view_all_libraries_more(id, pk, page)
 {
-    var url = "app/get_all_libraries/"
+    var url = "app/get_all_libraries/";
     $('#results_all_view').append("<template-library id='fake_template'></template-library>");
 
 
@@ -270,11 +280,6 @@ function get_view_all_libraries_more(id, pk, page)
             $('#fake_template').remove();
         }
     });
-}
-
-function get_search_results()
-{
-
 }
 
 function get_explore_users()

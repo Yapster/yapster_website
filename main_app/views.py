@@ -1,9 +1,11 @@
+from django.contrib.gis.geometry.regex import json_regex
 from django.shortcuts import render, redirect
-from django.http import HttpResponseNotAllowed
+from django.http import HttpResponseNotAllowed, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from main_app.tools import *
 from decorators import user_has_perm
 from pydub import AudioSegment
+
 
 
 def forgot_password(request):
@@ -86,7 +88,9 @@ def log_out(request):
 @user_has_perm
 def get_current_user_details(request,
                              user_id,
-                             path='http://api.yapster.co/users/load/profile/info/'):
+                             path='http://api.yapster.co/users/load/profile/info/',
+                             path_countries='http://api.yapster.co/location/countries/load/',
+                             path_states='http://api.yapster.co/location/us_states/load/'):
     """
     From API get current user logged in information
     :param request:
@@ -95,11 +99,21 @@ def get_current_user_details(request,
     """
     context = {}
 
-    params = {"user_id": request.COOKIES['u'],
-              "session_id": request.COOKIES['s'],
-              "profile_user_id": request.COOKIES['u']}
+    params = {
+        "user_id": request.COOKIES['u'],
+        "session_id": request.COOKIES['s'],
+        "profile_user_id": request.COOKIES['u']
+    }
+    params_states = {
+        "country_id": 184
+    }
+
     json_response = yapster_api_post_request(path, params).json()
+    json_response_countries = yapster_api_post_request(path_countries, {}).json()
+    json_response_states = yapster_api_post_request(path_states, params_states).json()
+
     if json_response['valid']:
+        # Get user info
         data = json_response['data']
         context['first_name'] = data['first_name']
         context['last_name'] = data['last_name']
@@ -111,6 +125,20 @@ def get_current_user_details(request,
         context['subscribing_users_count'] = data['subscribing_users_count']
         context['subscribing_libraries_count'] = data['subscribing_libraries_count']
         context['web_cover_picture_1_path'] = get_profile_pix_path(data['web_cover_picture_1_path'])
+
+        # Get countries
+        l_countries = []
+        if json_response_countries:
+            for country in json_response_countries:
+                l_countries.append(country['name'])
+            context['countries'] = l_countries
+
+        # Get states
+        l_states = []
+        if json_response_states:
+            for state in json_response_states:
+                l_states.append(state['name'])
+            context['states'] = l_states
 
 
     return render(request, "main_app/sub_templates/current_user_details.html", context)
@@ -232,18 +260,21 @@ def get_subscribed_users(request,
         context['user_0_last_name'] = data[0]['last_name']
         context['user_0_id'] = data[0]['id']
         context['user_0_web_cover_picture_1_path'] = get_profile_pix_path(data[0]['web_cover_picture_1_path'])
+        context['followed_0'] = data[0]['viewing_user_subscribed_to_user']
 
         context['user_1_profile_pix'] = get_profile_pix_path(data[1]['profile_picture_path'])
         context['user_1_first_name'] = data[1]['first_name']
         context['user_1_last_name'] = data[1]['last_name']
         context['user_1_id'] = data[1]['id']
         context['user_1_web_cover_picture_1_path'] = get_profile_pix_path(data[1]['web_cover_picture_1_path'])
+        context['followed_1'] = data[1]['viewing_user_subscribed_to_user']
 
         context['user_2_profile_pix'] = get_profile_pix_path(data[2]['profile_picture_path'])
         context['user_2_first_name'] = data[2]['first_name']
         context['user_2_last_name'] = data[2]['last_name']
         context['user_2_id'] = data[2]['id']
         context['user_2_web_cover_picture_1_path'] = get_profile_pix_path(data[2]['web_cover_picture_1_path'])
+        context['followed_2'] = data[2]['viewing_user_subscribed_to_user']
 
     return render(request, "main_app/sub_templates/subscribed_users.html", context)
 
@@ -499,18 +530,20 @@ def get_all_libraries(request,
 @csrf_exempt
 @user_has_perm
 def get_search_results(request,
-                       path=""):
+                       path="http://api.yapster.co/search/default/"):
 
     context = {}
     d = request.POST
     params = {
         "user_id": request.COOKIES['u'],
         "session_id": request.COOKIES['s'],
-        "search": d['search']
+        "text": d['search'],
+        "screen": "web",
+        "search_type": "all"
     }
 
-    # json_response = yapster_api_post_request(path, params).json()
-    # if json_response['valid']:
+    json_response = yapster_api_post_request(path, params).json()
+    #if json_response['valid']:
 
 
     return render(request, "main_app/sub_templates/search_results.html", context)
@@ -580,3 +613,55 @@ def get_explore_libraries(request,
 
 
     return render(request, "main_app/sub_templates/all_libraries_explore.html", context)
+
+
+
+@csrf_exempt
+@user_has_perm
+def edit_current_user_profile(request,
+                              path="http://api.yapster.co/users/settings/edit/"):
+    context = {}
+    params = {
+        "user_id": request.COOKIES['u'],
+        "session_id": request.COOKIES['s'],
+    }
+
+    json_response = yapster_api_post_request(path, params).json()
+
+    #if json_response['valid']:
+
+
+    return render(request, "", context)
+
+
+@csrf_exempt
+@user_has_perm
+def subscribed_user_profile(request,
+                            path="http://api.yapster.co/yap/subscribe/user/"):
+    context = {}
+    params = {
+        "user_id": request.COOKIES['u'],
+        "session_id": request.COOKIES['s'],
+        "user_2_id": request.POST['to_follow']
+    }
+
+    json_response = yapster_api_post_request(path, params).json()
+    if json_response['valid']:
+        return HttpResponse()
+    return HttpResponseNotAllowed()
+
+@csrf_exempt
+@user_has_perm
+def unsubscribed_user_profile(request,
+                              path="http://api.yapster.co/yap/unsubscribe/user/"):
+    context = {}
+    params = {
+        "user_id": request.COOKIES['u'],
+        "session_id": request.COOKIES['s'],
+        "user_2_id": request.POST['to_unfollow']
+    }
+
+    json_response = yapster_api_post_request(path, params).json()
+    if json_response['valid']:
+        return HttpResponse()
+    return HttpResponseNotAllowed()

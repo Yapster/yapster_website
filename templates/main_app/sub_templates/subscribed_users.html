@@ -7,7 +7,7 @@
             </div>
         </div>
         <input type="hidden" class="user_cover_path" value="{{ user_0_web_cover_picture_1_path }}">
-
+        <input type="hidden" class="user_followed" value="{{ followed_0 }}">
     </div>
     <div cross-fade id="main_user_picture_{{ user_1_id }}" class="prof_pix_heroable small_prof_pix width_ratio ratio3-2" hero hero-id="" onclick="to_main_to_user(this.id, {{ user_1_id }})">
         <div class="content_ratio">
@@ -17,7 +17,7 @@
             </div>
         </div>
         <input type="hidden" class="user_cover_path" value="{{ user_1_web_cover_picture_1_path }}">
-
+        <input type="hidden" class="user_followed" value="{{ followed_1 }}">
     </div>
     <div cross-fade id="main_user_picture_{{ user_2_id }}" class="prof_pix_heroable small_prof_pix width_ratio ratio3-2" hero hero-id="" onclick="to_main_to_user(this.id, {{ user_2_id }})">
         <div class="content_ratio">
@@ -27,6 +27,7 @@
             </div>
         </div>
         <input type="hidden" class="user_cover_path" value="{{ user_2_web_cover_picture_1_path }}">
+        <input type="hidden" class="user_followed" value="{{ followed_2 }}">
 
     </div>
     <div cross-fade id="view_all_users_container" class="view_all_container" onclick="from_dashboard_to_view_all_user()" hero hero-id="">

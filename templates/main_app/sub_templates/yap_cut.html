@@ -1,0 +1,19 @@
+{% if yaps|length > 1%}
+<div class="alert_message_yap">
+    <span>{{ alertMessage }}</span>
+</div>
+
+{% for yap in yaps %}
+    <div class="yap_upload">
+        <div class="line_yap_upload">
+            <div class="filename_aftercut_text">Filename_part1.mp3</div>
+            <div class="file_duration_text">1:00:00</div>
+        </div>
+        <div class="line_yap_upload">
+            <div>
+                <paper-input label="Filename"></paper-input>
+                <span class="part_text">part {{ forloop.counter }}</span>
+            </div>
+        </div>
+    </div>
+{% endfor %}
