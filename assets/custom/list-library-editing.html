@@ -1,0 +1,30 @@
+<polymer-element name="list-library-editing">
+    <template>
+        <style>
+        </style>
+    </template>
+    <core-ajax
+            auto
+            method="GET"
+            url="http://api.yapster.co/location/countries/load/"
+            on-core-response="{{handleResponse}}"
+            handleAs="json"></core-ajax>
+    <div>
+        fwerofjroi
+    </div>
+    <script>
+        Polymer({
+            urlApi: "http://api.yapster.co/users/load/profile/libraries/",
+            params: {"user_id": 1,
+                "session_id": 80,
+                "profile_user_id": 1,
+                "page": 1,
+                "amount": 5
+            },
+            response: [],
+            handleResponse: function () {
+                alert('lib');
+            }
+        });
+    </script>
+</polymer-element>

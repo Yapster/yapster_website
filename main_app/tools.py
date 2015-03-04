@@ -18,6 +18,16 @@ def boto_init_s3(bucket_name):
 
     return b
 
+def to_cut(file, duration_slice=60000.0):
+    try:
+        mime = file.content_type.split("/")
+    except IndexError:
+        return False
+    if mime[0] == "audio":
+        file_version = AudioSegment.from_file(file, mime[1])
+        nb = len(file_version) / duration_slice
+        return nb
+    return 0
 
 def is_valid(file):
     """

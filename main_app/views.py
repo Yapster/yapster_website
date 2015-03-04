@@ -5,6 +5,7 @@ from django.views.decorators.csrf import csrf_exempt
 from main_app.tools import *
 from decorators import user_has_perm
 from pydub import AudioSegment
+from math import trunc
 
 
 
@@ -28,6 +29,21 @@ def library(request):
     """
 
     return render(request, "main_app/other_pages/library.html", {})
+
+
+
+@csrf_exempt
+def cut_yap(request):
+    context = {}
+    if request.POST:
+        nb_parts = trunc(int(trunc(request.POST['seconds'])) / 60)
+        context['nb_parts'] = nb_parts
+        context['loop_times'] = [i+1 for i in range(nb_parts)]
+        context['filename'] = request.POST['filename']
+        return render(request, "main_app/other_pages/edit_cut_yap.html", context)
+    return render(request, "main_app/other_pages/edit_cut_yap.html", context)
+
+
 
 @csrf_exempt
 def post_upload(request):
@@ -624,7 +640,7 @@ def edit_current_user_profile(request,
     params = {
         "user_id": request.COOKIES['u'],
         "session_id": request.COOKIES['s'],
-    }
+        }
 
     json_response = yapster_api_post_request(path, params).json()
 
@@ -665,3 +681,4 @@ def unsubscribed_user_profile(request,
     if json_response['valid']:
         return HttpResponse()
     return HttpResponseNotAllowed()
+

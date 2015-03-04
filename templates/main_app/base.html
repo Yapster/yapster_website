@@ -32,7 +32,6 @@
     {#    <link rel="import" href="{% static "custom/library.html" %}">#}
     {#    <link rel="import" href="{% static "custom/follow-lib-button.html" %}">#}
 
-    <link rel="import" href="{% static "bower_components/x-mixtaper/dist/x-mixtaper.html" %}">
 
     <link rel="import" href="{% static "bower_components/core-icon-button/core-icon-button.html" %}">
     <link rel="import" href="{% static "bower_components/core-toolbar/core-toolbar.html" %}">
@@ -45,6 +44,7 @@
     <link rel="import" href="{% static "bower_components/core-collapse/core-collapse.html" %}">
     <link rel="import" href="{% static "bower_components/core-header-panel/core-header-panel.html" %}">
     <link rel="import" href="{% static "bower_components/core-scroll-header-panel/core-scroll-header-panel.html" %}">
+    <link rel="import" href="{% static "bower_components/core-shared-lib/core-shared-lib.html" %}">
 
     <link rel="import" href="{% static "bower_components/core-transition/core-transition.html" %}">
     <link rel="import" href="{% static "bower_components/core-transition/core-transition-css.html" %}">
@@ -69,13 +69,16 @@
 
     <link rel="import" href="{% static "custom/template-library.html" %}">
     <link rel="import" href="{% static "custom/no-more-to-load.html" %}">
-    <link rel="import" href="{% static "custom/edit-yap.html" %}">
+{#    <link rel="import" href="{% static "custom/list-library-editing.html" %}">#}
+{#    <link rel="import" href="{% static "custom/edit-yap.html" %}">#}
 
 </head>
 <body fullbleed layout vertical>
 <my-header>
 </my-header>
-<edit-yap></edit-yap>
+<div id="edit-yap">
+    {% include "main_app/other_pages/upload_yap_panel.html" %}
+</div>
 <div id="left_part">
 <core-animated-pages id="main_layer" transitions="hero-transition">
     <section id="main_view_section">

@@ -33,7 +33,7 @@ my-header {
     z-index: 50;
 }
 
-edit-yap {
+#edit-yap {
     width: 100%;
     float: left;
     position: absolute;
@@ -43,7 +43,7 @@ edit-yap {
     transition: height 1.0s;
 }
 
-edit-yap.on {
+#edit-yap.on {
     height: calc(100% - 60px);
 
 }
@@ -1265,4 +1265,95 @@ html /deep/ #preview_dialog {
     display: inherit;
     left: 66.66%;
     transition: left 2.4s;
+}
+
+/* Edit yap upload */
+
+
+
+.edit_yap_panel {
+    height: 100%;
+    width: 100%;
+    float: left;
+}
+.edit_yap_column {
+    width: calc(100% / 3 - 80px);
+    height: 100%;
+    margin: 40px;
+    float: left;
+}
+.title_column {
+    font-size: 20px;
+    font-weight: 500;
+    margin-bottom: 30px;
+}
+.upload_button {
+    text-transform: capitalize;
+    color: white;
+    background-color: #16d301;
+    margin: 0;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+.help_text_container {
+    color: lightgrey;
+    font-size: 12px;
+    margin-top: 20px;
+    margin-bottom: 80px;
+}
+.alert_message_yap {
+    font-style: italic;
+    font-size: 12px;
+}
+
+.editing_part {
+}
+.yap_list {
+
+}
+#new_yap_upload, #new_yap_photo_upload {
+    display: none;
+}
+.input_description {
+    width: 100%;
+    resize: none;
+}
+
+.yap_upload {
+    width: 100%;
+    margin-bottom: 20px;
+    float: left;
+}
+
+.line_yap_upload {
+    float: left;
+    width: 100%;
+}
+.filename_aftercut_text {
+    float: left;
+}
+.file_duration_text {
+    float: right;
+}
+.filename_input {
+    float: left;
+}
+.part_text{
+    height: 100%;
+    width: 20%;
+    float: right;
+    margin-top: 20px;
+    text-align: right;
+}
+.list_of_libraries {
+
+}
+.button_container {
+
+}
+#post_yap_button {
+    margin-top: 50%;
+}
+.play_preview {
+    color: #16d301;
 }

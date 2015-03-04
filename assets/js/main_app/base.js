@@ -43,31 +43,50 @@ function log_in()
 
 $(function ()
     {
-        $('#fileupload').fileupload({
+        $( "#new_yap_upload" ).change(function(e) {
+            var file = e.currentTarget.files[0];
+
+            filename = file.name;
+
+            objectUrl = URL.createObjectURL(file)
+            $('#new_yap_upload_audio').prop("src", objectUrl);
+        });
+
+        $("#new_yap_upload_audio").on("canplaythrough", function(e){
+            var seconds = e.currentTarget.duration;
+            $.ajax({
+                data : {
+                    seconds: seconds,
+                    filename: filename
+                },
+                url : "/app/post/pre_upload/",
+                type : "POST",
+                success: function(){
+                    $('#follow_profile').attr('icon', 'remove-circle');
+                }
+            });
+            URL.revokeObjectURL(objectUrl);
+        });
+    }
+);
+
+
+$(function ()
+    {
+        $('#post_yap_button').fileupload({
             dataType: 'json',
             done: function (e, data) {
                 $.each(data.result.files, function (index, file) {
                     $('<p/>').text(file.name).appendTo(document.body);
                 });
             },
-            progressall: function (e, data) {
-                var progress = parseInt(data.loaded / data.total * 100, 10);
-                $('#progress .bar').css(
-                    'width',
-                        progress + '%'
-                );
-            },
             add: function (e, data) {
-                data.context = $('<button/>').text('Upload')
-                    .appendTo(document.body)
-                    .click(function () {
-                        data.context = $('<p/>').text('Uploading...').replaceAll($(this));
-                        data.submit();
-                    });
+                data.submit();
             }
         });
     }
 );
+
 
 function toggle_core_animated(id)
 {
