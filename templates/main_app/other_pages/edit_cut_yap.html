@@ -1,26 +1,30 @@
-<div class="editing_part">
-    <div class="alert_message_yap">
-        {% if nb_parts > 1 %}
-            <span>The file you uploaded is over 1 hour, it has been automatically cut into 2 files</span>
-        {% endif %}
-    </div>
-    {% for  i in loop_times %}
-        <div class="yap_upload">
-            <div class="line_yap_upload">
-                <div class="filename_aftercut_text">{{ filename }}_part{{ i }}.mp3</div>
-                <div class="file_duration_text">1:00:00</div>
-            </div>
-            <div class="line_yap_upload">
-                <paper-input class="filename_input" label="Filename"></paper-input>
-                <span class="part_text">part {{ i }}</span>
+<div class="alert_message_yap">
+    {% if nb_parts > 1 %}
+        <span>The file you uploaded is over 1 hour, it has been automatically cut into 2 files</span>
+    {% endif %}
+</div>
+{% for  i in loop_times %}
+    <div class="yap_upload">
+        <div class="line_yap_upload">
+            <div class="filename_aftercut_text" part="{{ i }}">{{ filename }}_part{{ i }}.mp3</div>
+            <div class="file_duration_text">
+                {% if forloop.last %}
+                    <span>{{ last_time }}</span>
+                {% else %}
+                    <span>1:00:00</span>
+                {% endif %}
             </div>
         </div>
-    {% endfor %}
-    <div class="preview_player">
-        <paper-icon-button icon="play" class="play_preview" icon="av:play-arrow"></paper-icon-button>
-        <paper-slider min="0" max value></paper-slider>
+        <div class="line_yap_upload">
+            <paper-input class="filename_input" label="Filename"></paper-input>
+            <span class="part_text">part {{ i }}</span>
+        </div>
     </div>
-    <div class="input_description_container">
-        <textarea class="input_description" placeholder="Description of the yap" rows="5" cols="10"></textarea>
-    </div>
+{% endfor %}
+<div class="preview_player">
+    <paper-icon-button class="play_preview" icon="av:play-arrow"></paper-icon-button>
+    <paper-slider id="preview_tracker" class="tracker" min="0" max value></paper-slider>
+</div>
+<div class="input_description_container">
+    <textarea class="input_description" placeholder="Description of the yap" rows="5" cols="10"></textarea>
 </div>

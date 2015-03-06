@@ -1,24 +1,7 @@
 var in_load = true;
 var cpt_users_call = 1;
 var cpt_libraries_call = 1;
-
-function uploadFile()
-{
-    $('#fileupload').fileupload({
-        dataType: 'json',
-        add: function (e, data) {
-            data.context = $('<button/>').text('Upload')
-                .appendTo(document.body)
-                .click(function () {
-                    data.context = $('<p/>').text('Uploading...').replaceAll($(this));
-                    data.submit();
-                });
-        },
-        done: function (e, data) {
-            data.context.text('Upload finished.');
-        }
-    });
-}
+var preview_audio;
 
 function log_in()
 {
@@ -45,10 +28,9 @@ $(function ()
     {
         $( "#new_yap_upload" ).change(function(e) {
             var file = e.currentTarget.files[0];
-
             filename = file.name;
 
-            objectUrl = URL.createObjectURL(file)
+            objectUrl = URL.createObjectURL(file);
             $('#new_yap_upload_audio').prop("src", objectUrl);
         });
 
@@ -61,15 +43,81 @@ $(function ()
                 },
                 url : "/app/post/pre_upload/",
                 type : "POST",
-                success: function(){
-                    $('#follow_profile').attr('icon', 'remove-circle');
+                success: function(newData){
+                    $('.editing_part').html(newData);
+//                    preview_audio = new Audio(objectUrl);
+                    $.ajax({
+                        data : {
+                            page: 1,
+                            amount: 5
+                        },
+                        url : "/app/post/get_library_upload/",
+                        type : "POST",
+                        success: function(newData){
+                            $('.edit_yap_libraries').html(newData);
+                        }
+                    });
                 }
             });
             URL.revokeObjectURL(objectUrl);
         });
+
+        $("#new_yap_photo_upload").change(function(e) {
+            var file = e.currentTarget.files[0];
+
+            var pixUrl = URL.createObjectURL(file);
+            $('.new_yap_photo_upload_pix').prop("src", pixUrl);
+        });
+
+        $(".filename_aftercut_text").click(function(){
+            var part = this.attr('part');
+            preview_audio.currentTime = part * 60;
+            preview_audio.play();
+        });
+
     }
 );
 
+
+function choose_library(id)
+{
+    $(".edit_yap_library").removeClass("select");
+    $("#" + id).addClass("select");
+}
+
+function post_yap()
+{
+    // Get filenames
+    // Get photo file
+    // Get library picked
+    // get audio file
+
+
+
+    $.ajax({
+        data : {
+            seconds: seconds,
+            filename: filename
+        },
+        url : "/app/post/pre_upload/",
+        type : "POST",
+        success: function(newData){
+            $('.editing_part').html(newData);
+//                    preview_audio = new Audio(objectUrl);
+            $.ajax({
+                data : {
+                    page: 1,
+                    amount: 5
+                },
+                url : "/app/post/get_library_upload/",
+                type : "POST",
+                success: function(newData){
+                    $('.edit_yap_libraries').html(newData);
+                }
+            });
+        }
+    });
+}
 
 $(function ()
     {
@@ -92,6 +140,11 @@ function toggle_core_animated(id)
 {
     var p = document.querySelector('#' +  id);
     p.selected = p.selected ? 0 : 1;
+}
+
+function toggle_yap_edit()
+{
+    $('#edit-yap').toggleClass('on');
 }
 
 function stuff(x)

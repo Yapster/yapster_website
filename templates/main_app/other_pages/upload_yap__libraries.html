@@ -1,0 +1,17 @@
+{% load filters %}
+
+{% if libraries %}
+    {% for library in libraries %}
+        <div id="edit_yap_library_{{ library|access:"id" }}" class="edit_yap_library {% if forloop.last %}last{% endif %}" onclick="choose_library(this.id)">
+            <div class="edit_yap_library_image_container">
+                <img class="edit_yap_library_image" src="{{ library|access:"picture_cropped_path" }}">
+            </div>
+            <div class="edit_yap_library_title_container">{{ library|access:"title" }}</div>
+            <input type="hidden" id="edit_yap_library_id" value="{{ library|access:"id" }}">
+        </div>
+    {% endfor %}
+{% else %}
+    <div>
+        No Libraries available :(
+    </div>
+{% endif %}

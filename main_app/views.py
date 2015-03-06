@@ -33,16 +33,61 @@ def library(request):
 
 
 @csrf_exempt
-def cut_yap(request):
+def pre_upload(request):
+    """
+    Create forms for each yap to upload
+    :param request:
+    :return: Html page with each yap, inputs
+    """
     context = {}
     if request.POST:
-        nb_parts = trunc(int(trunc(request.POST['seconds'])) / 60)
+        seconds = int(request.POST['seconds'].split('.')[0])
+        filename = request.POST['filename']
+        nb_parts = trunc(seconds / 60)
+
         context['nb_parts'] = nb_parts
         context['loop_times'] = [i+1 for i in range(nb_parts)]
-        context['filename'] = request.POST['filename']
+        context['filename'] = filename.split('.')[0]
+        context['last_time'] = seconds % 60
         return render(request, "main_app/other_pages/edit_cut_yap.html", context)
     return render(request, "main_app/other_pages/edit_cut_yap.html", context)
 
+
+@csrf_exempt
+@user_has_perm
+def get_library_upload(request,
+                       path="http://api.yapster.co/users/load/profile/libraries/"):
+    """
+    Get user libraries and return Html with each library available
+    :param request:
+    :param path: API Call Url
+    :return: Html with each library
+    """
+    context = {}
+    params = {"user_id": request.COOKIES['u'],
+              "session_id": request.COOKIES['s'],
+              "profile_user_id": request.COOKIES['u'],
+              "page": int(request.POST['page']),
+              "amount": int(request.POST['amount'])
+    }
+
+    json_response = yapster_api_post_request(path, params).json()
+    if json_response['valid']:
+        data = json_response['data']
+        l_libs = []
+        for i in range(0, len(data)):
+            d_new = {}
+            d_new['picture_cropped_path'] = get_profile_pix_path(data[i]['picture_cropped_path'])
+            d_new['title'] = data[i]['title']
+            d_new['description'] = data[i]['description']
+            d_new['id'] = data[i]['id']
+
+            l_libs.append(d_new)
+
+        context['libraries'] = l_libs
+        context['number_libraries'] = len(data)
+
+    return render(request, "main_app/other_pages/upload_yap__libraries.html", context)
 
 
 @csrf_exempt
@@ -55,6 +100,8 @@ def post_upload(request):
     #error = upload_file_to_s3(file.read(), "", "1")
 
     return render(request, "<div>Test</div>", {})
+
+
 
 
 # Ajax requests Handler / API Interface

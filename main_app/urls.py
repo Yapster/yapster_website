@@ -8,7 +8,8 @@ urlpatterns = patterns(
     url(r'forgot/$', 'main_app.views.forgot_password'),
     url(r'library/$', 'main_app.views.library'),
     url(r'post/upload/$', 'main_app.views.post_upload'),
-    url(r'post/pre_upload/$', 'main_app.views.cut_yap'),
+    url(r'post/pre_upload/$', 'main_app.views.pre_upload'),
+    url(r'post/get_library_upload/$', 'main_app.views.get_library_upload'),
 
     url(r'get_current_user_details/(?P<user_id>[a-zA-Z0-9_.-]+)/$', 'main_app.views.get_current_user_details'),
     url(r'get_preview_libraries/(?P<user_id>[a-zA-Z0-9_.-]+)/$', 'main_app.views.get_preview_libraries'),

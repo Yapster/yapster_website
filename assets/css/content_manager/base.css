@@ -30,24 +30,41 @@ core-header-panel::shadow #mainContainer::-webkit-scrollbar-thumb:hover, ::-webk
 }
 
 my-header {
-    z-index: 50;
+    z-index: 999;
 }
 
 #edit-yap {
     width: 100%;
     float: left;
     position: absolute;
-    background-color: white;
     z-index: 100;
     height: 0;
     transition: height 1.0s;
+    overflow: hidden;
 }
 
 #edit-yap.on {
     height: calc(100% - 60px);
-
 }
 
+.background_blur {
+    /* Absolutely position it, but stretch it to all four corners, then put it just behind #search's z-index */
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    z-index: 99;
+
+    /* Pull the background 70px higher to the same place as #bg's */
+    background-position: center -70px;
+
+    /*filter: blur(10px);*/
+    /*-webkit-filter: blur(10px);*/
+    /*-moz-filter: blur(10px);*/
+    background: white;
+    /*opacity: 0.98;*/
+}
 
 #left_part {
     width: 100%;
@@ -1196,6 +1213,10 @@ html /deep/ #preview_dialog {
     width: 100%;
 }
 
+#preview_tracker {
+    width: calc(100% - 50px);
+}
+
 .tracker::shadow #sliderBar {
     height: 8px;
 }
@@ -1275,12 +1296,16 @@ html /deep/ #preview_dialog {
     height: 100%;
     width: 100%;
     float: left;
+    opacity: 1;
+    position: relative;
+    z-index: 999;
 }
 .edit_yap_column {
-    width: calc(100% / 3 - 80px);
-    height: 100%;
-    margin: 40px;
+    width: calc(100% / 3 - 7%);
+    height: calc(100% - 14%);
+    padding: 3.5%;
     float: left;
+    overflow: auto;
 }
 .title_column {
     font-size: 20px;
@@ -1304,6 +1329,7 @@ html /deep/ #preview_dialog {
 .alert_message_yap {
     font-style: italic;
     font-size: 12px;
+    margin-bottom: 10px;
 }
 
 .editing_part {
@@ -1332,6 +1358,12 @@ html /deep/ #preview_dialog {
 .filename_aftercut_text {
     float: left;
 }
+
+.filename_aftercut_text:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
 .file_duration_text {
     float: right;
 }
@@ -1345,9 +1377,7 @@ html /deep/ #preview_dialog {
     margin-top: 20px;
     text-align: right;
 }
-.list_of_libraries {
 
-}
 .button_container {
 
 }
@@ -1356,4 +1386,70 @@ html /deep/ #preview_dialog {
 }
 .play_preview {
     color: #16d301;
+    top: 6px;
+
+}
+
+
+.new_yap_photo_upload_pix {
+    width: 100%;
+    border-radius: 5px;
+}
+
+.new_yap_photo_upload_container {
+    margin-top: 10px;
+}
+
+.cancel_container {
+    margin-top: 20px;
+}
+
+.cancel_container:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.edit_yap_libraries {
+    margin-top: 20px;
+}
+
+.edit_yap_library {
+    height: 60px;
+    float: left;
+    width: 100%;
+    padding: 15px;
+    border-top: 1px solid #e3e3e4;
+}
+
+.edit_yap_library:hover {
+    cursor: pointer;
+    background-color: #fdfdfe;
+}
+
+.edit_yap_library.last {
+    border-bottom: 1px solid #e3e3e4;
+}
+
+.edit_yap_library_image_container {
+    float: left;
+    width: 60px;
+    height: 100%;
+}
+
+.edit_yap_library_image {
+    width: 60px;
+    height: 60px;
+    border-radius: 2px;
+}
+
+.edit_yap_library_title_container {
+    height: 100%;
+    float: left;
+    width: calc(100% - 60px);
+    text-align: center;
+    padding-top: 20px;
+}
+
+.preview_slider {
+    width: calc(100% - 45px);
 }
