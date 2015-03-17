@@ -69,16 +69,19 @@
 
     <link rel="import" href="{% static "custom/template-library.html" %}">
     <link rel="import" href="{% static "custom/no-more-to-load.html" %}">
-{#    <link rel="import" href="{% static "custom/list-library-editing.html" %}">#}
-{#    <link rel="import" href="{% static "custom/edit-yap.html" %}">#}
+    <link rel="import" href="{% static "custom/follow-button.html" %}">
+    {#    <link rel="import" href="{% static "custom/list-library-editing.html" %}">#}
+    {#    <link rel="import" href="{% static "custom/edit-yap.html" %}">#}
 
 </head>
 <body fullbleed layout vertical>
 <my-header>
 </my-header>
-<div id="edit-yap">
-    {% include "main_app/other_pages/upload_yap_panel.html" %}
-</div>
+<form id="file_upload_yap_post" action="/app/post/upload/" enctype="multipart/form-data">
+    <div id="edit-yap">
+        {% include "main_app/other_pages/upload_yap_panel.html" %}
+    </div>
+</form>
 <div id="left_part">
 <core-animated-pages id="main_layer" transitions="hero-transition">
     <section id="main_view_section">
@@ -101,10 +104,7 @@
                                     <div id="subscribed_users" class="center_container">
                                         <div cross-fade id="subscribed_users_title_containter">
                                             <span id="subscribed_users_title">Subscribed Users</span>
-                                            <span id="subscribed_users_title_number">(6)</span>
-                                            <div class="small_view_all">
-                                                <span>View All</span>
-                                            </div>
+                                            <span id="subscribed_users_title_number">({{ subscribing_users_count }})</span>
                                         </div>
                                         <div id="subscribed_users_results">
 
@@ -113,10 +113,7 @@
                                     <div id="subscribed_libraries" class="center_container">
                                         <div cross-fade id="subscribed_libraries_title_containter">
                                             <span id="subscribed_users_title">Subscribed Librairies</span>
-                                            <span id="subscribed_users_title_number">(6)</span>
-                                            <div class="small_view_all">
-                                                <span>View All</span>
-                                            </div>
+                                            <span id="subscribed_users_title_number">({{ subscribing_libraries_count }})</span>
                                         </div>
                                         <div id="subscribed_libraries_results">
 
@@ -127,10 +124,6 @@
                                     <div id="explore_users" class="center_container">
                                         <div cross-fade id="subscribed_users_title_containter">
                                             <span id="subscribed_users_title">Explore Users</span>
-                                            <span id="subscribed_users_title_number">(6)</span>
-                                            <div class="small_view_all">
-                                                <span>View All</span>
-                                            </div>
                                         </div>
                                         <div id="explore_users_results">
 
@@ -139,10 +132,6 @@
                                     <div id="explore_libraries" class="center_container">
                                         <div cross-fade id="subscribed_users_title_containter">
                                             <span id="subscribed_users_title">Explore Libraries</span>
-                                            <span id="subscribed_users_title_number">(6)</span>
-                                            <div class="small_view_all">
-                                                <span>View All</span>
-                                            </div>
                                         </div>
                                         <div id="explore_libraries_results">
 
@@ -176,7 +165,7 @@
             <div id="current_user_profile_picture" class="ratio3-2 width_ratio" hero hero-id="profile-pix-hero">
                 <div class="content_ratio">
                     <div class="gradient_toolbar gradient_profile_picture" cross-fade>
-                        <paper-icon-button  id="button_back_library_to_user" class="hover" icon="arrow-back" role="button" aria-label="favorite" onclick="user_to_main('0')"></paper-icon-button>
+                        <paper-icon-button  id="button_back_library_to_user" class="hover" icon="arrow-back" role="button" aria-label="favorite" onclick="user_to_main()"></paper-icon-button>
                         <div class="left_icones_container">
                         </div>
                     </div>
@@ -202,16 +191,6 @@
                         <div id="cover_library" class="core-header" >
                             <div id="cover_library_image" class="width_ratio ratio-8-1">
                                 <div class="content_ratio">
-                                    <div class="library_toolbar" cross-fade>
-                                        <div class="gradient_toolbar" cross-fade>
-                                            <paper-icon-button  id="button_back_library_to_user" class="hover" icon="arrow-back" role="button" aria-label="favorite" onclick="to_library_to_user()"></paper-icon-button>
-                                            <div class="left_icones_container">
-                                                <paper-icon-button class="left_icon" icon="create" role="button"></paper-icon-button>
-                                                <paper-icon-button class="left_icon" icon="search" role="button"></paper-icon-button>
-                                                <paper-icon-button class="left_icon" icon="more-vert" role="button"></paper-icon-button>
-                                            </div>
-                                        </div>
-                                    </div>
                                     <img id="current_library_cover" hero hero-id="lib-pix-hero" src="" style="width: 100%"/>
                                     <div class="gradient_title_container gradient_library_cover" cross-fade>
                                         <div class="gradient_lib_cover_title"></div>
@@ -227,7 +206,7 @@
                                     <div class="content">
                                         <div class="library_description_text">
                                         </div>
-                                        <follow-lib-button></follow-lib-button>
+                                        <follow-button class="library_description_button" library_id="" followed=""></follow-button>
                                     </div>
                                 </core-collapse>
                             </div>
@@ -247,10 +226,19 @@
             <div id="shadow_box">
             </div>
             <div class="cover_content cover_content_on">
-                <img id="current_cover_image" src=""/>
-                <core-icon-button id="cover_button" icon="perm-media" role="img" onclick="toggle_perso_interface()"></core-icon-button>
-                <div class="current_playlist_user">
+                <paper-icon-button  id="button_cancel_cover" class="cover_button" icon="close" role="button" onclick="cancel_cover()"></paper-icon-button>
+                <paper-icon-button  id="button_valid_cover" class="cover_button" icon="check" role="button" onclick=""></paper-icon-button>
 
+                <img id="current_cover_image" src=""/>
+                <input type="file" id="new_cover_upload" name="files[]" data-url="/app/post/new_cover/">
+                <label for="new_cover_upload">
+                    <core-icon-button id="cover_button" class="hide" icon="perm-media" role="img"></core-icon-button>
+                </label>
+                <div class="current_playlist_user">
+                    <div class="playlist_header">
+                        <span class="playlist_header_text">Test</span>
+                    </div>
+                    <div class="playlist_container"></div>
                 </div>
             </div>
         </div>
@@ -277,10 +265,8 @@
         </div>
     </core-collapse>
     <div id="short_player">
+        <paper-icon-button id="playlist_button" icon="flip-to-front" onclick="toggle_playlist()"></paper-icon-button>
         <div class="player">
-            <div class="pl"></div>
-            <div class=""></div>
-            <div class=""></div>
             <div class="controls">
                 <div class="rew player_control">
                     <paper-icon-button id="prev_button" class="icon_controls_player" icon="av:skip-previous" role="player_control"></paper-icon-button>

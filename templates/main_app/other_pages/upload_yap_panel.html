@@ -1,11 +1,12 @@
 <div class="background_blur"></div>
 <div class="edit_yap_panel">
+    {% csrf_token %}
     <div class="edit_yap_column">
         <div class="title_column">
             <span>Create a Yap</span>
         </div>
         <div class="button_upload_container">
-            <input type="file" id="new_yap_upload" name="files[]" data-url="/app/post/pre_upload/">
+            <input type="file" id="new_yap_upload" class="file_upload_yap_post" name="yap_audio[]" data-url="/app/post/pre_upload/" multiple>
             <audio id="new_yap_upload_audio"></audio>
             <label for="new_yap_upload">
                 <paper-button class="upload_button">Upload audio file</paper-button>
@@ -21,7 +22,7 @@
             <span>Attach a photo</span>
         </div>
         <div class="button_upload_container">
-            <input type="file" id="new_yap_photo_upload" name="files[]">
+            <input type="file" id="new_yap_photo_upload" class="file_upload_yap_post" name="yap_pix[]" multiple>
             <label for="new_yap_photo_upload">
                 <paper-button class="upload_button" on-tap="">Upload photo file</paper-button>
             </label>
@@ -36,12 +37,14 @@
             <span>Library</span>
         </div>
         <div class="button_upload_container">
-                <paper-button class="upload_button" on-tap="">Add New Library</paper-button>
+            <paper-button class="upload_button" on-tap="">Add New Library</paper-button>
+            <div class="text_library_selected">
+            </div>
         </div>
         <div class="edit_yap_libraries"></div>
     </div>
     <div class="edit_yap_column" style="text-align: center">
-        <paper-button class="upload_button" id="post_yap_button" onclick="post_yap()">Post Yap</paper-button>
+        <paper-button class="upload_button" id="post_yap_button">Post Yap</paper-button>
         <div class="cancel_container" onclick="toggle_yap_edit()">
             <span>or</span>
             <span>Cancel</span>

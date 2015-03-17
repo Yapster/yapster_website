@@ -152,6 +152,10 @@ my-header {
     color: white;
 }
 
+#button_from_edit_to_dash:hover {
+    color: #16d301;
+}
+
 #button_from_edit_to_dash.hide {
     display: inherit !important;
     z-index: 60;
@@ -159,6 +163,28 @@ my-header {
 
 paper-icon-button:hover {
     color: #16d301;
+}
+
+.cover_button {
+    display: none;
+}
+
+.cover_button.show_cover_button {
+    display: inherit;
+    position: absolute;
+    color: white;
+}
+
+.cover_button.show_cover_button:hover {
+    color: #16d301;
+}
+
+#button_cancel_cover {
+    left: 0;
+}
+
+#button_valid_cover {
+    left: 30px;
 }
 
 #second_button_left_change {
@@ -197,8 +223,9 @@ paper-icon-button:hover {
     background-color: rgb(240, 240, 241);
     padding-left: 20px;
     padding-right: 20px;
-    padding-bottom: 35px;
-    padding-top: 40px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+
 }
 
 #controls_player {
@@ -380,7 +407,7 @@ paper-progress::shadow #progress_bar_player {
     color: white;
     font-weight: lighter;
     padding-top: 25px;
-    padding-bottom: 5px;
+    padding-bottom: 10px;
     background: -moz-linear-gradient(top, rgba(0,0,0,0) 0%, rgba(0,0,0,0.4) 58%, rgba(0,0,0,0.4) 100%); /* FF3.6+ */
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,0,0,0)), color-stop(58%,rgba(0,0,0,0.4)), color-stop(100%,rgba(0,0,0,0.4))); /* Chrome,Safari4+ */
     background: -webkit-linear-gradient(top, rgba(0,0,0,0) 0%,rgba(0,0,0,0.4) 58%,rgba(0,0,0,0.4) 100%); /* Chrome10+,Safari5.1+ */
@@ -618,7 +645,7 @@ paper-progress::shadow #progress_bar_player {
     color: #16d301;
 }
 
-#new_profile_pix {
+#upload_new_profile_pix{
     display: none;
 }
 
@@ -782,7 +809,7 @@ paper-dropdown-menu {
     width: 100%;
 }
 
-#current_cover_image {
+#current_cover_image, #user_cover_image {
     height: 100%;
 }
 
@@ -809,6 +836,10 @@ paper-dropdown-menu {
     right: 13px;
     position: absolute;
     color: #16d301;
+}
+
+#cover_button.hide {
+    display: none;
 }
 
 #right_side {
@@ -931,12 +962,13 @@ html /deep/ #preview_dialog {
 .library {
     width: calc(100% - 22px);
     padding-top: 10px;
-    padding-bottom: 0px;
     border: solid grey 1px;
     padding-left: 10px;
     padding-right: 10px;
     padding-bottom: 10px;
     float: left;
+    height: 10%;
+    cursor: pointer;
 }
 
 .library:hover {
@@ -944,11 +976,16 @@ html /deep/ #preview_dialog {
 }
 
 .image_container_library{
-
-}
-.library_image, .user_image {
-    width: 60px;
+    width: 15%;
+    height: 100%;
     float: left;
+    overflow: hidden;
+}
+
+.library_image, .user_image {
+    float: left;
+    height: 100%;
+    width: initial;
 }
 
 .library_description, .user_description {
@@ -995,7 +1032,7 @@ html /deep/ #preview_dialog {
 }
 
 .ratio-8-1:before {
-    padding-top: 70px;
+    padding-top: 50px;
     transition: padding-top 0.2s;
 }
 
@@ -1134,6 +1171,10 @@ html /deep/ #preview_dialog {
     height: 100%;
 }
 
+.yaps_container {
+    float: left;
+    width: 100%;
+}
 
 .current_playlist_user {
     float: left;
@@ -1152,7 +1193,18 @@ html /deep/ #preview_dialog {
     transition: height 2.2s, width 2.2s, padding-left 2.2s, padding-right 2.2s;
     padding-left: 20px;
     padding-right: 20px;
+    overflow: auto;
 }
+
+.playlist_header {
+    font-size: 15px;
+    font-weight: 500;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px black solid;
+    height: 20px;
+}
+
 
 .yap_in_playlist.selected_yap , .yap_in_playlist:hover{
     color: #16d301;
@@ -1191,6 +1243,12 @@ html /deep/ #preview_dialog {
     width: calc(100% / 3);
     text-align: center;
     padding-bottom: 0px;
+}
+
+#playlist_button {
+    position: relative;
+    top: 0px;
+    left: calc(100% - 30px);
 }
 
 .play {
@@ -1271,7 +1329,6 @@ html /deep/ #preview_dialog {
 .search_results {
     height: calc(100% - 60px);
     width: 33.33%;
-    background-color: #1a237e;
     left: 32.66%;
     position: absolute;
     transition: left 2.4s;
@@ -1286,6 +1343,7 @@ html /deep/ #preview_dialog {
     display: inherit;
     left: 66.66%;
     transition: left 2.4s;
+    background-color: white;
 }
 
 /* Edit yap upload */
@@ -1320,12 +1378,19 @@ html /deep/ #preview_dialog {
     padding-left: 20px;
     padding-right: 20px;
 }
+
+.text_library_selected {
+    float: right;
+    width: 40%;
+}
+
 .help_text_container {
     color: lightgrey;
     font-size: 12px;
     margin-top: 20px;
     margin-bottom: 80px;
 }
+
 .alert_message_yap {
     font-style: italic;
     font-size: 12px;
@@ -1337,7 +1402,7 @@ html /deep/ #preview_dialog {
 .yap_list {
 
 }
-#new_yap_upload, #new_yap_photo_upload {
+#new_yap_upload, #new_yap_photo_upload, #new_cover_upload {
     display: none;
 }
 .input_description {
@@ -1452,4 +1517,32 @@ html /deep/ #preview_dialog {
 
 .preview_slider {
     width: calc(100% - 45px);
+}
+
+.search_results_container {
+    overflow-y: auto;
+    width: calc(100% - 0px);
+    height: calc(100% - 35px);
+}
+
+
+.header_search_results {
+    float: left;
+    width: calc(100% - 16px);
+    border-bottom: 1px solid #cccccc;
+    padding-top: 16px;
+    padding-bottom: 12px;
+    padding-left: 16px;
+}
+
+.sub_header_title {
+    font-size: 19px;
+    font-weight: 500;
+}
+
+.no_objects_found {
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+    font-size: 12px;
 }

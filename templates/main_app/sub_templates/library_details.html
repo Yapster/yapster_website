@@ -3,7 +3,7 @@
     <div class="number_yaps_libraries_container">
         <div class="number_yaps_libraries_text">Yaps ({{ number_yaps }})</div>
     </div>
-    <div id="yaps_container">
+    <div class="yaps_container">
         {% for yap in l_yaps %}
             <div id="yap_{{ yap|access:"id" }}" class="yap" onclick="play_yap(this.id)">
                 <div class="yap_image_container width_ratio ratio3-2">

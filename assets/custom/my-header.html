@@ -10,14 +10,15 @@
             #search_bar {
                 margin-left: 33%;
                 width: 30%;
-                height: 25px;
+                height: 10px;
                 background-color: #c3f3bf;
                 border-radius: 2px;
                 border: 0;
                 padding: 6px;
+                font-size: 12px;
             }
             .button_search_bar {
-                font-size: 13px;
+                font-size: 14px;
                 background: transparent;
                 color: white;
             }
@@ -29,6 +30,10 @@
 
             }
 
+            #progress_spinner {
+                float: right;
+            }
+
         </style>
         <core-header-panel flex id="header-poly">
             <core-toolbar id="toolbar_header">
@@ -36,6 +41,8 @@
                 <paper-button id="go_search" class="button_search_bar" role="button" on-tap="{{ goSearch }}">Search</paper-button>
                 <paper-button id="cancel_search" class="button_search_bar" role="button" on-tap="{{ goCancel }}">Cancel</paper-button>
                 <core-icon-button id="upload_button" role="button" icon="file-upload" on-tap="{{ toggleEditPanel }}"></core-icon-button>
+                <paper-spinner id="progress_spinner" active="{{ active }}"></paper-spinner>
+
             </core-toolbar>
         </core-header-panel>
     </template>
@@ -43,13 +50,14 @@
         Polymer({
             previous_search: '',
             search_text: '',
+            active: 'false',
             goSearch: function() {
+                $("my-header::shadow #progress_spinner").attr("active", "true");
                 var url = "app/get_search_results/";
 
                 $('#column3').removeClass('tall_cover');
                 $('#column2').removeClass('tall_cover');
                 $('.current_playlist_user').removeClass('current_playlist_user_on');
-
                 if (this.search_text && (this.search_text != this.previous_search))
                 {
                     this.previous_search = this.search_text;
@@ -60,6 +68,7 @@
                         url : url,
                         type : "POST",
                         success: function(newData){
+                            $("my-header::shadow #progress_spinner").attr("active", "false");
                             $('.to_delete').remove();
                             $('.search_active').addClass("to_delete").removeClass('search_active');
                             $('.empty_search').html(newData).addClass('search_active').removeClass('empty_search');
@@ -69,9 +78,6 @@
                             $('.search_results').append(newData).toggleClass('search_active');
                         }
                     });
-                }
-                else {
-                    alert('empty');
                 }
             },
             goCancel: function() {

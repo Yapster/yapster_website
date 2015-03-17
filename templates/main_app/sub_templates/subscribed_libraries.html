@@ -15,7 +15,7 @@
             </div>
             <div class="subscribed_library_yaps_preview_container">
                 {% for yap in l_list_of_yaps|access:forloop.counter0 %}
-                    <div id="library_yap_{{ library|access:"library_id" }}" class="library_yap_preview" onclick="play_library_yap(this.id, {{ library|access:"library_id" }})">
+                    <div id="library_yap_{{ yap|access:"id" }}" class="library_yap_preview" onclick="play_library_yap(this.id, {{ library|access:"library_id" }}, '{{ library|access:"library_title" }}')">
                         <div class="library_yap_infos">
                             <div class="library_yap_title">{{ yap|access:"title" }}</div>
                             <div class="library_yap_date">{{ yap|access:"date_created" }}</div>

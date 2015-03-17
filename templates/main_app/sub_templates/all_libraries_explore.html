@@ -32,10 +32,9 @@
                 </div>
             {% endfor %}
         </div>
-        <div cross-fade id="view_all_libraries_container" class="view_all_container" onclick="from_dashboard_to_view_all_library()" hero hero-id="">
-            <span class="view_all_title">view all</span>
-        </div>
     </div>
 {% else %}
-    <div>No Libraries to display</div>
+    <div class="no_objects_found">
+        <span>No Libraries to display</span>
+    </div>
 {% endif %}

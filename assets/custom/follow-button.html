@@ -1,0 +1,71 @@
+<polymer-element name="follow-button" attributes="library_id followed">
+    <template>
+        <style>
+            .follow_button {
+                background-color: #16d301;
+                color: white;
+            }
+
+            .follow_button active {
+                background-color: grey;
+            }
+        </style>
+        <paper-button class="follow_button" toggle raised active="{{is_active}}" on-tap="{{onTap}}">{{ text_button }}</paper-button>
+    </template>
+    <script>
+        Polymer({
+            text_button: '',
+            is_active: true,
+            followed: "",
+            attributeChanged: function(event, detail, sender){
+                if (this.followed == "False")
+                {
+                    this.text_button = "Follow";
+                    this.is_active = false;
+                }
+                else
+                {
+                    this.text_button = "Followed";
+                    this.is_active = true;
+                }
+            },
+            onTap: function(event, detail, sender){
+
+                if (this.text_button == "Follow")
+                {
+                    var url = "/app/subscribed_library/";
+
+                    $.ajax({
+                        data : {
+                            library_to_follow: this.library_id
+                        },
+                        url : url,
+                        type : "POST",
+                        success: function(newData){
+                        },
+                        error: function(newData) {
+                        }
+                    });
+                    this.text_button = "Followed";
+                }
+                else
+                {
+                    var url = "/app/unsubscribed_library/";
+
+                    $.ajax({
+                        data : {
+                            library_to_unfollow: this.library_id
+                        },
+                        url : url,
+                        type : "POST",
+                        success: function(newData){
+                        },
+                        error: function(newData) {
+                        }
+                    });
+                    this.text_button = "Follow";
+                }
+            }
+        });
+    </script>
+</polymer-element>

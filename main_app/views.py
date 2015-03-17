@@ -2,6 +2,7 @@ from django.contrib.gis.geometry.regex import json_regex
 from django.shortcuts import render, redirect
 from django.http import HttpResponseNotAllowed, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
+from twisted.conch.test.test_userauth import userauth
 from main_app.tools import *
 from decorators import user_has_perm
 from pydub import AudioSegment
@@ -13,13 +14,34 @@ def forgot_password(request):
     return render(request, "main_app/other_pages/forgot_password.html", {})
 
 @user_has_perm
-def main(request):
+def main(request,
+         path='http://api.yapster.co/users/load/profile/info/'):
     """
     If
     :param request:
     :return:
     """
-    return render(request, "main_app/base.html", {})
+
+    context = {}
+
+    params = {
+        "user_id": request.COOKIES['u'],
+        "session_id": request.COOKIES['s'],
+        "profile_user_id": request.COOKIES['u']
+    }
+
+    json_response = yapster_api_post_request(path, params).json()
+
+    if json_response['valid']:
+        # Get user info
+        data = json_response['data']
+        context['subscriber_users_count'] = data['subscriber_users_count']
+        context['subscribing_users_count'] = data['subscribing_users_count']
+        context['subscribing_libraries_count'] = data['subscribing_libraries_count']
+        context['libraries_count'] = data['libraries_count']
+
+    return render(request, "main_app/base.html", context)
+
 
 def library(request):
     """
@@ -29,7 +51,6 @@ def library(request):
     """
 
     return render(request, "main_app/other_pages/library.html", {})
-
 
 
 @csrf_exempt
@@ -94,14 +115,45 @@ def get_library_upload(request,
 def post_upload(request):
     if not request.FILES:
         return render(request, "No files attached", {})
-    file = request.FILES[u'files[]']
-    if not is_valid(file):
-        return render(request, "File not valid", {})
-    #error = upload_file_to_s3(file.read(), "", "1")
+    audio_file = request.FILES[u'yap_audio[]']
+    if u'yap_pix[]' in request.FILES:
+        pix_file = request.FILES[u'yap_pix[]']
 
+    if not audio_is_uploaded(audio_file, request.COOKIES['u']):
+        return render(request, "Audio File not valid", {})
+    #error = upload_file_to_s3(file.read(), "", "1")
+    if not pix_is_uploaded(pix_file, request.COOKIES['u'], ""):
+        return render(request, "Image File is not valid", {})
     return render(request, "<div>Test</div>", {})
 
 
+@csrf_exempt
+def post_new_cover(request):
+    #upload cover
+    if not request.FILES:
+        return render(request, "No File attached", {})
+    file = request.FILES[u'files[]']
+    if not is_valid_pix(file, request.COOKIES['u'], "cover"):
+        return render(request, "File not valid", {})
+
+    #save cover in profile
+
+
+    return render(request, "<div></div>", {})
+
+@csrf_exempt
+def post_new_pix(request):
+    #upload pix
+    if not request.FILES:
+        return render(request, "No File attached", {})
+    file = request.FILES[u'files[]']
+    if not is_valid_pix(file, request.COOKIES['u'], "profile"):
+        return render(request, "File not valid", {})
+
+
+
+    #save pix in profile
+    return render(request, "<div></div>", {})
 
 
 # Ajax requests Handler / API Interface
@@ -391,9 +443,6 @@ def get_user_details(request,
 @csrf_exempt
 @user_has_perm
 def get_user_libraries(request,
-                       user_id,
-                       page,
-                       amount,
                        path="http://api.yapster.co/users/load/profile/libraries/"):
     """
     From API get user libraries from clicked user
@@ -403,11 +452,11 @@ def get_user_libraries(request,
     """
     context = {}
 
-    params = {"user_id": request.COOKIES['u'],
-              "session_id": request.COOKIES['s'],
-              "profile_user_id": int(user_id),
-              "page": int(page),
-              "amount": int(amount)
+    params = {"user_id": int(request.COOKIES['u']),
+              "session_id": int(request.COOKIES['s']),
+              "profile_user_id": int(request.POST['user_id']),
+              "page": int(request.POST['page']),
+              "amount": int(request.POST['amount'])
     }
 
     json_response = yapster_api_post_request(path, params).json()
@@ -421,11 +470,12 @@ def get_user_libraries(request,
             d_new['title'] = data[i]['title']
             d_new['description'] = data[i]['description']
             d_new['id'] = data[i]['id']
+            d_new['subscribed'] = data[i]['viewing_user_subscribed_to_library']
 
             l_libs.append(d_new)
 
         context['libraries'] = l_libs
-        context['number_libraries'] = len(data)
+        context['number_libraries'] = data[0]['user']['libraries_count']
 
     return render(request, "main_app/sub_templates/user_libraries.html", context)
 
@@ -477,10 +527,6 @@ def get_library_details(request,
 
 @csrf_exempt
 def get_playlist(request,
-                 library_id,
-                 yap_id,
-                 page,
-                 amount,
                  path="http://api.yapster.co/yap/load/library/yaps/"):
     """
     From API get the playlist of the
@@ -491,12 +537,13 @@ def get_playlist(request,
     """
 
     context = {}
-
+    library_id = request.POST['library_id']
+    yap_id = int(request.POST['yap_id'])
     params = {"user_id": request.COOKIES['u'],
               "session_id": request.COOKIES['s'],
               "library_id": int(library_id),
-              "page": int(page),
-              "amount": int(amount)
+              "page": 1,
+              "amount": 100
     }
 
     json_response = yapster_api_post_request(path, params).json()
@@ -511,14 +558,15 @@ def get_playlist(request,
             d['title'] = sub_data['title']
             d['description'] = sub_data['description']
             d['audio_path'] = get_profile_pix_path(sub_data['audio_path'])
-            d['picture_cropped_path'] = get_profile_pix_path(sub_data['picture_cropped_path'])
+            # d['picture_cropped_path'] = get_profile_pix_path(sub_data['picture_cropped_path'])
             d['id'] = sub_data['id']
             d['name'] = sub_data['user']['first_name'] + sub_data['user']['last_name']
-            d['current'] = d['id'] == int(yap_id)
+            d['current'] = d['id'] == yap_id
             l_yaps.append(d)
         context['l_yaps'] = l_yaps
         context['number_yaps'] = len(data)
         context['library_id'] = library_id
+        # context['library_name'] =
 
     return render(request, "main_app/sub_templates/get_playlist.html", context)
 
@@ -606,10 +654,76 @@ def get_search_results(request,
     }
 
     json_response = yapster_api_post_request(path, params).json()
-    #if json_response['valid']:
+    if json_response['valid']:
+        data = json_response['data']
+
+        #Users Handling
+        l_users = data['users']
+        try:
+            l_users[0]
+            context['user_0_profile_pix'] = get_profile_pix_path(l_users[0]['profile_picture_path'])
+            context['user_0_first_name'] = l_users[0]['first_name']
+            context['user_0_last_name'] = l_users[0]['last_name']
+            context['user_0_id'] = l_users[0]['id']
+            context['user_0_web_cover_picture_1_path'] = get_profile_pix_path(l_users[0]['web_cover_picture_1_path'])
+            context['followed_0'] = l_users[0]['viewing_user_subscribed_to_user']
+        except IndexError:
+            pass
+        try:
+            l_users[1]
+            context['user_1_profile_pix'] = get_profile_pix_path(l_users[1]['profile_picture_path'])
+            context['user_1_first_name'] = l_users[1]['first_name']
+            context['user_1_last_name'] = l_users[1]['last_name']
+            context['user_1_id'] = l_users[1]['id']
+            context['user_1_web_cover_picture_1_path'] = get_profile_pix_path(l_users[1]['web_cover_picture_1_path'])
+            context['followed_1'] = l_users[1]['viewing_user_subscribed_to_user']
+        except IndexError:
+            pass
+        try:
+            l_users[2]
+            context['user_2_profile_pix'] = get_profile_pix_path(l_users[2]['profile_picture_path'])
+            context['user_2_first_name'] = l_users[2]['first_name']
+            context['user_2_last_name'] = l_users[2]['last_name']
+            context['user_2_id'] = l_users[2]['id']
+            context['user_2_web_cover_picture_1_path'] = get_profile_pix_path(l_users[2]['web_cover_picture_1_path'])
+            context['followed_2'] = l_users[2]['viewing_user_subscribed_to_user']
+        except IndexError:
+            pass
+
+        #Libraries Handling
+        data_libs = data['libraries']
+        l_libs = []
+        for i in range(0, len(data)):
+            d_new = {}
+            d_new['picture_cropped_path'] = get_profile_pix_path(data_libs[i]['picture_cropped_path'])
+            d_new['title'] = data_libs[i]['title']
+            d_new['description'] = data_libs[i]['description']
+            d_new['id'] = data_libs[i]['id']
+
+            l_libs.append(d_new)
+
+        context['libraries'] = l_libs
+        context['number_libraries'] = len(data)
+
+        #Yap Handling
+
+        data_yaps = data['yaps']
+        l_yaps = []
+        for i in range(0, len(data_yaps)):
+            d = {}
+            sub_data = data_yaps[i]
+            d['title'] = sub_data['title']
+            d['description'] = sub_data['description']
+            d['audio_path'] = get_profile_pix_path(sub_data['audio_path'])
+            d['picture_cropped_path'] = get_profile_pix_path(sub_data['picture_cropped_path'])
+            d['id'] = sub_data['id']
+            d['first_name'] = sub_data['user']['first_name']
+            d['last_name'] = sub_data['user']['last_name']
+            l_yaps.append(d)
+        context['l_yaps'] = l_yaps
 
 
-    return render(request, "main_app/sub_templates/search_results.html", context)
+    return render(request, "main_app/other_pages/search_templates/search_results.html", context)
 
 @csrf_exempt
 @user_has_perm
@@ -729,3 +843,39 @@ def unsubscribed_user_profile(request,
         return HttpResponse()
     return HttpResponseNotAllowed()
 
+
+@csrf_exempt
+@user_has_perm
+def subscribe_library(request,
+                      path="http://api.yapster.co/yap/subscribe/library/"):
+    context = {}
+
+    params = {
+        "user_id": request.COOKIES['u'],
+        "session_id": request.COOKIES['s'],
+        "library_id": request.POST['library_to_follow']
+    }
+
+    json_response = yapster_api_post_request(path, params).json()
+    if json_response['valid']:
+        return HttpResponse()
+
+    return HttpResponseNotAllowed()
+
+
+@csrf_exempt
+@user_has_perm
+def unsubscribe_library(request,
+                        path="http://api.yapster.co/yap/unsubscribe/library/"):
+    context = {}
+
+    params = {
+        "user_id": request.COOKIES['u'],
+        "session_id": request.COOKIES['s'],
+        "library_id": request.POST['library_to_unfollow']
+    }
+
+    json_response = yapster_api_post_request(path, params).json()
+    if json_response['valid']:
+        return HttpResponse()
+    return HttpResponseNotAllowed()

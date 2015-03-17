@@ -1,0 +1,31 @@
+{% load filters %}
+
+<div class="yaps_container">
+    {% for yap in l_yaps %}
+        <div id="yap_{{ yap|access:"id" }}" class="yap" onclick="play_yap(this.id)">
+            <div class="yap_image_container width_ratio ratio3-2">
+                <div class="content_ratio">
+                    <img class="yap_image_in_lib" src="{{ yap|access:"picture_cropped_path" }}"/>
+                </div>
+            </div>
+            <div class="yap_preview">
+                <div class="yap_title_container">
+                    <span class="yap_title">{{ yap|access:"title" }}</span>
+                </div>
+                <div class="yap_date_container">
+                    <span class="yap_date">{{ yap|access:"date_created" }}</span>
+                </div>
+                <div class="yap_description_container">
+                    <span class="yap_description">{{ yap|access:"description" }}</span>
+                </div>
+                <input type="hidden" class="yap_id" value="{{ yap|access:"id" }}">
+                <input type="hidden" class="library_id" value="{{ library_id }}">
+                <input type="hidden" class="yap_path" value="{{ yap|access:"audio_path" }}">
+                <input type="hidden" class="author" value="{{ yap|access:"first_name" }} {{ yap|access:"last_name" }}">
+            </div>
+        </div>
+    {% endfor %}
+    <div cross-fade id="view_all_users_container" class="view_all_container" onclick="from_dashboard_to_view_all_user()" hero hero-id="">
+        <span class="view_all_title">view all</span>
+    </div>
+</div>

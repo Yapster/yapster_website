@@ -54,15 +54,14 @@ function initAudio(elem) {
     song.addEventListener('ended', function(e){
         e.preventDefault();
         stopAudio();
-        var next = $('.current_playlist_user div.active').next();
+        var next = $('.current_playlist_user div.selected_yap').next();
         if (next.length == 0) {
             next = $('.current_playlist_user div:first-child');
         }
         initAudio(next);
     });
 
-    $('.current_playlist_user div').removeClass('active');
-    elem.addClass('active');
+//    $('.current_playlist_user div').removeClass('selected_yap');
 
     song.play();
 
@@ -82,11 +81,14 @@ function stopAudio() {
     $('#pause_button').addClass('hide_icon');
 }
 
-function set_playlist(title, library_id, yap_image_in_lib, url, author, yap_id) {
+function set_playlist(title, library_id, yap_image_in_lib, url, author, yap_id, library_title) {
 
     $('#details_player_title').text(title);
     $('#details_player_detail').text(author);
     $('#current_yap_pix').attr('src', yap_image_in_lib);
+
+    var text_header = author + " - " + library_title;
+    $(".playlist_header_text").text(text_header);
 
     if (song)
     {
@@ -125,7 +127,7 @@ function set_playlist(title, library_id, yap_image_in_lib, url, author, yap_id) 
     song.addEventListener('ended', function(e){
         e.preventDefault();
         stopAudio();
-        var next = $('.current_playlist_user div.active').next();
+        var next = $('.current_playlist_user div.selected_yap').next();
         if (next.length == 0) {
             next = $('.current_playlist_user div:first-child');
         }
@@ -137,13 +139,17 @@ function set_playlist(title, library_id, yap_image_in_lib, url, author, yap_id) 
     $('#play_button').addClass('hide_icon');
     $('#pause_button').removeClass('hide_icon');
 
+    $('.playlist_container').html("<paper-spinner active></paper-spinner>");
+
     $.ajax({
         data : {
+            library_id: library_id,
+            yap_id: yap_id
         },
-        url : "/app/get_playlist/" + library_id + "/" + yap_id + "/1/5/",
+        url : "/app/get_playlist/",
         type : "POST",
         success: function(newData){
-            $('.current_playlist_user').html(newData);
+            $('.playlist_container').html(newData);
         }
     });
 }
@@ -155,17 +161,19 @@ function play_yap(yap){
         $("#" + yap).find(".yap_image_in_lib").attr('src'),
         $("#" + yap).find(".yap_path").val(),
         $("#" + yap).find(".author").val(),
-        $("#" + yap).find(".yap_id").val()
+        $("#" + yap).find(".yap_id").val(),
+        $(".gradient_lib_cover_title").text()
     )
 };
 
-function play_library_yap(yap, library_id){
+function play_library_yap(yap, library_id, library_title){
     set_playlist($("#" + yap ).find(".library_yap_title").text(),
         library_id,
         $("#" + yap).find(".library_yap_image").attr('src'),
         $("#" + yap).find(".yap_path").val(),
         $("#" + yap).find(".author").val(),
-        $("#" + yap).find(".yap_id").val()
+        $("#" + yap).find(".yap_id").val(),
+        library_title
     )
 };
 

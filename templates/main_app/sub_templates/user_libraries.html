@@ -16,5 +16,7 @@
                 <span class="library_text">{{ library|access:"description" }}</span>
             </div>
         </div>
+        <input class="id" type="hidden" value="{{ library|access:"id" }}"/>
+        <input class="subscribed" type="hidden" value="{{ library|access:"subscribed" }}"/>
     </div>
 {% endfor %}

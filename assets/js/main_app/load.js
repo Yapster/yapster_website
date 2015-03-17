@@ -110,11 +110,13 @@ function get_user_libraries(pk) {
     // Append in id=libraries_user
     $('#results_all_view').html("<paper-spinner active></paper-spinner>");
 
-
     $.ajax({
         data : {
+            user_id: pk,
+            page: 1,
+            amount: 20
         },
-        url : "/app/get_user_libraries/" + pk + "/1/5/",
+        url : "/app/get_user_libraries/",
         type : "POST",
         success: function(newData){
             $('#libraries_user').html(newData);
@@ -140,6 +142,9 @@ function get_library_details(id, pk) {
     }
 
     var origin_pix = root_library.find('.library_image');
+    root_destination.find(".library_description_button").attr("library_id", root_library.find('.id').val());
+    root_destination.find(".library_description_button").attr("followed", root_library.find('.subscribed').val());
+
     $('#current_library_cover').attr('src', origin_pix.attr('src'));
     $(".lib_pix_heroable[hero-id='lib-pix-hero']").attr("hero-id", "");
     origin_pix.attr('hero-id', 'lib-pix-hero');

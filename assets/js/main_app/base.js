@@ -2,6 +2,8 @@ var in_load = true;
 var cpt_users_call = 1;
 var cpt_libraries_call = 1;
 var preview_audio;
+var previous_profile_pix;
+var previous_cover_pix;
 
 function log_in()
 {
@@ -24,15 +26,45 @@ function log_in()
     });
 }
 
+// Events Upload new yap
 $(function ()
     {
-        $( "#new_yap_upload" ).change(function(e) {
+        var filesList = [],
+            paramNames = [],
+            elem = $("#file_upload_yap_post");
+        file_upload = elem.fileupload({
+            formData:{extra:1},
+            autoUpload: false,
+            fileInput: $("input:file"),
+        }).on("fileuploadadd", function(e, data){
+            filesList.push(data.files[0]);
+            paramNames.push(e.delegatedEvent.target.name);
+        });
+
+        $("#post_yap_button").click(function(e){
+            e.preventDefault();
+            file_upload.fileupload('send', {files:filesList, paramName: paramNames});
+        });
+
+        $("#new_yap_upload").change(function(e) {
             var file = e.currentTarget.files[0];
             filename = file.name;
 
             objectUrl = URL.createObjectURL(file);
             $('#new_yap_upload_audio').prop("src", objectUrl);
         });
+
+//        $("#file_upload_yap_post").fileupload({
+//            url: '/app/post/upload/',
+//            add: function (e, data) {
+//                alert('class file_upload');
+//                $("#post_yap_button").unbind("click");
+//                $('#post_yap_button').click(function(){
+//                    alert('event_in');
+//                    data.submit();
+//                });
+//            }
+//        });
 
         $("#new_yap_upload_audio").on("canplaythrough", function(e){
             var seconds = e.currentTarget.duration;
@@ -74,49 +106,16 @@ $(function ()
             preview_audio.currentTime = part * 60;
             preview_audio.play();
         });
-
     }
 );
 
-
+// Functions upload Yap
 function choose_library(id)
 {
     $(".edit_yap_library").removeClass("select");
     $("#" + id).addClass("select");
-}
-
-function post_yap()
-{
-    // Get filenames
-    // Get photo file
-    // Get library picked
-    // get audio file
-
-
-
-    $.ajax({
-        data : {
-            seconds: seconds,
-            filename: filename
-        },
-        url : "/app/post/pre_upload/",
-        type : "POST",
-        success: function(newData){
-            $('.editing_part').html(newData);
-//                    preview_audio = new Audio(objectUrl);
-            $.ajax({
-                data : {
-                    page: 1,
-                    amount: 5
-                },
-                url : "/app/post/get_library_upload/",
-                type : "POST",
-                success: function(newData){
-                    $('.edit_yap_libraries').html(newData);
-                }
-            });
-        }
-    });
+    var title_lib = $("#" + id).find(".edit_yap_library_title_container").text();
+    $(".text_library_selected").text("Selected library: " + title_lib);
 }
 
 $(function ()
@@ -136,6 +135,57 @@ $(function ()
 );
 
 
+// Cover events
+$(function ()
+{
+    $('#current_user_cover').hover(
+        function () {
+            $('#cover_button').removeClass('hide');
+
+        }, function () {
+            $('#cover_button').addClass('hide');
+        }
+    );
+
+    $("#new_cover_upload").change(function(e) {
+
+        alert('cover_1');
+        previous_cover_pix = $("#current_cover_image").attr("src");
+        var file = e.currentTarget.files[0];
+
+        var pixUrl = URL.createObjectURL(file);
+        $('#current_cover_image').prop("src", pixUrl);
+    });
+
+    $('#new_cover_upload').fileupload({
+        dataType: 'json',
+        add: function (e, data) {
+            alert("cover_2");
+            toggle_cover_button();
+            $('#button_valid_cover').click(function(){
+                alert('event_in');
+                data.submit();
+                $(".cover_button").removeClass("show_cover_button");
+            });
+        }
+    });
+});
+
+// Cover functions
+function toggle_cover_button()
+{
+    $(".cover_button").addClass("show_cover_button");
+}
+
+function cancel_cover()
+{
+    $('#current_cover_image').prop("src", previous_cover_pix);
+    previous_cover_pix = "";
+    $(".cover_button").removeClass("show_cover_button");
+}
+
+
+
 function toggle_core_animated(id)
 {
     var p = document.querySelector('#' +  id);
@@ -153,17 +203,13 @@ function stuff(x)
     p.selected = x;
 }
 
-function toggle_left_column(id)
-{
-    var p = document.querySelector('#' + id);
-    p.selected = p.selected ? 0 : 1;
-    $('.interface_hideable_items').toggleClass('hide');
-}
 
 function save_edit_current_user(id)
 {
     toggle_left_column(id);
 }
+
+
 
 function follow_user()
 {
@@ -224,14 +270,18 @@ function to_library_to_user()
 {
     var p = document.querySelector('#explore_user_libraries');
     p.selected = '0';
+    $("#button_back_library_to_user").attr('onclick', "user_to_main()")
+
 }
 
-function user_to_main(x)
+function user_to_main()
 {
     var p = document.querySelector('#main_layer');
     var q = document.querySelector('#cover_layer');
-    p.selected = x;
-    q.selected = x;
+    p.selected = '0';
+    q.selected = '0';
+
+    $("#button_back_library_to_user").attr('onclick', "to_library_to_user()")
 }
 
 function test(x)
@@ -319,7 +369,7 @@ function toggle_details(id)
     p.opened = p.opened ? 0 : 1;
 }
 
-function toggle_perso_interface()
+function toggle_playlist()
 {
     $('#column3').toggleClass('tall_cover');
     $('#column2').toggleClass('tall_cover');
@@ -327,11 +377,13 @@ function toggle_perso_interface()
     $('.search_results').toggle();
 }
 
+
+// Functions change profile pix
 function change_profile_pix(input)
 {
     if (input.files && input.files[0]) {
         var reader = new FileReader();
-
+        previous_profile_pix = $("#my_profile_picture_pix").attr('src');
         reader.onload = function (e) {
             $('#my_profile_picture_pix')
                 .attr('src', e.target.result);
@@ -341,6 +393,18 @@ function change_profile_pix(input)
     }
 }
 
+function toggle_left_column(id)
+{
+    var p = document.querySelector('#' + id);
+    p.selected = p.selected ? 0 : 1;
+    $('.interface_hideable_items').toggleClass('hide');
+    $("#done_edit_user_button").unbind("click");
+}
+
+$(function ()
+{
+
+});
 
 jQuery(document).ready(function() {
     // Loader
@@ -389,7 +453,7 @@ jQuery(document).ready(function() {
 
         stopAudio();
 
-        var next = $('.current_playlist_user div.active').next();
+        var next = $('.current_playlist_user div.selected_yap').next();
         if (next.length == 0) {
             next = $('.current_playlist_user div:first-child');
         }
@@ -402,7 +466,7 @@ jQuery(document).ready(function() {
 
         stopAudio();
 
-        var prev = $('.current_playlist_user div.active').prev();
+        var prev = $('.current_playlist_user div.selected_yap').prev();
         if (prev.length == 0) {
             prev = $('.current_playlist_user div:last-child');
         }

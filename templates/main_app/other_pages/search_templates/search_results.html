@@ -1,0 +1,19 @@
+{% load filters %}
+
+<div class="header_search_results">
+    <span class="sub_header_title">Searching Results</span>
+</div>
+<div class="search_results_container">
+    <div class="header_search_results">
+        <span class="sub_header_title">Users Results</span>
+    </div>
+    {% include "main_app/sub_templates/subscribed_users.html" %}
+    <div class="header_search_results">
+        <span class="sub_header_title">Libraries Results</span>
+    </div>
+    {% include "main_app/other_pages/search_templates/preview_libraries_results.html" %}
+    <div class="header_search_results">
+        <span class="sub_header_title">Yap Results</span>
+    </div>
+    {% include "main_app/other_pages/search_templates/preview_yaps_results.html" %}
+</div>

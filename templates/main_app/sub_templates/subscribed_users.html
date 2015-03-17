@@ -1,36 +1,45 @@
 <div id="subscribed_users_container">
-    <div id="main_user_picture_{{ user_0_id }}" class="prof_pix_heroable width_ratio ratio3-2" hero hero-id="" onclick="to_main_to_user(this.id,{{ user_0_id }})">
-        <div class="content_ratio">
-            <img class="profile_pix_center" src="{{ user_0_profile_pix }}"/>
-            <div class="gradient_title_container gradient_title_container_center">
-                <span class="gradient_title">{{ user_0_first_name }} {{ user_0_last_name }}</span>
+    {% if user_0_id  %}
+        <div id="main_user_picture_{{ user_0_id }}" class="prof_pix_heroable width_ratio ratio3-2" hero hero-id="" onclick="to_main_to_user(this.id,{{ user_0_id }})">
+            <div class="content_ratio">
+                <img class="profile_pix_center" src="{{ user_0_profile_pix }}"/>
+                <div class="gradient_title_container gradient_title_container_center">
+                    <span class="gradient_title">{{ user_0_first_name }} {{ user_0_last_name }}</span>
+                </div>
             </div>
+            <input type="hidden" class="user_cover_path" value="{{ user_0_web_cover_picture_1_path }}">
+            <input type="hidden" class="user_followed" value="{{ followed_0 }}">
         </div>
-        <input type="hidden" class="user_cover_path" value="{{ user_0_web_cover_picture_1_path }}">
-        <input type="hidden" class="user_followed" value="{{ followed_0 }}">
-    </div>
-    <div cross-fade id="main_user_picture_{{ user_1_id }}" class="prof_pix_heroable small_prof_pix width_ratio ratio3-2" hero hero-id="" onclick="to_main_to_user(this.id, {{ user_1_id }})">
-        <div class="content_ratio">
-            <img class="profile_pix_center cropped_pix" src="{{ user_1_profile_pix }}"/>
-            <div class="gradient_title_container gradient_title_container_center">
-                <span class="gradient_title">{{ user_1_first_name }} {{ user_1_last_name }}</span>
+        {% if user_1_id %}
+            <div cross-fade id="main_user_picture_{{ user_1_id }}" class="prof_pix_heroable small_prof_pix width_ratio ratio3-2" hero hero-id="" onclick="to_main_to_user(this.id, {{ user_1_id }})">
+                <div class="content_ratio">
+                    <img class="profile_pix_center cropped_pix" src="{{ user_1_profile_pix }}"/>
+                    <div class="gradient_title_container gradient_title_container_center">
+                        <span class="gradient_title">{{ user_1_first_name }} {{ user_1_last_name }}</span>
+                    </div>
+                </div>
+                <input type="hidden" class="user_cover_path" value="{{ user_1_web_cover_picture_1_path }}">
+                <input type="hidden" class="user_followed" value="{{ followed_1 }}">
             </div>
-        </div>
-        <input type="hidden" class="user_cover_path" value="{{ user_1_web_cover_picture_1_path }}">
-        <input type="hidden" class="user_followed" value="{{ followed_1 }}">
-    </div>
-    <div cross-fade id="main_user_picture_{{ user_2_id }}" class="prof_pix_heroable small_prof_pix width_ratio ratio3-2" hero hero-id="" onclick="to_main_to_user(this.id, {{ user_2_id }})">
-        <div class="content_ratio">
-            <img class="profile_pix_center" src="{{ user_2_profile_pix }}"/>
-            <div class="gradient_title_container gradient_title_container_center">
-                <span class="gradient_title">{{ user_2_first_name }} {{ user_2_last_name }}</span>
+        {% endif %}
+        {% if user_2_id %}
+            <div cross-fade id="main_user_picture_{{ user_2_id }}" class="prof_pix_heroable small_prof_pix width_ratio ratio3-2" hero hero-id="" onclick="to_main_to_user(this.id, {{ user_2_id }})">
+                <div class="content_ratio">
+                    <img class="profile_pix_center" src="{{ user_2_profile_pix }}"/>
+                    <div class="gradient_title_container gradient_title_container_center">
+                        <span class="gradient_title">{{ user_2_first_name }} {{ user_2_last_name }}</span>
+                    </div>
+                </div>
+                <input type="hidden" class="user_cover_path" value="{{ user_2_web_cover_picture_1_path }}">
+                <input type="hidden" class="user_followed" value="{{ followed_2 }}">
             </div>
+        {% endif %}
+        <div cross-fade id="view_all_users_container" class="view_all_container" onclick="from_dashboard_to_view_all_user()" hero hero-id="">
+            <span class="view_all_title">view all</span>
         </div>
-        <input type="hidden" class="user_cover_path" value="{{ user_2_web_cover_picture_1_path }}">
-        <input type="hidden" class="user_followed" value="{{ followed_2 }}">
-
-    </div>
-    <div cross-fade id="view_all_users_container" class="view_all_container" onclick="from_dashboard_to_view_all_user()" hero hero-id="">
-        <span class="view_all_title">view all</span>
-    </div>
+    {% else %}
+        <div class="no_objects_found">
+            <span>No Users found</span>
+        </div>
+    {% endif %}
 </div>

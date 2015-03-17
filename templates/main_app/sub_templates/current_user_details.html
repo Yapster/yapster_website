@@ -1,7 +1,5 @@
-<div id="done_edit_user_button" class="interface_hideable_items" onclick="save_edit_current_user('my_profile_layer')">
-    <span>DONE</span>
-</div>
-<paper-icon-button  id="button_from_edit_to_dash" class="hover interface_hideable_items" icon="arrow-back" role="button" onclick="toggle_left_column('my_profile_layer')"></paper-icon-button>
+<paper-icon-button  id="button_from_edit_to_dash" class="hover interface_hideable_items" icon="close" role="button"></paper-icon-button>
+<paper-icon-button  id="done_edit_user_button" class="hover" icon="check" role="button" ></paper-icon-button>
 <div id="my_profile_picture" class="width_ratio ratio3-2 interface_hideable_items">
     <div class="content_ratio">
         <div class="gradient_toolbar gradient_profile_picture interface_hideable_items" cross-fade>
@@ -16,9 +14,9 @@
             <div class="gradient_details"> {{ city }} | {{ country }}</div>
         </div>
     </div>
-    <div id="mid_text_edit_photo_user" class="interface_hideable_items" onclick="">
-        <input type="file" id="new_profile_pix" name="files[]" onchange="change_profile_pix(this)">
-        <label id="label_new_profile_pix" for="new_profile_pix">Click to change profile photo</label>
+    <div id="mid_text_edit_photo_user" class="interface_hideable_items">
+        <input type="file" id="upload_new_profile_pix" name="files[]" data-url="/app/post/new_profile_pix/">
+        <label id="label_new_profile_pix" for="upload_new_profile_pix">Click to change profile photo</label>
     </div>
 </div>
 <div class="overflow_button_profile_pix_container">
@@ -39,3 +37,42 @@
     <input type="hidden" id="current_user_subscribing_users_count" value="{{ subscribing_users_count }}">
     <input type="hidden" id="current_user_subscribing_libraries_count" value="{{ subscribing_libraries_count }}">
 </div>
+<script>
+    $("#upload_new_profile_pix").change(function(e) {
+        previous_profile_pix = $("#my_profile_picture_pix").attr("src");
+
+        var file = e.currentTarget.files[0];
+        filename = file.name;
+
+        objectUrl = URL.createObjectURL(file);
+
+        $('#my_profile_picture_pix').prop("src", objectUrl);
+    });
+
+    $('#upload_new_profile_pix').fileupload({
+        dataType: 'json',
+        add: function (e, data) {
+            $('#done_edit_user_button').addClass('hide');
+            $("#done_edit_user_button").unbind("click");
+            $('#done_edit_user_button').bind("click", function(){
+                alert("done");
+                data.submit();
+                previous_profile_pix = "";
+                toggle_left_column('my_profile_layer');
+                $('#done_edit_user_button').toggleClass('hide');
+                return false;
+            });
+        }
+    });
+
+    $('#button_from_edit_to_dash').click(function(){
+        if (previous_profile_pix)
+        {
+            $('#my_profile_picture_pix').attr('src', previous_profile_pix);
+            previous_profile_pix = "";
+        }
+        toggle_left_column('my_profile_layer');
+        $('#done_edit_user_button').removeClass('hide');
+        return false;
+    });
+</script>
