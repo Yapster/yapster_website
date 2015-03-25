@@ -1,10 +1,10 @@
-<polymer-element name="no-data" attributes="datatype">
+<polymer-element name="loading-data" attributes="datatype">
     <template>
         <style>
         </style>
         <div class="spinner_container">
             <paper-spinner active></paper-spinner>
-            <div class="text_loading"></div>
+            <div class="text_loading">Loading {{datatype}}...</div>
         </div>
     </template>
     <script>

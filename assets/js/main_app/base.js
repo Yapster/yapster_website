@@ -31,11 +31,12 @@ $(function ()
     {
         var filesList = [],
             paramNames = [],
+            array_filename = {},
             elem = $("#file_upload_yap_post");
         file_upload = elem.fileupload({
-            formData:{extra:1},
+            formData: array_filename,
             autoUpload: false,
-            fileInput: $("input:file"),
+            fileInput: $("input:file")
         }).on("fileuploadadd", function(e, data){
             filesList.push(data.files[0]);
             paramNames.push(e.delegatedEvent.target.name);
@@ -43,7 +44,8 @@ $(function ()
 
         $("#post_yap_button").click(function(e){
             e.preventDefault();
-            file_upload.fileupload('send', {files:filesList, paramName: paramNames});
+
+            file_upload.fileupload('send', {files:filesList, paramName: paramNames, formData: new_array});
         });
 
         $("#new_yap_upload").change(function(e) {
@@ -149,7 +151,6 @@ $(function ()
 
     $("#new_cover_upload").change(function(e) {
 
-        alert('cover_1');
         previous_cover_pix = $("#current_cover_image").attr("src");
         var file = e.currentTarget.files[0];
 
@@ -160,10 +161,8 @@ $(function ()
     $('#new_cover_upload').fileupload({
         dataType: 'json',
         add: function (e, data) {
-            alert("cover_2");
             toggle_cover_button();
             $('#button_valid_cover').click(function(){
-                alert('event_in');
                 data.submit();
                 $(".cover_button").removeClass("show_cover_button");
             });
@@ -183,8 +182,6 @@ function cancel_cover()
     previous_cover_pix = "";
     $(".cover_button").removeClass("show_cover_button");
 }
-
-
 
 function toggle_core_animated(id)
 {
@@ -262,16 +259,15 @@ function to_main_to_library(id, pk)
 
 function to_user_to_library(id, pk)
 {
+    $("#button_back_library_to_user").attr('onclick', "to_library_to_user()");
     get_library_details(id, pk);
-
 }
 
 function to_library_to_user()
 {
+    $("#button_back_library_to_user").attr('onclick', "user_to_main()");
     var p = document.querySelector('#explore_user_libraries');
     p.selected = '0';
-    $("#button_back_library_to_user").attr('onclick', "user_to_main()")
-
 }
 
 function user_to_main()
@@ -280,8 +276,6 @@ function user_to_main()
     var q = document.querySelector('#cover_layer');
     p.selected = '0';
     q.selected = '0';
-
-    $("#button_back_library_to_user").attr('onclick', "to_library_to_user()")
 }
 
 function test(x)
@@ -306,7 +300,7 @@ function from_dashboard_to_view_all_user()
     var p = document.querySelector('#view_all_layer');
     p.selected = 1;
 
-    $('#button_from_view_all_to_dash').toggle();
+    $('#button_back_view_all_to_main').show();
 
 
     if (current_title != "Subscribed Users")
@@ -327,7 +321,7 @@ function from_dashboard_to_view_all_library()
     var p = document.querySelector('#view_all_layer');
     p.selected = 1;
 
-    $('#button_from_view_all_to_dash').toggle();
+    $('#button_back_view_all_to_main').show();
 
 
     if (current_title != "Subscribed Libraries")
@@ -340,7 +334,7 @@ function from_dashboard_to_view_all_library()
 
 function from_view_all_to_dashboard()
 {
-    $('#button_from_view_all_to_dash').toggle();
+    $('#button_back_view_all_to_main').hide();
     var p = document.querySelector('#view_all_layer');
     p.selected = 0;
 }
@@ -374,7 +368,7 @@ function toggle_playlist()
     $('#column3').toggleClass('tall_cover');
     $('#column2').toggleClass('tall_cover');
     $('.current_playlist_user').toggleClass('current_playlist_user_on');
-    $('.search_results').toggle();
+    $('.search_results').fadeToggle();
 }
 
 
@@ -495,7 +489,6 @@ jQuery(document).ready(function() {
                     cpt_libraries_call++;
                     get_view_all_libraries_more(1, 4, cpt_libraries_call);
                 }
-
             }
         }
     });

@@ -86,9 +86,10 @@ function set_playlist(title, library_id, yap_image_in_lib, url, author, yap_id, 
     $('#details_player_title').text(title);
     $('#details_player_detail').text(author);
     $('#current_yap_pix').attr('src', yap_image_in_lib);
-
-    var text_header = author + " - " + library_title;
-    $(".playlist_header_text").text(text_header);
+    if (library_id) {
+        var text_header = author + " - " + library_title;
+        $(".playlist_header_text").text(text_header);
+    }
 
     if (song)
     {
@@ -139,7 +140,7 @@ function set_playlist(title, library_id, yap_image_in_lib, url, author, yap_id, 
     $('#play_button').addClass('hide_icon');
     $('#pause_button').removeClass('hide_icon');
 
-    $('.playlist_container').html("<paper-spinner active></paper-spinner>");
+    $('.playlist_container').html("<loading-data class='loading_data' datatype='yaps'></loading-data>");
 
     $.ajax({
         data : {
@@ -150,6 +151,9 @@ function set_playlist(title, library_id, yap_image_in_lib, url, author, yap_id, 
         type : "POST",
         success: function(newData){
             $('.playlist_container').html(newData);
+        },
+        error: function(){
+            $('.playlist_container').html("");
         }
     });
 }

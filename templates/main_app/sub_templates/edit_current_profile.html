@@ -1,15 +1,15 @@
 <div class="edit_current_user_container">
     <div class="line_edit_user_container">
-        <paper-input class="input_edit_user lefty" floatingLabel label="First Name" value="{{ first_name }}"></paper-input>
-        <paper-input class="input_edit_user righty" floatingLabel label="Last Name" value="{{ last_name }}"></paper-input>
+        <paper-input class="input_to_post input_edit_user lefty" floatingLabel label="First Name" value="{{ first_name }}"></paper-input>
+        <paper-input class="input_to_post input_edit_user righty" floatingLabel label="Last Name" value="{{ last_name }}"></paper-input>
     </div>
     <div class="line_edit_user_container">
-        <paper-input class="input_edit_user lefty" floatingLabel label="City" value="{{ city }}"></paper-input>
+        <paper-input class="input_to_post input_edit_user lefty" floatingLabel label="City" value="{{ city }}"></paper-input>
         <paper-dropdown-menu class="input_edit_user righty" floatingLabel relative inline horizontal center label="State">
             <paper-dropdown class="dropdown">
                 <core-menu class="menu">
                     {% for state_in in states %}
-                        <paper-item id="country_{{ forloop.counter }}">{{ state_in }}</paper-item>
+                        <paper-item class="input_to_post" label="State" id="country_{{ forloop.counter }}" value="{{ state_in }}"></paper-item>
                     {% endfor %}
                 </core-menu>
             </paper-dropdown>
@@ -20,7 +20,7 @@
             <paper-dropdown class="dropdown">
                 <core-menu class="menu">
                     {% for country_in in countries %}
-                        <paper-item id="country_{{ forloop.counter }}" {% if country_in == country %}active{% endif %}>{{ country_in }} {{ country }}</paper-item>
+                        <paper-item class="input_to_post" label="Country" id="country_{{ forloop.counter }}" {% if country_in == country %}active{% endif %} value="{{ country_in }}"></paper-item>
                     {% endfor %}
                 </core-menu>
             </paper-dropdown>
@@ -28,15 +28,14 @@
         <paper-input class="input_edit_user righty" floatingLabel label="Zipcode"></paper-input>
     </div>
     <div class="line_edit_user_container">
-        <textarea class="text_area_description" rows="5" cols="50" maxlength="140">{{ description }}</textarea>
+        <textarea class="text_area_description input_to_post" label="Description" rows="5" cols="50" maxlength="140">{{ description }}</textarea>
     </div>
     <div class="title_edit_user_container">
         <span>Settings</span>
     </div>
     <div class="line_edit_user_container">
-        <paper-input class="input_edit_user lefty" label="Misc"></paper-input>
+        <paper-input class="input_to_post input_edit_user lefty" label="Misc"></paper-input>
     </div>
-    <span class</span>
     <div class="line_edit_user_container">
         <paper-input class="input_edit_user lefty" label="Misc"></paper-input>
     </div>

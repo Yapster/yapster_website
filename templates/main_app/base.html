@@ -70,6 +70,7 @@
     <link rel="import" href="{% static "custom/template-library.html" %}">
     <link rel="import" href="{% static "custom/no-more-to-load.html" %}">
     <link rel="import" href="{% static "custom/follow-button.html" %}">
+    <link rel="import" href="{% static "custom/loading-data.html" %}">
     {#    <link rel="import" href="{% static "custom/list-library-editing.html" %}">#}
     {#    <link rel="import" href="{% static "custom/edit-yap.html" %}">#}
 
@@ -83,14 +84,14 @@
     </div>
 </form>
 <div id="left_part">
-<core-animated-pages id="main_layer" transitions="hero-transition">
+<core-animated-pages id="main_layer" transitions="hero-transition cross-fade">
     <section id="main_view_section">
         <div cross-fade class="column" id="column1_main">
         </div>
-        <div class="column" id="column2">
-            <core-animated-pages id="view_all_layer" transitions="hero-transition">
+        <div cross-fade class="column" id="column2">
+            <core-animated-pages id="view_all_layer" transitions="hero-transition cross-fade">
                 <section id="main_dashboard">
-                    <core-header-panel id="core-header-center"
+                    <core-header-panel cross-fade id="core-header-center"
                                        mode="waterfall">
                         <div cross-fade class="core-header">
                             <paper-tabs selected="0" id="tabs">
@@ -98,7 +99,7 @@
                                 <paper-tab onclick="test('1')">Explore</paper-tab>
                             </paper-tabs>
                         </div>
-                        <div id="content_center">
+                        <div cross-fade id="content_center">
                             <core-animated-pages id="center_layer" transitions="slide-from-right">
                                 <section id="sub_section">
                                     <div id="subscribed_users" class="center_container">
@@ -143,16 +144,13 @@
                     </core-header-panel>
                 </section>
                 <section id="view_all_dashboard">
-                    <core-header-panel id="core-header-view_all">
+                    <core-header-panel cross-fade id="core-header-view_all">
                         <div id="view_all_header" class="core-header" mode="waterfall" hero hero-id="view_all_hero">
                             <div id="view_all_toolbar">
                                 <div id="view_all_title"></div>
                             </div>
-                            {#                                <div class="number_view_all_container">#}
-                            {#                                    <span class="number_header_title"></span>#}
-                            {#                                </div>#}
                         </div>
-                        <div id="results_all_view" class="content">
+                        <div cross-fade id="results_all_view" class="content">
 
                         </div>
                     </core-header-panel>
@@ -182,7 +180,7 @@
             <div id="details_user_profile_picture">
             </div>
         </div>
-        <div class="column" id="column2">
+        <div cross-fade class="column" id="column2">
             <core-animated-pages id="explore_user_libraries" transitions="hero-transition cross-fade">
                 <section id="libraries_user">
                 </section>
@@ -236,7 +234,7 @@
                 </label>
                 <div class="current_playlist_user">
                     <div class="playlist_header">
-                        <span class="playlist_header_text">Test</span>
+                        <span class="playlist_header_text">No Playlist</span>
                     </div>
                     <div class="playlist_container"></div>
                 </div>
@@ -245,6 +243,8 @@
     </section>
     <section id="user_cover">
         <div class="column_cover" id="column3_user">
+            <div id="shadow_box">
+            </div>
             <div class="user_cover_content user_cover_content_on">
                 <img id="user_cover_image" src=""/>
             </div>

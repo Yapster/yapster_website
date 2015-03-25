@@ -16,7 +16,7 @@
             </div>
         </div>
         <div class="line_yap_upload">
-            <paper-input class="filename_input" label="Filename"></paper-input>
+            <paper-input id="filename_{{ i }}" class="filename_input input_file_post" label="Filename" value=""></paper-input>
             <span class="part_text">part {{ i }}</span>
         </div>
     </div>
@@ -28,3 +28,11 @@
 <div class="input_description_container">
     <textarea class="input_description" placeholder="Description of the yap" rows="5" cols="10"></textarea>
 </div>
+
+<script>
+    var new_array = {};
+    $(".input_file_post").change(function(e) {
+        alert(e.target.value);
+        new_array[e.target.id] = e.target.value;
+    });
+</script>

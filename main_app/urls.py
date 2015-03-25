@@ -14,6 +14,7 @@ urlpatterns = patterns(
     url(r'post/upload/$', 'main_app.views.post_upload'),
     url(r'post/new_cover/$', 'main_app.views.post_new_cover'),
     url(r'post/new_profile_pix/$', 'main_app.views.post_new_pix'),
+    url(r'post/edit_current_user_profile/$', 'main_app.views.edit_current_user_profile'),
 
     url(r'get_current_user_details/(?P<user_id>[a-zA-Z0-9_.-]+)/$', 'main_app.views.get_current_user_details'),
     url(r'get_preview_libraries/(?P<user_id>[a-zA-Z0-9_.-]+)/$', 'main_app.views.get_preview_libraries'),

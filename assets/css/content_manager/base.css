@@ -487,6 +487,13 @@ paper-progress::shadow #progress_bar_player {
     display: none;
 }
 
+#button_back_view_all_to_main {
+    position: relative;
+    z-index: 100;
+    float: left;
+    display: none;
+}
+
 #back_edit_profile.hide {
 
 }
@@ -959,20 +966,32 @@ html /deep/ #preview_dialog {
 
 /* YAP DESIGN */
 
+.library_search_container {
+    float: left;
+    width: 100%;
+    border-top: 1px solid #cccccc;
+    border-bottom: 1px solid #cccccc;
+}
+
 .library {
     width: calc(100% - 22px);
     padding-top: 10px;
-    border: solid grey 1px;
-    padding-left: 10px;
-    padding-right: 10px;
+    border-bottom: solid #e6e6e7 1px;
+    border-top: 0;
+    margin-left: 10px;
+    margin-right: 10px;
     padding-bottom: 10px;
     float: left;
-    height: 10%;
+    height: 60px;
     cursor: pointer;
 }
 
+.library.last {
+    border-bottom: 0;
+}
+
 .library:hover {
-    background-color: #eeeeee;
+    background-color: #e6e6e7;
 }
 
 .image_container_library{
@@ -1061,6 +1080,11 @@ html /deep/ #preview_dialog {
     text-align: center;
 }
 
+.library_description_text {
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
 #library_description_text {
     text-align: justify;
 }
@@ -1110,7 +1134,8 @@ html /deep/ #preview_dialog {
     width: calc(100% - 22px);
     padding-top: 10px;
     padding-bottom: 10px;
-    border: solid #e6e6e7 1px;
+    border-top: solid #e6e6e7 1px;
+    border-bottom: solid #e6e6e7 1px;
     padding-left: 15px;
     padding-right: 15px;
 }
@@ -1525,14 +1550,16 @@ html /deep/ #preview_dialog {
     height: calc(100% - 35px);
 }
 
-
 .header_search_results {
     float: left;
     width: calc(100% - 16px);
-    border-bottom: 1px solid #cccccc;
     padding-top: 16px;
     padding-bottom: 12px;
     padding-left: 16px;
+}
+
+#main_header_search_results {
+    border-bottom: 1px #cccccc solid;
 }
 
 .sub_header_title {
@@ -1545,4 +1572,12 @@ html /deep/ #preview_dialog {
     padding: 10px;
     text-align: center;
     font-size: 12px;
+}
+
+
+.loading_data {
+    width: 100%;
+    float: left;
+    text-align: center;
+    margin-top: 50%;
 }

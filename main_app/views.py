@@ -150,9 +150,8 @@ def post_new_pix(request):
     if not is_valid_pix(file, request.COOKIES['u'], "profile"):
         return render(request, "File not valid", {})
 
-
-
     #save pix in profile
+    #API CALL
     return render(request, "<div></div>", {})
 
 
@@ -537,6 +536,8 @@ def get_playlist(request,
     """
 
     context = {}
+    if not request.POST['library_id']:
+        return HttpResponseNotAllowed()
     library_id = request.POST['library_id']
     yap_id = int(request.POST['yap_id'])
     params = {"user_id": request.COOKIES['u'],

@@ -4,6 +4,7 @@
     <div class="content_ratio">
         <div class="gradient_toolbar gradient_profile_picture interface_hideable_items" cross-fade>
             <div class="left_icones_container">
+                <paper-icon-button  id="button_back_view_all_to_main" class="hover" icon="arrow-back" role="button" onclick="from_view_all_to_dashboard()"></paper-icon-button>
                 <paper-icon-button id="back_edit_profile" class="back_button interface_hideable_items" icon="arrow-back" role="button"></paper-icon-button>
                 <paper-icon-button class="right_icon" icon="more-vert" role="button"></paper-icon-button>
             </div>
@@ -38,6 +39,7 @@
     <input type="hidden" id="current_user_subscribing_libraries_count" value="{{ subscribing_libraries_count }}">
 </div>
 <script>
+    var array_inputs = {name: 'a'};
     $("#upload_new_profile_pix").change(function(e) {
         previous_profile_pix = $("#my_profile_picture_pix").attr("src");
 
@@ -51,11 +53,13 @@
 
     $('#upload_new_profile_pix').fileupload({
         dataType: 'json',
+        url: '/app/post/edit_current_user_profile/',
+        formData: array_inputs,
         add: function (e, data) {
             $('#done_edit_user_button').addClass('hide');
             $("#done_edit_user_button").unbind("click");
             $('#done_edit_user_button').bind("click", function(){
-                alert("done");
+                data.formData = array_inputs;
                 data.submit();
                 previous_profile_pix = "";
                 toggle_left_column('my_profile_layer');
@@ -74,5 +78,15 @@
         toggle_left_column('my_profile_layer');
         $('#done_edit_user_button').removeClass('hide');
         return false;
+    });
+    $(".input_to_post").change(function(e){
+        alert(e.target.label);
+        array_inputs[e.target.label] = e.target.value;
+
+        $('#done_edit_user_button').addClass('hide');
+        $("#done_edit_user_button").unbind("click");
+        $('#done_edit_user_button').bind("click", function(){
+            alert("sub");
+        });
     });
 </script>

@@ -1,7 +1,8 @@
 function get_current_user_details() {
     // Set background cover
     // Append in section id='main_view_section' > id='column1'
-    $('#current_cover_image').html("<paper-spinner active></paper-spinner>");
+    $('#current_cover_image').html("<loading-data class='loading_data' datatype='profile'></loading-data>");
+
 
     $.ajax({
         data : {
@@ -16,7 +17,7 @@ function get_current_user_details() {
 }
 
 function get_preview_libraries() {
-    $('#subscribed_libraries_results').html("<paper-spinner active></paper-spinner>");
+    $('#subscribed_libraries_results').html("<loading-data class='loading_data' datatype='libraries'></loading-data>");
 
 
     $.ajax({
@@ -44,7 +45,7 @@ function get_preview_libraries() {
 //}
 
 function get_subscribed_users() {
-    $('#subscribed_users_results').html("<paper-spinner active></paper-spinner>");
+    $('#subscribed_users_results').html("<loading-data class='loading_data' datatype='users'></loading-data>");
 
     $.ajax({
         data : {
@@ -60,7 +61,7 @@ function get_subscribed_users() {
 function get_user_details(id, pk) {
     //set background cover
     // Append in section id='user_view_section' > id='column1_user'
-    $('#details_user_profile_picture').html("<paper-spinner active></paper-spinner>");
+    $('#details_user_profile_picture').html("<loading-data class='loading_data' datatype='profile'></loading-data>");
 
     var root_user = $('#' + id);
     var root_destination = $('#current_user_profile_picture');
@@ -101,14 +102,13 @@ function get_user_details(id, pk) {
             $('#details_user_profile_picture').html(newData);
         },
         error: function(newData) {
-            alert('fail');
         }
     });
 }
 
 function get_user_libraries(pk) {
     // Append in id=libraries_user
-    $('#results_all_view').html("<paper-spinner active></paper-spinner>");
+    $('#results_all_view').html("<loading-data class='loading_data' datatype='libraries'></loading-data>");
 
     $.ajax({
         data : {
@@ -126,7 +126,7 @@ function get_user_libraries(pk) {
 
 function get_library_details(id, pk) {
     // Append in id=yaps_user
-    $('#content_yap_library').html("<paper-spinner active></paper-spinner>");
+    $('#content_yap_library').html("<loading-data class='loading_data' datatype='yaps'></loading-data>");
 
     var root_library = $('#' + id);
     var root_destination = $('#cover_library');
@@ -172,8 +172,9 @@ function get_view_all_users(id, pk)
     $('#results_all_view').html("");
     $('#results_all_view').addClass('sub_users');
     $('#results_all_view').removeClass('sub_libraries');
-    $('#results_all_view').html("<template-library id='fake_template'></template-library>");
+    $('#results_all_view').html("<loading-data class='loading_data' datatype='users'></loading-data>");
 
+    $('#button_back_view_all_to_main').show();
     var url = "app/get_all_users/";
 
 
@@ -202,7 +203,7 @@ function get_view_all_users(id, pk)
 
 function get_view_all_users_more(id, pk, page)
 {
-    $('#results_all_view').append("<template-library id='fake_template'></template-library>");
+    $('#results_all_view').append("<loading-data class='loading_data' datatype='users'></loading-data>");
     var url = "app/get_all_users/"
 
     $.ajax({
@@ -233,7 +234,7 @@ function get_view_all_libraries(id, pk)
     $('#results_all_view').removeClass('sub_users');
 
     var url = "app/get_all_libraries/";
-    $('#results_all_view').append("<template-library id='fake_template'></template-library>");
+    $('#results_all_view').append("<loading-data class='loading_data' datatype='libraries'></loading-data>");
 
 
     $('#view_all_title').text('Subscribed Libraries');
@@ -264,7 +265,7 @@ function get_view_all_libraries(id, pk)
 function get_view_all_libraries_more(id, pk, page)
 {
     var url = "app/get_all_libraries/";
-    $('#results_all_view').append("<template-library id='fake_template'></template-library>");
+    $('#results_all_view').append("<loading-data class='loading_data' datatype='libraries'></loading-data>");
 
 
     $.ajax({
@@ -289,7 +290,7 @@ function get_view_all_libraries_more(id, pk, page)
 
 function get_explore_users()
 {
-    $('#explore_users_results').html("<paper-spinner active></paper-spinner>");
+    $('#explore_users_results').html("<loading-data class='loading_data' datatype='users'></loading-data>");
 
     $.ajax({
         data : {
@@ -304,7 +305,7 @@ function get_explore_users()
 
 function get_explore_libraries()
 {
-    $('#explore_libraries_results').html("<paper-spinner active></paper-spinner>");
+    $('#explore_libraries_results').html("<loading-data class='loading_data' datatype='libraries'></loading-data>");
 
     $.ajax({
         data : {
