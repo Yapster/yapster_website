@@ -26,13 +26,12 @@
     <paper-slider id="preview_tracker" class="tracker" min="0" max value></paper-slider>
 </div>
 <div class="input_description_container">
-    <textarea class="input_description" placeholder="Description of the yap" rows="5" cols="10"></textarea>
+    <textarea id="description_yap" class="input_description input_file_post" placeholder="Description of the yap" rows="5" cols="10"></textarea>
 </div>
 
 <script>
     var new_array = {};
     $(".input_file_post").change(function(e) {
-        alert(e.target.value);
         new_array[e.target.id] = e.target.value;
     });
 </script>

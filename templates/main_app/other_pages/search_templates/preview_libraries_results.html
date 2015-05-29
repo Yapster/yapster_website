@@ -2,7 +2,7 @@
 {% if libraries %}
     <div class="library_search_container">
         {% for library in libraries %}
-            <div id="lib_{{ library|access:"id" }}" class="library {% if forloop.last %}last{% endif %}" onclick="to_user_to_library(this.id, '{{ library|access:"id" }}')">
+            <div id="lib_{{ library|access:"id" }}" class="library {% if forloop.last %}last{% endif %}" onclick="to_search_to_library(this.id, '{{ library|access:"id" }}')">
                 <div class="image_container_library">
                     <img hero hero-id="" class="library_image lib_pix_heroable" src="{{ library|access:"picture_cropped_path" }}"/>
                 </div>
@@ -14,14 +14,19 @@
                         <span class="library_text">{{ library|access:"description" }}</span>
                     </div>
                 </div>
+                <input type="hidden" class="name" value="{{ library|access:"user_name" }}">
+                <input type="hidden" class="location" value="{{ library|access:"user_location" }}">
+                <input type="hidden" class="user_description" value="{{ library|access:"user_desc" }}">
+                <input type="hidden" class="profile_picture_path" value="{{ library|access:"user_profile_pix" }}">
+                <input type="hidden" class="profile_cover" value="{{ library|access:"user_profile_cover" }}">
             </div>
         {% endfor %}
     </div>
-    <div cross-fade id="view_all_users_container" class="view_all_container" onclick="from_dashboard_to_view_all_user()" hero hero-id="">
+    <div id="specific_search_libraries" class="view_all_search_container" onclick="from_general_search_to_specific_search(this.id)" hero hero-id="">
         <span class="view_all_title">view all</span>
     </div>
 {% else %}
     <div class="no_objects_found">
-        <span>No Users found</span>
+        <span>No libraries found</span>
     </div>
 {% endif %}

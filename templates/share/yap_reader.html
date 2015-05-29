@@ -1,0 +1,89 @@
+{% extends "light_home.html" %}
+{% load staticfiles %}
+
+{% block localfiles %}
+    <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.0/themes/smoothness/jquery-ui.css" />
+    <script type="text/javascript" src="{% static "js/plugins/jQuery-File-Upload-9.9.3/js/jquery.fileupload.js" %} "></script>
+    <script type="text/javascript" src="{% static "js/plugins/jQuery-File-Upload-9.9.3/js/vendor/jquery.ui.widget.js" %} "></script>
+    <script type="text/javascript" src="{% static "js/plugins/jQuery-File-Upload-9.9.3/js/jquery.iframe-transport.js" %} "></script>
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,500,700,300' rel='stylesheet' type='text/css'>
+    <script type="text/javascript" src="{% static "js/share/base.js"%}"></script>
+
+    <link rel="import" href="{% static "bower_components/paper-icon-button/paper-icon-button.html" %}">
+    <link rel="import" href="{% static "bower_components/paper-slider/paper-slider.html" %}">
+    <link rel="import" href="{% static "bower_components/core-icons/core-icons.html" %}">
+    <link rel="import" href="{% static "bower_components/core-icon/core-icon.html" %}">
+    <link rel="import" href="{% static "bower_components/core-icons/av-icons.html" %}">
+    <link rel="import" href="{% static "bower_components/core-icon-button/core-icon-button.html" %}">
+
+    <link rel="stylesheet" type="text/css" href="{% static "css/share_yap.css" %}" />
+
+{% endblock %}
+
+{% block content %}
+    <div id="share">
+        <div id="share_window">
+            <div id="share_content">
+                <div id="user_container">
+                    <div id="pix_user_container" class="ratio1-1 width_ratio">
+                        <div class="content_ratio">
+                            <img id="img_user" src="{% static "images/share/proffile.jpg" %}"/>
+                        </div>
+                    </div>
+                    <div id="user_info">
+                        <div id="user_main_info">
+                            <div id="user_names">
+                                <div id="user_firstlastname">Gurkaran Gulati</div>
+                                <div id="user_username">@gurkarangulatiuser</div>
+                            </div>
+                            <div id="yap_date">08/23/2014</div>
+                        </div>
+                        <div id="user_description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Labore maiores obcaecati quasi?</div>
+                    </div>
+                    <div id="yap_numbers">
+                        <div class="yap_number" id="listens_number">
+                            <div class="icon_share" id="icon_listen"></div>
+                            <div class="yap_number_text">234</div>
+                        </div>
+                        <div class="yap_number" id="reyaps_number">
+                            <div class="icon_share" id="icon_reyap"></div>
+                            <div class="yap_number_text">56789</div>
+                        </div>
+                        <div class="yap_number" id="likes_number">
+                            <div class="icon_share" id="icon_like"></div>
+                            <div class="yap_number_text">987</div>
+                        </div>
+                    </div>
+                </div>
+                <div id="player">
+                    <div class="controls">
+                        <div class="container_player_icon container_player">
+                            <paper-icon-button id="play_stop_button" class="icon_controls_player" icon="av:play-arrow" role="player_control"></paper-icon-button>
+                        </div>
+                        <div class="time_player container_player">0:03</div>
+                        <div class="container_player_slider container_player">
+                            <paper-slider class="tracker" min="0" max="" value="" on-change="{{ onclick_slider }}"></paper-slider>
+                        </div>
+                        <div class="right_time time_player container_player">5:03</div>
+                        <div class="share_container">
+                            <div>
+                                <div class="fb-share-button" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button"></div>
+                            </div>
+                            <div>
+                                <a href="https://twitter.com/share" class="twitter-share-button" data-count="none">Tweet</a>
+                            </div>
+                            <div>
+                                <div class="g-plus" data-action="share"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="picture_container" class="ratio2-1 width_ratio">
+                <div class="content_ratio">
+                    <img id="img_yap" src="{% static "images/share/yap_image.jpg" %}"/>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

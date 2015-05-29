@@ -1,6 +1,11 @@
 var song;
 var slider = $('.tracker');
 
+function event_change_slider()
+{
+
+}
+
 function initAudio(elem) {
     var url = elem.attr('audiourl');
     var title = elem.find('.yap_in_playlist_title').text();
@@ -60,6 +65,8 @@ function initAudio(elem) {
         }
         initAudio(next);
     });
+
+
 
 //    $('.current_playlist_user div').removeClass('selected_yap');
 
@@ -184,4 +191,3 @@ function play_library_yap(yap, library_id, library_title){
 function play_yap_in_playlist(yap_in_playlist_id) {
     initAudio($("#" + yap_in_playlist_id));
 }
-

@@ -1,19 +1,35 @@
 {% load filters %}
 
-<div id="main_header_search_results" class="header_search_results">
-    <span class="sub_header_title">Searching Results</span>
-</div>
-<div class="search_results_container">
-    <div class="header_search_results">
-        <span class="sub_header_title">Users Results</span>
-    </div>
-    {% include "main_app/sub_templates/subscribed_users.html" %}
-    <div class="header_search_results">
-        <span class="sub_header_title">Libraries Results</span>
-    </div>
-    {% include "main_app/other_pages/search_templates/preview_libraries_results.html" %}
-    <div class="header_search_results">
-        <span class="sub_header_title">Yap Results</span>
-    </div>
-    {% include "main_app/other_pages/search_templates/preview_yaps_results.html" %}
-</div>
+<core-animated-pages id="search_results_animation" transitions="hero-transition cross-fade">
+    <section id="general_search_results" value="{{ search_id }}">
+        <div id="main_header_search_results" class="header_search_results" cross-fade>
+            <span class="sub_header_title">Searching Results</span>
+        </div>
+        <div class="search_results_container" cross-fade>
+            <div class="header_search_results">
+                <span class="sub_header_title">Users Results</span>
+            </div>
+            {% include "main_app/other_pages/search_templates/preview_users_results.html" %}
+            <div class="header_search_results">
+                <span class="sub_header_title">Libraries Results</span>
+            </div>
+            {% include "main_app/other_pages/search_templates/preview_libraries_results.html" %}
+            <div class="header_search_results">
+                <span class="sub_header_title">Yap Results</span>
+            </div>
+            {% include "main_app/other_pages/search_templates/preview_yaps_results.html" %}
+        </div>
+    </section>
+    <section id="specific_search_results">
+        <div id="main_header_specific_results" class="header_search_results" hero hero-id="specific_search_results">
+            <span class="sub_header_title">Searching Specific Results</span>
+        </div>
+        <div onclick="from_specific_search_to_general_search()" cross-fade>
+            <span>TEST CLICK ME</span>
+        </div>
+        <div id="specific_search_results_content">
+
+        </div>
+    </section>
+
+</core-animated-pages>

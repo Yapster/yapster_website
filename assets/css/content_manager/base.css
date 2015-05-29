@@ -125,7 +125,7 @@ my-header {
     top: 0;
 }
 
-#view_all_toolbar, #results_all_view {
+#view_all_toolbar, #results_all_view, #users_libraries {
     float: left;
     width: 100%;
 }
@@ -512,7 +512,7 @@ paper-progress::shadow #progress_bar_player {
     font-size: 12px;
 }
 
-.view_all_container {
+.view_all_container, .view_all_search_container {
     padding-top: 10px;
     padding-bottom: 10px;
     text-align: center;
@@ -523,7 +523,7 @@ paper-progress::shadow #progress_bar_player {
     background-color: white;
 }
 
-.view_all_container:hover {
+.view_all_container:hover, .view_all_search_container:hover {
     background-color: #eeeeee;
 }
 
@@ -673,12 +673,17 @@ paper-progress::shadow #progress_bar_player {
     padding-top: 100%;
 }
 
+.ratio5-1 {
+    padding-top: 20%;
+}
+
 .content_ratio {
     position: absolute;
     top: 0;
     left: 0;
     bottom: 0;
     right: 0;
+    background-color: transparent;
 }
 
 .content_ratio:hover {
@@ -725,7 +730,10 @@ paper-progress::shadow #progress_bar_player {
 }
 
 .title_edit_user_container {
-    float:left;
+    float: left;
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .text_area_description {
@@ -781,12 +789,16 @@ paper-dropdown-menu {
     padding: 0px;
 }
 
-#edit_profile, #follow_profile {
+#edit_profile {
     background: #f9af3c;
 }
 
 #follow_profile {
     background: #16d301;
+}
+
+#follow_profile.followed {
+    background: grey;
 }
 
 .profile_description {
@@ -905,7 +917,7 @@ html /deep/ #preview_dialog {
     float: left;
 }
 
-#view_all_layer {
+#view_all_layer, #search_results_animation {
     width: 100%;
     height: 100%;
 }
@@ -973,7 +985,7 @@ html /deep/ #preview_dialog {
     border-bottom: 1px solid #cccccc;
 }
 
-.library {
+.library, .user {
     width: calc(100% - 22px);
     padding-top: 10px;
     border-bottom: solid #e6e6e7 1px;
@@ -982,7 +994,7 @@ html /deep/ #preview_dialog {
     margin-right: 10px;
     padding-bottom: 10px;
     float: left;
-    height: 60px;
+    height: 20%;
     cursor: pointer;
 }
 
@@ -990,22 +1002,26 @@ html /deep/ #preview_dialog {
     border-bottom: 0;
 }
 
-.library:hover {
-    background-color: #e6e6e7;
+.library:hover, .user:hover {
+    background-color: #f2f2f2;
 }
 
-.image_container_library{
-    width: 15%;
-    height: 100%;
-    float: left;
-    overflow: hidden;
-}
 
 .library_image, .user_image {
     float: left;
-    height: 100%;
-    width: initial;
+    width: 100%;
 }
+
+.image_container_library, .image_container_user {
+    background-color: transparent;
+    width: 20%;
+    position: relative;
+    overflow: hidden;
+    float: left;
+    display: table-row;
+    z-index: 0;
+}
+
 
 .library_description, .user_description {
     margin-left: 10px;
@@ -1371,6 +1387,13 @@ html /deep/ #preview_dialog {
     background-color: white;
 }
 
+.to_delete {
+    background-color: white;
+}
+
+.empty_search {
+}
+
 /* Edit yap upload */
 
 
@@ -1558,7 +1581,7 @@ html /deep/ #preview_dialog {
     padding-left: 16px;
 }
 
-#main_header_search_results {
+#main_header_search_results, #main_header_specific_results {
     border-bottom: 1px #cccccc solid;
 }
 
@@ -1577,7 +1600,18 @@ html /deep/ #preview_dialog {
 
 .loading_data {
     width: 100%;
+    height: 100%;
     float: left;
     text-align: center;
-    margin-top: 50%;
+    margin-top: 30%;
+    margin-bottom: 30%;
+}
+
+.loading_more {
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+
+.random_error {
+    color: red;
 }

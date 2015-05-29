@@ -1,22 +1,28 @@
 {% load filters %}
 
 {% if l_libraries %}
-{% for library in l_libraries %}
-    <div id="lib_{{ library|access:"id" }}" class="library" onclick="to_user_to_library(this.id, '{{ library|access:"id" }}')">
-        <div class="image_container_library">
-            <img hero hero-id="" class="library_image lib_pix_heroable" src="{{ library|access:"picture_cropped_path" }}"/>
-        </div>
-        <div class="library_description">
-            <div class="library_title_container">
-                <span class="library_title">{{ library|access:"title" }}</span>
+    {% for library in l_libraries %}
+        <div id="lib_{{ library|access:"id" }}" class="library" onclick="to_main_to_library(this.id, '{{ library|access:"id" }}')">
+            <div class="image_container_library width_ratio ratio5-1">
+                <div class="content_ratio">
+                    <img hero hero-id="" class="library_image lib_pix_heroable" src="{{ library|access:"picture_cropped_path" }}"/>
+                </div>
             </div>
-            <div class="library_text_container">
-                <span class="library_text">{{ library|access:"description" }}</span>
+            <div class="library_description">
+                <div class="library_title_container">
+                    <span class="library_title">{{ library|access:"title" }} by {{ library|access:"name" }}</span>
+                </div>
+                <div class="library_text_container">
+                    <span class="library_text">{{ library|access:"description" }}</span>
+                </div>
             </div>
+            <input type="hidden" class="user_cover_path" value="{{ library|access:"web_cover_picture_1_path" }}">
+            <input type="hidden" class="profile_picture_path" value="{{ library|access:"profile_picture_path" }}">
+            <input type="hidden" class="name" value="{{ library|access:"name" }}">
+            <input type="hidden" class="location" value="{{ library|access:"location" }}">
+            <input type="hidden" class="user_description" value="{{ library|access:"user_description" }}">
         </div>
-        <input type="hidden" class="user_cover_path" value="{{ library|access:"web_cover_picture_1_path" }}">
-    </div>
-{% endfor %}
+    {% endfor %}
 {% else %}
     <div>No Libraries to display</div>
 {% endif %}

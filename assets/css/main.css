@@ -29,9 +29,8 @@ body {
 
 #inputs_container {
     float:left;
-    margin-right: 15px;
     width: calc(100% - 70px);
-    margin-top: -17px;
+    margin-top: -11px;
     display: none;
 }
 

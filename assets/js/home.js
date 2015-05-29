@@ -71,7 +71,8 @@ function log_in(username, password)
                 success: function(){
                     window.location.replace("/app/");
                 },
-                error: function() {
+                error: function(newData) {
+                    alert(newData);
                     $('#errorlogin').html('Email/username and/or password invalid.');
 
                 }

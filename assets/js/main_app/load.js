@@ -1,7 +1,8 @@
-function get_current_user_details() {
+function get_current_user_details()
+{
     // Set background cover
     // Append in section id='main_view_section' > id='column1'
-    $('#current_cover_image').html("<loading-data class='loading_data' datatype='profile'></loading-data>");
+    $('#current_cover_image').html("<loading-data id=fake_template class='loading_data' datatype='profile'></loading-data>");
 
 
     $.ajax({
@@ -16,8 +17,9 @@ function get_current_user_details() {
     });
 }
 
-function get_preview_libraries() {
-    $('#subscribed_libraries_results').html("<loading-data class='loading_data' datatype='libraries'></loading-data>");
+function get_preview_libraries()
+{
+    $('#subscribed_libraries_results').html("<loading-data id=fake_template class='loading_data' datatype='libraries1'></loading-data>");
 
 
     $.ajax({
@@ -44,8 +46,9 @@ function get_preview_libraries() {
 //    });
 //}
 
-function get_subscribed_users() {
-    $('#subscribed_users_results').html("<loading-data class='loading_data' datatype='users'></loading-data>");
+function get_subscribed_users()
+{
+    $('#subscribed_users_results').html("<loading-data id=fake_template class='loading_data' datatype='users'></loading-data>");
 
     $.ajax({
         data : {
@@ -58,30 +61,34 @@ function get_subscribed_users() {
     });
 }
 
-function get_user_details(id, pk) {
+function get_user_details(id, pk)
+{
     //set background cover
     // Append in section id='user_view_section' > id='column1_user'
-    $('#details_user_profile_picture').html("<loading-data class='loading_data' datatype='profile'></loading-data>");
+    $('#details_user_profile_picture').html("<loading-data id=fake_template class='loading_data' datatype='profile'></loading-data>");
 
     var root_user = $('#' + id);
     var root_destination = $('#current_user_profile_picture');
 
     $('#user_cover_image').attr('src', root_user.find('.user_cover_path').val());
-    root_destination.find('.gradient_profile_title').text(root_user.find('.gradient_title').text());
+    root_destination.find('.gradient_profile_title').text(root_user.find('.user_title').text());
 
-    var origin_pix = root_user.find('.profile_pix_center');
+    var origin_pix = root_user.find('.profile_pix_tag');
     $('#user_profile_picture_pix').attr('src', origin_pix.attr('src'));
     $(".prof_pix_heroable[hero-id='profile-pix-hero']").attr("hero-id", "");
     root_user.attr('hero-id', 'profile-pix-hero');
 
+
+
+
     var bool_follow = root_user.find('.user_followed').val();
     if (bool_follow == "True")
     {
-        $('#follow_profile').attr('icon', 'remove-circle');
+        $('#follow_profile').attr('icon', 'done').addClass("followed");
     }
     else
     {
-        $('#follow_profile').attr('icon', 'add-circle');
+        $('#follow_profile').attr('icon', 'add');
     }
 
     var p = document.querySelector('#main_layer');
@@ -106,9 +113,10 @@ function get_user_details(id, pk) {
     });
 }
 
-function get_user_libraries(pk) {
+function get_user_libraries(pk)
+{
     // Append in id=libraries_user
-    $('#results_all_view').html("<loading-data class='loading_data' datatype='libraries'></loading-data>");
+    $('#libraries_user').html("<loading-data id=fake_template class='loading_data' datatype='libraries3'></loading-data>");
 
     $.ajax({
         data : {
@@ -124,9 +132,10 @@ function get_user_libraries(pk) {
     });
 }
 
-function get_library_details(id, pk) {
+function get_library_details(id, pk)
+{
     // Append in id=yaps_user
-    $('#content_yap_library').html("<loading-data class='loading_data' datatype='yaps'></loading-data>");
+    $('#content_yap_library').html("<loading-data id=fake_template class='loading_data' datatype='yaps'></loading-data>");
 
     var root_library = $('#' + id);
     var root_destination = $('#cover_library');
@@ -148,6 +157,12 @@ function get_library_details(id, pk) {
     $('#current_library_cover').attr('src', origin_pix.attr('src'));
     $(".lib_pix_heroable[hero-id='lib-pix-hero']").attr("hero-id", "");
     origin_pix.attr('hero-id', 'lib-pix-hero');
+
+    $(".prof_pix_heroable[hero-id='profile-pix-hero']").attr("hero-id", "");
+
+
+    $('#user_profile_picture_pix').attr('src', root_library.find('.profile_picture_path').val());
+
     var p = document.querySelector('#explore_user_libraries');
     var q = document.querySelector('#cover_layer');
     var r = document.querySelector('#main_layer');
@@ -167,12 +182,29 @@ function get_library_details(id, pk) {
     });
 }
 
+function set_user_details(id, pk)
+{
+    var root_library = $('#' + id);
+    var root_destination = $('#current_user_profile_picture');
+
+    root_destination.find(".gradient_profile_title").text(root_library.find(".name").val());
+    root_destination.find(".gradient_details").text(root_library.find(".location").val());
+    $("#details_user_profile_picture").text(root_library.find(".user_description").val());
+    $("#user_profile_picture_pix").attr('src', root_library.find(".profile_picture_path").val());
+    if (root_library.find(".profile_cover"))
+    {
+        $("#user_cover_image").attr('src', root_library.find(".profile_cover").val());
+    }
+
+}
+
+
 function get_view_all_users(id, pk)
 {
     $('#results_all_view').html("");
     $('#results_all_view').addClass('sub_users');
     $('#results_all_view').removeClass('sub_libraries');
-    $('#results_all_view').html("<loading-data class='loading_data' datatype='users'></loading-data>");
+    $('#results_all_view').html("<loading-data id=fake_template class='loading_data' datatype='users'></loading-data>");
 
     $('#button_back_view_all_to_main').show();
     var url = "app/get_all_users/";
@@ -203,7 +235,7 @@ function get_view_all_users(id, pk)
 
 function get_view_all_users_more(id, pk, page)
 {
-    $('#results_all_view').append("<loading-data class='loading_data' datatype='users'></loading-data>");
+    $('#results_all_view').append("<loading-data id=fake_template class='loading_data loading_more' datatype='users'></loading-data>");
     var url = "app/get_all_users/"
 
     $.ajax({
@@ -234,7 +266,7 @@ function get_view_all_libraries(id, pk)
     $('#results_all_view').removeClass('sub_users');
 
     var url = "app/get_all_libraries/";
-    $('#results_all_view').append("<loading-data class='loading_data' datatype='libraries'></loading-data>");
+    $('#results_all_view').append("<loading-data id=fake_template class='loading_data' datatype='libraries4'></loading-data>");
 
 
     $('#view_all_title').text('Subscribed Libraries');
@@ -265,7 +297,7 @@ function get_view_all_libraries(id, pk)
 function get_view_all_libraries_more(id, pk, page)
 {
     var url = "app/get_all_libraries/";
-    $('#results_all_view').append("<loading-data class='loading_data' datatype='libraries'></loading-data>");
+    $('#results_all_view').append("<loading-data id=fake_template class='loading_data loading_more' datatype='libraries5'></loading-data>");
 
 
     $.ajax({
@@ -290,7 +322,7 @@ function get_view_all_libraries_more(id, pk, page)
 
 function get_explore_users()
 {
-    $('#explore_users_results').html("<loading-data class='loading_data' datatype='users'></loading-data>");
+    $('#explore_users_results').html("<loading-data id=fake_template class='loading_data' datatype='users'></loading-data>");
 
     $.ajax({
         data : {
@@ -305,7 +337,7 @@ function get_explore_users()
 
 function get_explore_libraries()
 {
-    $('#explore_libraries_results').html("<loading-data class='loading_data' datatype='libraries'></loading-data>");
+    $('#explore_libraries_results').html("<loading-data id=fake_template class='loading_data' datatype='libraries6'></loading-data>");
 
     $.ajax({
         data : {
@@ -316,4 +348,29 @@ function get_explore_libraries()
             $('#explore_libraries_results').html(newData);
         }
     });
+}
+
+
+function specific_search(type_search)
+{
+    $('#specific_search_results_content').html("<loading-data id=fake_template class='loading_data' datatype='search results'></loading-data>");
+
+    $.ajax({
+        data : {
+            type: type_search,
+            page: 1,
+            amount: 5
+        },
+        url : "/app/get_all_search_results/",
+        type : "POST",
+        success: function(newData){
+            $('#specific_search_results_content').html(newData);
+        }
+    });
+}
+
+function specific_search_more(type_search, page)
+{
+    $('#specific_search_results_content').append("<loading-data id=fake_template class='loading_data' datatype='users'></loading-data>");
+
 }

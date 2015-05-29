@@ -18,7 +18,7 @@ def boto_init_s3(bucket_name):
 
     return b
 
-def to_cut(file, duration_slice=60000.0):
+def to_cut(file, duration_slice=900000.0):
     try:
         mime = file.content_type.split("/")
     except IndexError:
@@ -35,23 +35,22 @@ def audio_is_uploaded(file, user_id):
     :param file:
     :return: True if valid. Else false (DUUH?!?!)
     """
+    l_audio_paths = []
     try:
         mime = file.content_type.split("/")
     except IndexError:
         return False
     if mime[0] == "audio":
         file_version = AudioSegment.from_file(file, mime[1])
-        split_into_yaps(file_version, user_id)
         original_to_upload = file_version.export()
-        uploaded = upload_file_to_s3(file=original_to_upload,
+        l_audio_paths = split_into_yaps(file_version, user_id)
+        upload_file_to_s3(file=original_to_upload,
                                      user_id=user_id,
-                                     type_data="yap",
+                                     type_data="original",
                                      name="original")
-        return uploaded
-
     # name = 'E:/Projects/yapster_website/assets/1.mp3'
     #f = open(name, 'rb')
-    return False
+    return l_audio_paths
 
 def pix_is_uploaded(file, user_id, type_data):
     try:
@@ -73,21 +72,21 @@ def is_valid_pix(file, user_id, type_data):
     except IndexError:
         return False
     if mime[0] == "image":
-        upload_file_to_s3(file=file,
-                          user_id=user_id,
-                          type_data=type_data,
-                          name=type_data)
-
+        uploaded = upload_file_to_s3(file=file,
+                                     user_id=user_id,
+                                     type_data=type_data,
+                                     name=type_data)
+        return uploaded
     return False
 
-def split_into_yaps(audio_seg, user_id, duration_slice=60000.0):
+def split_into_yaps(audio_seg, user_id, duration_slice=900000.0):
     """
     Split a to big audio_seg into list of audio segs
     :param audio_seg : AudioSegment file to split
     :param duration_slice: Size of each part sliced, except last one obviously
     :return: list of AudioSegment
     """
-
+    l_audio_paths = []
     duration = len(audio_seg)
     rest = duration % duration_slice
     slice_number = duration // duration_slice - 1
@@ -98,15 +97,21 @@ def split_into_yaps(audio_seg, user_id, duration_slice=60000.0):
             sub_audio = sub_audio[-start:]
         return sub_audio
     while slice_number >= i:
+        d_info = {}
         new_file = get_interval(audio_seg, duration_slice, (i + 1) * duration_slice)
-        to_upload = new_file.export("/" + str(i) + ".mp3")
-        upload_file_to_s3(to_upload, user_id, "yap_audio", str(i))
+        to_upload = new_file.export()
+        d_info['length'] = len(new_file)
+        d_info['path'] = upload_file_to_s3(to_upload, user_id, "yap_audio", str(i))
+        l_audio_paths.append(d_info)
         i += 1
     if rest:
+        d_info = {}
         new_file = audio_seg[-rest:]
-        to_upload = new_file.export("/" + str(i) + ".mp3")
-        upload_file_to_s3(to_upload, user_id, "yap_audio", str(i))
-    return
+        to_upload = new_file.export()
+        d_info['length'] = len(new_file)
+        d_info['path'] = upload_file_to_s3(to_upload, user_id, "yap_audio", str(i))
+        l_audio_paths.append(d_info)
+    return l_audio_paths
 
 
 #TODO: Change Absolute path
@@ -127,7 +132,10 @@ def upload_file_to_s3(file, user_id, type_data, name):
             path_bucket = "yapsterusers/uid/" + user_id + "/yaps/1/audio/" + name
 
         if type_data == "yap_image":
-            path_bucket = "yapsterusers/uid/" + user_id + "/yaps/1/audio/" + name
+            path_bucket = "yapsterusers/uid/" + user_id + "/yaps/1/image/" + name
+
+        if type_data == "original":
+            path_bucket = "yapsterusers/uid/" + user_id + "/yaps/1/audio/original"
 
         k = b.get_key(path_bucket)
         if not k:
@@ -137,7 +145,7 @@ def upload_file_to_s3(file, user_id, type_data, name):
                 return "error occured"
         k.set_contents_from_file(file)
 
-    return ""
+    return path_bucket
 
 
 def yapster_api_post_request(path, params):

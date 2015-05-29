@@ -34,7 +34,7 @@
                 <input type="hidden" class="user_followed" value="{{ followed_2 }}">
             </div>
         {% endif %}
-        <div cross-fade id="view_all_users_container" class="view_all_container" onclick="from_dashboard_to_view_all_user()" hero hero-id="">
+        <div id="specific_search_users" class="view_all_search_container" onclick="from_general_search_to_specific_search(this.id)" hero hero-id="">
             <span class="view_all_title">view all</span>
         </div>
     {% else %}

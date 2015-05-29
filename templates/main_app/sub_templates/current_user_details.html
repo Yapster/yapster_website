@@ -30,7 +30,7 @@
         </section>
         <section id="main_view_left_section">
             <div class="profile_details" >
-                <span class="profile_description">{{ description }}</span>
+                <span class="input_to_post profile_description">{{ description }}</span>
             </div>
         </section>
     </core-animated-pages>
@@ -39,7 +39,7 @@
     <input type="hidden" id="current_user_subscribing_libraries_count" value="{{ subscribing_libraries_count }}">
 </div>
 <script>
-    var array_inputs = {name: 'a'};
+    var array_inputs = {};
     $("#upload_new_profile_pix").change(function(e) {
         previous_profile_pix = $("#my_profile_picture_pix").attr("src");
 
@@ -80,13 +80,35 @@
         return false;
     });
     $(".input_to_post").change(function(e){
-        alert(e.target.label);
-        array_inputs[e.target.label] = e.target.value;
-
         $('#done_edit_user_button').addClass('hide');
-        $("#done_edit_user_button").unbind("click");
-        $('#done_edit_user_button').bind("click", function(){
-            alert("sub");
-        });
+        array_inputs[e.target.label] = e.target.value;
+        if (!previous_profile_pix)
+        {
+            $("#done_edit_user_button").unbind("click");
+            $('#done_edit_user_button').bind("click", function(){
+                if (previous_profile_pix)
+                {
+                    data.formData = array_inputs;
+                    data.submit();
+                }
+                else
+                {
+                    $.ajax({
+                        data : {
+                            data: array_inputs
+                        },
+                        url : "/app/post/edit_current_user_profile/",
+                        type : "POST",
+                        success: function(){
+                        }
+                    });
+                }
+                previous_profile_pix = "";
+                toggle_left_column('my_profile_layer');
+                $('#done_edit_user_button').toggleClass('hide');
+                return false;
+            });
+        }
+
     });
 </script>

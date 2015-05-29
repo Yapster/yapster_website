@@ -118,6 +118,7 @@ function choose_library(id)
     $("#" + id).addClass("select");
     var title_lib = $("#" + id).find(".edit_yap_library_title_container").text();
     $(".text_library_selected").text("Selected library: " + title_lib);
+    new_array['library'] = id;
 }
 
 $(function ()
@@ -125,6 +126,7 @@ $(function ()
         $('#post_yap_button').fileupload({
             dataType: 'json',
             done: function (e, data) {
+                alert(data.result);
                 $.each(data.result.files, function (index, file) {
                     $('<p/>').text(file.name).appendTo(document.body);
                 });
@@ -214,7 +216,7 @@ function follow_user()
     var user_id = $('#id_user_detail').val();
 
 
-    if (state == 'add-circle')
+    if (state == 'add')
     {
         $.ajax({
             data : {
@@ -223,7 +225,7 @@ function follow_user()
             url : "/app/subscribed_user_profile/",
             type : "POST",
             success: function(){
-                $('#follow_profile').attr('icon', 'remove-circle');
+                $('#follow_profile').attr('icon', 'done').addClass("followed");
             }
         });
     }
@@ -236,7 +238,7 @@ function follow_user()
             url : "/app/unsubscribed_user_profile/",
             type : "POST",
             success: function(){
-                $('#follow_profile').attr('icon', 'add-circle');
+                $('#follow_profile').attr('icon', 'add').removeClass("followed");
             }
         });
     }
@@ -252,15 +254,23 @@ function to_main_to_user(id, pk)
 function to_main_to_library(id, pk)
 {
     get_library_details(id, pk);
-
+    set_user_details(id, pk);
     var p = document.querySelector('#main_layer');
     p.selected = '1';
 }
+
 
 function to_user_to_library(id, pk)
 {
     $("#button_back_library_to_user").attr('onclick', "to_library_to_user()");
     get_library_details(id, pk);
+}
+
+function to_search_to_library(id, pk)
+{
+    $("#button_back_library_to_user").attr('onclick', "to_library_to_user()");
+    get_library_details(id, pk);
+    set_user_details(id, pk);
 }
 
 function to_library_to_user()
@@ -288,6 +298,23 @@ function tog_right()
 {
     var p = document.querySelector('#right_side');
     p.selected = p.selected ? 0 : 1;
+}
+
+function from_general_search_to_specific_search(id_clicked)
+{
+    alert(id_clicked);
+    $(".view_all_search_container").attr("hero-id", "");
+    $("#" + id_clicked).attr("hero-id", "specific_search_results");
+
+    specific_search(id_clicked);
+    var p = document.querySelector("#search_results_animation");
+    p.selected = 1;
+
+}
+
+function from_specific_search_to_general_search(){
+    var p = document.querySelector("#search_results_animation");
+    p.selected = 0;
 }
 
 function from_dashboard_to_view_all_user()
@@ -492,4 +519,15 @@ jQuery(document).ready(function() {
             }
         }
     });
+
+    $("#follow_profile").hover(function(){
+        $(".followed").attr("icon", "close");
+    }, function(){
+        $(".followed").attr("icon", "done");
+    });
+});
+
+document.querySelector('paper-slider').addEventListener('change', function(event){
+    console.log(event.target.value);
+    song.currentTime = event.target.value;
 });

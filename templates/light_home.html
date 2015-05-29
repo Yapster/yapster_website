@@ -11,8 +11,31 @@
     <link rel="stylesheet" type="text/css" href="{% static "css/main.css" %}" />
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,700' rel='stylesheet' type='text/css'>
     <meta name="viewport" content="user-scalable=no, width=device-width">
+    <link rel="import" href="{% static "bower_components/core-style/core-style.html" %}">
+    <link rel="import" href="{% static "bower_components/core-meta/core-meta.html" %}">
+
+    <link rel="import" href="{% static "bower_components/polymer/polymer.html" %}">
+    <link rel="import" href="{% static "bower_components/polymer/layout.html" %}">
+    <script src="{% static "bower_components/webcomponentsjs/webcomponents.js"%}"></script>
+
+
+    <link rel="import" href="{% static "bower_components/paper-button/paper-button.html" %}">
+
+    {% block localfiles %}
+    {% endblock %}
 </head>
 <body>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.3";
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
 <div id="header" class="responsive">
     <div id="login_container">
         <form>
@@ -29,52 +52,55 @@
                 <span id="errorlogin"></span>
             </div>
 
-            <button id="login_button" type="button">Log In</button>
+            <paper-button raised role="button" id="login_button" >Log In</paper-button>
         </form>
     </div>
     <a href="/"><div id="logo" class="icon"></div></a>
 
 </div>
-<div id="content" class="responsive">
-    <div id="right_side" class="responsive">
-        <img id="img_right_side" class="responsive" src="{% static "images/light_home/phone-01.png"%}">
-    </div>
-    <div id="left_side" class="responsive">
-        <div id="main_text">
-            <div id="title_main_text" class="responsive">
-                <span>Revolutionizing the Way people share audio!</span>
+{% block content %}
+    <div id="content" class="responsive">
+        <div id="right_side" class="responsive">
+            <img id="img_right_side" class="responsive" src="{% static "images/light_home/phone-01.png"%}">
+        </div>
+        <div id="left_side" class="responsive">
+            <div id="main_text">
+                <div id="title_main_text" class="responsive">
+                    <span>Revolutionizing the Way people share audio!</span>
+                </div>
+                <div id="content_main_text">
+                    <span>Yapster is a social networking app that focuses on audio clips, you can make yaps, listen to other people's yaps and share with friends</span>
+                </div>
             </div>
-            <div id="content_main_text">
-                <span>Yapster is a social networking app that focuses on audio clips, you can make yaps, listen to other people's yaps and share with friends</span>
+            <div id="opinions" class="responsive">
+                {% for opinion in opinions %}
+                    {% if forloop.first %}
+                        <div class="opinion">
+                    {% else %}
+                        <div class="opinion hide">
+                    {% endif %}
+                <div class="name_opinion">{{ opinion.firstname }} {{ opinion.lastname }}</div>
+                <div class="desc_opinion">{{ opinion.description }}</div>
+                <div class="opinion_text">{{ opinion.content }}</div>
+                </div>
+                {% endfor %}
+                </div>
+                <div id="appstore" class="responsive">
+                    <a target="_blank" href="https://itunes.apple.com/us/app/yapster/id899766051"><div id="logo_store" class="icon"></div></a>
+                    <div id="logo_android_store" class="icon"></div>
+                </div>
+                <div id="link_video_container" class="responsive">
+                    <a id="link_video" class="responsive" href="javascript:void jQuery.colorbox({html:'<iframe  width=900 height=620 src=//www.youtube.com/embed/YGAQyEez1QM frameborder=0 webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>', transition: 'fade', opacity: 0.65, returnFocus: false})">
+                        <div id="icon_container">
+                            <span class="icon" id="player"></span>
+                        </div>
+                        <div id="link_container">PLAY INTRO VIDEO</div>
+                    </a>
+                </div>
             </div>
         </div>
-        <div id="opinions" class="responsive">
-            {% for opinion in opinions %}
-                {% if forloop.first %}
-                    <div class="opinion">
-                {% else %}
-                    <div class="opinion hide">
-                {% endif %}
-            <div class="name_opinion">{{ opinion.firstname }} {{ opinion.lastname }}</div>
-            <div class="desc_opinion">{{ opinion.description }}</div>
-            <div class="opinion_text">{{ opinion.content }}</div>
-            </div>
-            {% endfor %}
-            </div>
-            <div id="appstore" class="responsive">
-                <a target="_blank" href="https://itunes.apple.com/us/app/yapster/id899766051"><div id="logo_store" class="icon"></div></a>
-                <div id="logo_android_store" class="icon"></div>
-            </div>
-            <div id="link_video_container" class="responsive">
-                <a id="link_video" class="responsive" href="javascript:void jQuery.colorbox({html:'<iframe  width=900 height=620 src=//www.youtube.com/embed/YGAQyEez1QM frameborder=0 webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>', transition: 'fade', opacity: 0.65, returnFocus: false})">
-                    <div id="icon_container">
-                        <span class="icon" id="player"></span>
-                    </div>
-                    <div id="link_container">PLAY INTRO VIDEO</div>
-                </a>
-            </div>
-        </div>
     </div>
-    {% include "sections/footer.html" %}
+{% endblock %}
+{% include "sections/footer.html" %}
 </body>
 </html>

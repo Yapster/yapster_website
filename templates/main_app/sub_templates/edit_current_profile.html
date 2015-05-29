@@ -9,7 +9,7 @@
             <paper-dropdown class="dropdown">
                 <core-menu class="menu">
                     {% for state_in in states %}
-                        <paper-item class="input_to_post" label="State" id="country_{{ forloop.counter }}" value="{{ state_in }}"></paper-item>
+                        <paper-item class="input_to_post" label="State" id="state_{{ forloop.counter }}" value="{{ state_in }}"></paper-item>
                     {% endfor %}
                 </core-menu>
             </paper-dropdown>
@@ -25,9 +25,10 @@
                 </core-menu>
             </paper-dropdown>
         </paper-dropdown-menu>
-        <paper-input class="input_edit_user righty" floatingLabel label="Zipcode"></paper-input>
+        <paper-input class="input_to_post input_edit_user righty" floatingLabel label="Zipcode"></paper-input>
     </div>
-    <div class="line_edit_user_container">
+    <div class="title_edit_user_container">
+        <div class="title_edit_user_container">Description</div>
         <textarea class="text_area_description input_to_post" label="Description" rows="5" cols="50" maxlength="140">{{ description }}</textarea>
     </div>
     <div class="title_edit_user_container">

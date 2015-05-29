@@ -2,12 +2,10 @@ from django.contrib.gis.geometry.regex import json_regex
 from django.shortcuts import render, redirect
 from django.http import HttpResponseNotAllowed, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
-from twisted.conch.test.test_userauth import userauth
 from main_app.tools import *
 from decorators import user_has_perm
 from pydub import AudioSegment
 from math import trunc
-
 
 
 def forgot_password(request):
@@ -21,7 +19,7 @@ def main(request,
     :param request:
     :return:
     """
-
+    errors = []
     context = {}
 
     params = {
@@ -30,7 +28,12 @@ def main(request,
         "profile_user_id": request.COOKIES['u']
     }
 
-    json_response = yapster_api_post_request(path, params).json()
+    try:
+        json_response = yapster_api_post_request(path, params).json()
+    except ValueError:
+        errors.append("Server is not responding")
+        context['errors'] = errors
+        return render(request, "main_app/other_pages/errors.html", context)
 
     if json_response['valid']:
         # Get user info
@@ -64,12 +67,12 @@ def pre_upload(request):
     if request.POST:
         seconds = int(request.POST['seconds'].split('.')[0])
         filename = request.POST['filename']
-        nb_parts = trunc(seconds / 60)
+        nb_parts = trunc(seconds / 900)
 
         context['nb_parts'] = nb_parts
         context['loop_times'] = [i+1 for i in range(nb_parts)]
         context['filename'] = filename.split('.')[0]
-        context['last_time'] = seconds % 60
+        context['last_time'] = seconds % 900
         return render(request, "main_app/other_pages/edit_cut_yap.html", context)
     return render(request, "main_app/other_pages/edit_cut_yap.html", context)
 
@@ -112,19 +115,62 @@ def get_library_upload(request,
 
 
 @csrf_exempt
-def post_upload(request):
-    if not request.FILES:
-        return render(request, "No files attached", {})
+def post_upload(request,
+                errors=[],
+                path="http://api.yapster.co/yap/create/yap/"):
+    """
+    Upload yap so S3 and call the API to update the database
+    :param request:
+    :param errors:
+    :param path:
+    :return:
+    """
+    context = {}
+    pix_file = None
+    if not request.FILES or not request.FILES[u'yap_audio[]']:
+        errors.append("No audio file attached")
     audio_file = request.FILES[u'yap_audio[]']
     if u'yap_pix[]' in request.FILES:
         pix_file = request.FILES[u'yap_pix[]']
 
-    if not audio_is_uploaded(audio_file, request.COOKIES['u']):
+    audio_paths = audio_is_uploaded(audio_file, request.COOKIES['u'])
+
+    if not audio_paths:
         return render(request, "Audio File not valid", {})
     #error = upload_file_to_s3(file.read(), "", "1")
-    if not pix_is_uploaded(pix_file, request.COOKIES['u'], ""):
+
+    pix_path = pix_is_uploaded(pix_file, request.COOKIES['u'], "yap_image")
+    if pix_file and not pix_path:
         return render(request, "Image File is not valid", {})
-    return render(request, "<div>Test</div>", {})
+
+
+    params = {"user_id": request.COOKIES['u'],
+              "session_id": request.COOKIES['s'],
+              }
+
+    i = 1
+    for yap_info in audio_paths:
+        params['audio_path'] = yap_info['path']
+        params['length'] = yap_info['length']
+        filename = "filename_" + str(i)
+        if filename in request.POST:
+            params['title'] = request.POST[filename]
+        else:
+            params['title'] = "default_" + str(i)
+        if 'description_yap' in request.POST:
+            params['description'] = request.POST['description_yap']
+        else:
+            params['description'] = ""
+        if pix_path:
+            params['picture_path'] = pix_path
+            params['picture_flag'] = True
+        else:
+            params['picture_flag'] = False
+        json_response = yapster_api_post_request(path, params).json()
+        i += 1
+
+    context['errors'] = errors
+    return render(request, "main_app/other_pages/errors.html", context)
 
 
 @csrf_exempt
@@ -133,13 +179,14 @@ def post_new_cover(request):
     if not request.FILES:
         return render(request, "No File attached", {})
     file = request.FILES[u'files[]']
-    if not is_valid_pix(file, request.COOKIES['u'], "cover"):
+    path_cover_pix = is_valid_pix(file, request.COOKIES['u'], "cover")
+    if not path_cover_pix:
         return render(request, "File not valid", {})
 
     #save cover in profile
 
-
     return render(request, "<div></div>", {})
+
 
 @csrf_exempt
 def post_new_pix(request):
@@ -147,12 +194,44 @@ def post_new_pix(request):
     if not request.FILES:
         return render(request, "No File attached", {})
     file = request.FILES[u'files[]']
-    if not is_valid_pix(file, request.COOKIES['u'], "profile"):
+    path_profile_pix = is_valid_pix(file, request.COOKIES['u'], "profile")
+    if not path_profile_pix:
         return render(request, "File not valid", {})
 
     #save pix in profile
     #API CALL
-    return render(request, "<div></div>", {})
+
+    return render(request, "", {})
+
+
+@csrf_exempt
+@user_has_perm
+def edit_current_user_profile(request,
+                              path="http://api.yapster.co/users/edit/profile/"):
+    context = {}
+    params = {
+        "user_id": request.COOKIES['u'],
+        "session_id": request.COOKIES['s'],
+        }
+    if 'data[City]' in request.POST:
+        params['city_name'] = request.POST['data[City]']
+    if 'data[first Name]' in request.POST:
+        params[''] = request.POST['data[First Name]']
+    if 'data[last Name]' in request.POST:
+        params[''] = request.POST['data[Last Name]']
+    if 'data[]' in request.POST:
+        params[''] = request.POST['data[City]']
+    if 'data[first Name]' in request.POST:
+        params[''] = request.POST['data[City]']
+
+
+    json_response = yapster_api_post_request(path, params).json()
+
+    #if json_response['valid']:
+
+
+    return render(request, "", context)
+
 
 
 # Ajax requests Handler / API Interface
@@ -166,6 +245,9 @@ def log_in(request,
     :param request:
     :return:
     """
+
+    errors = []
+
     username = request.POST['username']
     pwd = request.POST['password']
     ip = request.POST['ip']
@@ -182,8 +264,10 @@ def log_in(request,
         'device_type': "computer",
         'identifier': ip
     }
-
-    json_response = yapster_api_post_request(path, params).json()
+    try:
+        json_response = yapster_api_post_request(path, params).json()
+    except ValueError:
+        return
 
     if json_response['valid']:
         response = redirect("/app/")
@@ -288,6 +372,16 @@ def get_preview_libraries(request,
             d['library_description'] = data[i]['description']
 
             d['web_cover_picture_1_path'] = get_profile_pix_path(data[i]['user']['web_cover_picture_1_path'])
+            d['profile_picture_path'] = get_profile_pix_path(data[i]['user']['profile_picture_path'])
+            d['library_followed'] = data[i]['viewing_user_subscribed_to_library']
+            d['user_name'] = data[i]['user']['first_name'] + " " + data[i]['user']['last_name']
+            city_name = data[i]['user']['city_name']
+            country_name = data[i]['user']['country_name']
+            if not city_name:
+                city_name = ""
+            if not country_name:
+                country_name = ""
+            d['location'] = city_name + " | " + country_name
 
 
             l_libraries.append(d)
@@ -303,8 +397,7 @@ def get_preview_libraries(request,
                 d['title'] = sub_data['title']
                 d['description'] = sub_data['description']
                 d['id'] = sub_data['id']
-                d['first_name'] = sub_data['user']['first_name']
-                d['last_name'] = sub_data['user']['last_name']
+                d['name'] = sub_data['user']['first_name'] + " " + sub_data['user']['last_name']
                 d['picture_cropped_path'] = get_profile_pix_path(sub_data['picture_cropped_path'])
                 d['audio_path'] = get_profile_pix_path(sub_data['audio_path'])
 
@@ -598,6 +691,10 @@ def get_all_users(request,
             d['profile_picture_path'] = get_profile_pix_path(sub_data['profile_picture_path'])
             d['description'] = sub_data['description']
             d['city_name'] = sub_data['city_name']
+            d['user_cover_path'] = get_profile_pix_path(sub_data['web_cover_picture_1_path'])
+            d['user_followed'] = sub_data['viewing_user_subscribed_to_user']
+
+
             l_users.append(d)
 
         context['l_users'] = l_users
@@ -627,11 +724,17 @@ def get_all_libraries(request,
         for i in range(0, len(data)):
             d = {}
             sub_data = data[i]
+            user_data = sub_data['user']
             d['title'] = sub_data['title']
             d['description'] = sub_data['description']
             d['id'] = sub_data['id']
             d['picture_cropped_path'] = get_profile_pix_path(sub_data['picture_cropped_path'])
-            d['web_cover_picture_1_path'] = get_profile_pix_path(sub_data['user']['web_cover_picture_1_path'])
+            d['web_cover_picture_1_path'] = get_profile_pix_path(user_data['web_cover_picture_1_path'])
+            d['profile_picture_path'] = get_profile_pix_path(user_data['profile_picture_path'])
+            d['name'] = user_data['first_name'] + " " + user_data['last_name']
+            d['location'] = user_data['city_name'] + " | " + user_data['country_name']
+            d['user_description'] = sub_data['user']['description']
+
             l_libraries.append(d)
 
         context['l_libraries'] = l_libraries
@@ -694,12 +797,20 @@ def get_search_results(request,
         #Libraries Handling
         data_libs = data['libraries']
         l_libs = []
-        for i in range(0, len(data)):
+        for i in range(0, len(data_libs)):
             d_new = {}
+            d_user = {}
             d_new['picture_cropped_path'] = get_profile_pix_path(data_libs[i]['picture_cropped_path'])
             d_new['title'] = data_libs[i]['title']
             d_new['description'] = data_libs[i]['description']
             d_new['id'] = data_libs[i]['id']
+
+            d_user = data_libs[i]['user']
+            d_new['user_location'] = d_user['city_name']+ "|" + d_user['country_name']
+            d_new['user_desc'] = d_user['description']
+            d_new['user_profile_pix'] = get_profile_pix_path(d_user['profile_picture_path'])
+            d_new['user_profile_cover'] = get_profile_pix_path(d_user['web_cover_picture_1_path'])
+            d_new['user_name'] = d_user['first_name'] + " " + d_user['last_name']
 
             l_libs.append(d_new)
 
@@ -712,7 +823,7 @@ def get_search_results(request,
         l_yaps = []
         for i in range(0, len(data_yaps)):
             d = {}
-            sub_data = data_yaps[i]
+            sub_data = data_yaps[i]['yap_info']
             d['title'] = sub_data['title']
             d['description'] = sub_data['description']
             d['audio_path'] = get_profile_pix_path(sub_data['audio_path'])
@@ -720,11 +831,45 @@ def get_search_results(request,
             d['id'] = sub_data['id']
             d['first_name'] = sub_data['user']['first_name']
             d['last_name'] = sub_data['user']['last_name']
+
             l_yaps.append(d)
         context['l_yaps'] = l_yaps
-
+        context['search_id'] = json_response['search_id']
 
     return render(request, "main_app/other_pages/search_templates/search_results.html", context)
+
+
+@csrf_exempt
+@user_has_perm
+def get_all_search_results(request,
+                           path="http://api.yapster.co/search/default/"):
+    """
+    Search to get all searching results for a specific type
+    :param request:
+    :param path:
+    :return:
+    """
+    context = {}
+    type_search = request.POST['type'].split('_')[-1]
+
+    params = {"user_id": str(request.COOKIES['u']),
+              "session_id": str(request.COOKIES['s']),
+              "text": request.POST['search'],
+              "screen": "web",
+              "page": str(request.POST['page']),
+              "amount": str(request.POST['amount'])
+    }
+
+    json_response = yapster_api_post_request(path, params).json()
+
+    if type_search == "users":
+        return render(request, "main_app/other_pages/search_templates/all_users_search.html", context)
+    if type_search == "libraries":
+        return render(request, "main_app/other_pages/search_templates/all_libraries_search.html", context)
+    if type_search == "yaps":
+        return render(request, "main_app/other_pages/search_templates/all_yaps_search.html", context)
+
+    return render(request, "", context)
 
 @csrf_exempt
 @user_has_perm
@@ -796,24 +941,6 @@ def get_explore_libraries(request,
 
 @csrf_exempt
 @user_has_perm
-def edit_current_user_profile(request,
-                              path="http://api.yapster.co/users/settings/edit/"):
-    context = {}
-    params = {
-        "user_id": request.COOKIES['u'],
-        "session_id": request.COOKIES['s'],
-        }
-
-    json_response = yapster_api_post_request(path, params).json()
-
-    #if json_response['valid']:
-
-
-    return render(request, "", context)
-
-
-@csrf_exempt
-@user_has_perm
 def subscribed_user_profile(request,
                             path="http://api.yapster.co/yap/subscribe/user/"):
     context = {}
@@ -841,6 +968,7 @@ def unsubscribed_user_profile(request,
 
     json_response = yapster_api_post_request(path, params).json()
     if json_response['valid']:
+
         return HttpResponse()
     return HttpResponseNotAllowed()
 
@@ -880,3 +1008,7 @@ def unsubscribe_library(request,
     if json_response['valid']:
         return HttpResponse()
     return HttpResponseNotAllowed()
+
+
+def test_dialog(request):
+    return render(request, "test.html", {})

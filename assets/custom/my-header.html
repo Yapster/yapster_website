@@ -37,12 +37,11 @@
         </style>
         <core-header-panel flex id="header-poly">
             <core-toolbar id="toolbar_header">
-                <input type="text" id="search_bar" placeholder="Search a user, library, yap..." value="{{ search_text }}"/>
+                <input type="text" id="search_bar" placeholder="Search a user, library, yap..." value="{{ search_text }}" onkeypress=""/>
                 <paper-button id="go_search" class="button_search_bar" role="button" on-tap="{{ goSearch }}">Search</paper-button>
-                <paper-button id="cancel_search" class="button_search_bar" role="button" on-tap="{{ goCancel }}">Cancel</paper-button>
+                <paper-button id="cancel_search" class="button_search_bar" role="button" on-tap="{{ goCancel }}" disabled>Cancel</paper-button>
                 <core-icon-button id="upload_button" role="button" icon="file-upload" on-tap="{{ toggleEditPanel }}"></core-icon-button>
-                <paper-spinner id="progress_spinner" active="{{ active }}"></paper-spinner>
-
+                <paper-spinner id="progress_spinner"></paper-spinner>
             </core-toolbar>
         </core-header-panel>
     </template>
@@ -68,11 +67,13 @@
                         url : url,
                         type : "POST",
                         success: function(newData){
-                            $("my-header::shadow #progress_spinner").attr("active", "false");
+                            $("my-header::shadow #progress_spinner").removeAttr("active");
                             $('.to_delete').remove();
                             $('.search_active').addClass("to_delete").removeClass('search_active');
                             $('.empty_search').html(newData).addClass('search_active').removeClass('empty_search');
                             $('.search_active').after("<div class='search_results empty_search'></div>");
+                            $("my-header::shadow #cancel_search").attr("disabled", false);
+
                         },
                         error: function(newData) {
                             $('.search_results').append(newData).toggleClass('search_active');
@@ -84,6 +85,14 @@
                 $('.to_delete').remove();
                 $('.search_results').removeClass('search_active').html("");
                 $('.empty_search').prev().addClass('to_delete');
+
+                $("my-header::shadow #cancel_search").attr("disabled", true);
+                this.previous_search = "";
+
+                var callback = function () {
+                    $(".to_delete").remove();
+                };
+                $(".to_delete").one('webkitTransitionEnd', callback);
             },
             toggleEditPanel: function() {
                 $('#edit-yap').toggleClass('on');

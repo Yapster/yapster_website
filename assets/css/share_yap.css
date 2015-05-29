@@ -1,0 +1,271 @@
+body {
+
+}
+
+.icon_share {
+    display: inline-block;
+    background: url("../images/share/elements.png") no-repeat;
+    width: 30px;
+    height: 30px;
+    float: left;
+}
+
+#icon_listen {
+    background-position: 1% 0%;
+}
+
+#icon_reyap {
+    background-position: 14% 0%;
+}
+
+#icon_like{
+    background-position: 26% 0%;
+}
+
+#share {
+    float: left;
+    width: 65%;
+    height: 100%;
+    overflow: hidden;
+    color: black;
+    margin-left: calc(35%/2);
+}
+
+#share_window {
+    width: 100%;
+    float: left;
+    background-color: white;
+    margin-top: 5%;
+}
+
+#share_content {
+    min-width: 400px;
+    max-width: 800px;
+    background-color: white;
+    margin: 0 auto;
+    boder-radius: 5px;
+    width: 50%;
+    float: left;
+}
+
+#user_container {
+    float: left;
+    width: calc(100% - 20px);
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+#pix_user_container {
+    width: calc(33% - 10px);
+    float: left;
+    margin-right: 10px;
+    margin-left: 0px;
+    height: 100%;
+    /* margin-top: 30px; */
+    /* margin-bottom: 30px; */
+    margin-bottom: -5px;
+    background-color: white;
+    position: relative;
+    overflow: hidden;
+    display: table-row;
+    z-index: 50;
+}
+
+#img_user {
+    width: 100%;
+}
+
+#user_info {
+    width: 67%;
+    float: left;
+}
+
+#user_main_info {
+    width: 100%;
+}
+
+#user_names {
+    float: left;
+    width: 60%;
+}
+
+#user_username, #yap_date {
+    color: #c2c2c2;
+}
+
+#yap_date {
+    float: right;
+    width: 40%;
+    text-align: right;
+
+}
+
+#user_description {
+    float: left;
+    width: 100%;
+    margin-top: 40px;
+}
+
+#yap_numbers {
+    width: 100%;
+    float: left;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.yap_number {
+    width: calc(100% / 3 - 20px);
+    margin-left: 10px;
+    margin-right: 10px;
+    float: left;
+}
+
+.yap_number_text {
+    float: right;
+    margin-top: 3px;
+    color: #c2c2c2;
+}
+
+#player {
+    width: 100%;
+    height: 50px;
+    float: left;
+    margin:0;
+}
+
+#picture_container {
+    width: 50%;
+    margin-left: 0px;
+    margin-right: 0px;
+    float: left;
+    height: 100%;
+    /*margin-top: 30px;*/
+    /*margin-bottom: 30px;*/
+    min-width: 400px;
+    margin-bottom: -5px;
+    background-color: white;
+    position: relative;
+    overflow: hidden;
+    display: table-row;
+    z-index: 50;
+}
+
+#img_yap {
+    width: calc(100%);
+    /*margin-left: 15%;*/
+    /*margin-right: 15%;*/
+}
+
+.controls {
+    float: left;
+    width: calc(100% - 20px);
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.player_controls {
+    float: left;
+    width: calc(100% / 3);
+}
+
+paper-icon-button {
+    color: black;
+}
+
+paper-icon-button:hover {
+    color: #16d301;
+}
+
+.time_player {
+    font-size: 12px;
+
+}
+
+.tracker::shadow #sliderBar {
+    height: 8px;
+}
+
+.tracker::shadow #sliderKnob {
+    top: 3px;
+}
+
+.tracker::shadow #sliderKnobInner {
+    background-color: white !important;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #16d301 !important;
+}
+
+.tracker::shadow #sliderContainer {
+    width: 100%;
+    right: 16px;
+}
+
+.tracker::shadow .bar-container {
+}
+
+.tracker::shadow #sliderBar::shadow #progressContainer {
+    background-color: #16d301;
+
+}
+
+.tracker::shadow #sliderBar::shadow #activeProgress {
+    background-color: white;
+}
+
+.tracker::shadow #sliderKnobInner::before {
+    background-color: #16d301;
+}
+
+.tracker {
+    width: 100%;
+}
+
+.container_player {
+    float: left;
+}
+
+.container_player_slider {
+    width: calc(100% - 120px);
+    margin-top: 2px;
+}
+
+.time_player {
+    width: 40px;
+    margin-top: 12px;
+}
+
+.right_time {
+    text-align: right;
+}
+
+.width_ratio:before {
+    content: '';
+    display: block;
+}
+
+.ratio1-1 {
+  padding-top: calc(33% - 10px);
+}
+
+.ratio2-1 {
+    padding-top: 50%;
+}
+
+.content_ratio {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-color: transparent;
+}
+
+.content_ratio:hover {
+    cursor: pointer;
+}
+
+.share_container {
+
+}

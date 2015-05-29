@@ -7,9 +7,13 @@
                 <div class="content_ratio">
                     <img class="profile_pix_center library_image lib_pix_heroable" hero hero-id="" src="{{ library|access:"library_profile_pix" }}"/>
                     <div class="gradient_title_container gradient_title_container_center">
-                        <span class="gradient_title library_title">{{ library|access:"library_title" }}</span>
+                        <span class="gradient_title library_title">{{ library|access:"library_title" }} by {{ library|access:"user_name" }}</span>
                         <input type="hidden" class="library_description" value="{{ library|access:"library_description" }}"/>
                         <input type="hidden" class="user_cover_path" value="{{ library|access:"web_cover_picture_1_path" }}">
+                        <input type="hidden" class="library_followed" value="{{ library|access:"library_followed" }}">
+                        <input type="hidden" class="profile_picture_path" value="{{ library|access:"profile_picture_path" }}">
+                        <input type="hidden" class="name" value="{{ library|access:"user_name" }}">
+                        <input type="hidden" class="location" value="{{ library|access:"location" }}">
                     </div>
                 </div>
             </div>
@@ -17,7 +21,7 @@
                 {% for yap in l_list_of_yaps|access:forloop.counter0 %}
                     <div id="library_yap_{{ yap|access:"id" }}" class="library_yap_preview" onclick="play_library_yap(this.id, {{ library|access:"library_id" }}, '{{ library|access:"library_title" }}')">
                         <div class="library_yap_infos">
-                            <div class="library_yap_title">{{ yap|access:"title" }}</div>
+                            <div class="library_yap_title">{{ yap|access:"title" }} by {{ yap|access:"name" }}</div>
                             <div class="library_yap_date">{{ yap|access:"date_created" }}</div>
                             <div class="library_yap_description">{{ yap|access:"description" }}</div>
                         </div>
@@ -25,7 +29,7 @@
                             <img class="library_yap_image" src="{{ yap|access:"picture_cropped_path" }}"/>
                         </div>
                         <input type="hidden" class="yap_path" value="{{ yap|access:"audio_path" }}">
-                        <input type="hidden" class="author" value="{{ yap|access:"first_name" }} {{ yap|access:"last_name" }}">
+                        <input type="hidden" class="author" value="{{ yap|access:"name" }}">
                         <input type="hidden" class="yap_id" value="{{ yap|access:"id" }}">
                     </div>
                 {% endfor %}
